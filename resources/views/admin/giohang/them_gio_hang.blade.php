@@ -141,7 +141,6 @@
                                 </div>
                                 <!-- End Form Group -->
                             </div>
-                            {{-- TODO: ko có khóa học thì thông báo --}}
                             <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <!-- Form Group -->
                                 <div class="form-group">
@@ -193,7 +192,7 @@
                                                 <i class="tio-briefcase-outlined"></i>
                                             </div>
                                         </div>
-                                        <select name="courses[]" id="courses" required
+                                        <select name="courses[]" id="courses"
                                             class="form-control" multiple multiselect-search="true">
 
                                             @foreach($courses as $category)

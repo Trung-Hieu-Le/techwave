@@ -13,12 +13,11 @@ use App\Http\Controllers\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//TODO: chuyển hết xdsoft
-Route::controller(App\Http\Controllers\XdSoft\MainController::class)->group(function () {
+Route::controller(App\Http\Controllers\Client\MainController::class)->group(function () {
     Route::get('/', 'homepage')->name('xdsoft.mainpage');
     Route::get('/tintuc', 'tintuc')->name('xdsoft.tintuc');
     Route::get('/khoahoc', 'khoahoc')->name('xdsoft.khoahoc');
-    Route::get('/dohoa', 'dohoa')->name('xdsoft.dohoa');
+    Route::get('/baiviet', 'dohoa')->name('xdsoft.baiviet');
     Route::get('/chitiet/{type?}/{id?}', 'chitiet')->name('xdsoft.chitiet');
     Route::get('/chitiet/tintuc/posts/{news}', 'detail_topic')->name('xdsoft.detail.topic');
     Route::get('/chitiet/tintuc/sub/{news}', 'detail_topic_v2')->name('xdsoft.detail.topic.small');
@@ -27,7 +26,7 @@ Route::controller(App\Http\Controllers\XdSoft\MainController::class)->group(func
     Route::post('/insert/baogia', 'insert_bao_gia')->name('xdsoft.create.baogia');
 });
 
-Route::controller(App\Http\Controllers\XdSoft\account\AccountController::class)->group(function () {
+Route::controller(App\Http\Controllers\Client\account\AccountController::class)->group(function () {
     Route::get('/login', 'indexLogin')->name('xdsoft.account.login');
     Route::get('/register', 'indexRegister')->name('xdsoft.account.register');
     Route::get('/forget-password', 'indexForgetPassword')->name('xdsoft.account.forgetPassword');  
@@ -131,7 +130,7 @@ Route::prefix('/admin')->group(function () {
 
 });
 
-Route::controller(App\Http\Controllers\XdSoft\giohang\GioHangController::class)->group(function () {
+Route::controller(App\Http\Controllers\Client\giohang\GioHangController::class)->group(function () {
     Route::get('/add-to-cart/{id}', 'addToCart')->name('add_to_cart');
     Route::get('/add-to-cart-now/{id}', 'addToCartNow')->name('add_to_cart_now');
     Route::post('/insert-cart', 'insertCart')->name('insert_cart');    
@@ -143,22 +142,22 @@ Route::controller(App\Http\Controllers\XdSoft\giohang\GioHangController::class)-
 
 });
 
-Route::controller(App\Http\Controllers\XdSoft\tintuc\PostController::class)->group(function () {
+Route::controller(App\Http\Controllers\Client\tintuc\PostController::class)->group(function () {
     Route::get('/tintuc/{slug}', 'post_detail')->name('tintuc.post');
     Route::post('/tintuc/addComment', 'addComment')->name('tintuc.addComment');
     Route::post('/tintuc/replyComment', 'replyComment')->name('tintuc.replyComment');
     Route::post('/tintuc/reportComment', 'reportComment')->name('tintuc.reportComment');
 
 });
-Route::controller(App\Http\Controllers\XdSoft\khoahoc\PostController::class)->group(function () {
+Route::controller(App\Http\Controllers\Client\khoahoc\PostController::class)->group(function () {
     Route::get('/khoa-hoc/{slug}', 'post_detail')->name('khoahoc.post');
     Route::post('/khoa-hoc/comment', 'addComment')->name('khoahoc.addComment');
     // Route::post('/khoa-hoc/report-comment', 'reportComment')->name('khoahoc.reportComment');
     // Route::post('/khoa-hoc/reply-comment', 'replyComment')->name('khoahoc.replyComment');
 
 });
-Route::controller(App\Http\Controllers\XdSoft\dohoa\PostController::class)->group(function () {
-    Route::get('/dohoa/{slug}', 'tutorial_cate')->name('dohoa.tutorial');
+Route::controller(App\Http\Controllers\Client\dohoa\PostController::class)->group(function () {
+    Route::get('/baiviet/{slug}', 'tutorial_cate')->name('dohoa.tutorial');
 });
 
 

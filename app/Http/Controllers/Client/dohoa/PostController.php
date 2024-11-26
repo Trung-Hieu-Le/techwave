@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\XdSoft\dohoa;
+namespace App\Http\Controllers\Client\dohoa;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -39,6 +39,6 @@ class PostController extends Controller
 
         
 
-        return view('client.body.xdsoft.tintuc.dohoa', compact('list_chu_de_noi_bat','cur_category','ds_category','post'));
+        return view('client.body.xdsoft.bàiviet', compact('list_chu_de_noi_bat','cur_category','ds_category','post'));
     }
 }

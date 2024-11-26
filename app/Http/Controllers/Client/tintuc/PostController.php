@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\XdSoft\tintuc;
+namespace App\Http\Controllers\Client\tintuc;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,10 +11,8 @@ class PostController extends Controller
 
     public function post_detail($post_name)
     {
-
-
         $post = DB::table('posts')
-            ->select('id', 'post_title', 'post_date', 'post_content', 'post_view', 'comment_count')
+            ->select('id', 'post_title', 'post_date', 'post_content', 'post_view', 'comment_count', 'category')
             ->where('slug', '=', $post_name)->first();
         $commentCount = DB::table('comments')
             ->where('id_post', $post->id)
@@ -33,8 +31,9 @@ class PostController extends Controller
             ->orderBy('post_view', 'desc')
             ->limit(5)
             ->get()->toArray();
-        //TODO: liên quan = term
-        $list_post_lien_quan = DB::table('posts')->whereNot('slug', '=', $post_name)->orderBy('id', 'desc')->limit(6)->get()->toArray();
+        $list_post_lien_quan = DB::table('posts')->whereNot('slug', '=', $post_name)
+            ->where('category', $post->category)
+            ->orderBy('id', 'desc')->limit(6)->get()->toArray();
 
         $comments = DB::table('comments')
             ->select('comments.id', 'content', 'display_name', 'comments.created_at', 'avatar', 'id_user')
@@ -63,6 +62,7 @@ class PostController extends Controller
     public function addComment(Request $request)
     {
         try {
+
             $ses = $request->session()->get('account_id');
             if (isset($ses)) {
                 DB::table('comments')->insert([
@@ -75,7 +75,8 @@ class PostController extends Controller
                 ]);
                 return redirect()->back();
             } else {
-                return redirect('/login');
+                $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+                return redirect('/login')->with('err', $err);
             }
         } catch (\Throwable $th) {
             return back()->with('fail', 'Bình luận chưa được gửi!');
@@ -103,7 +104,8 @@ class PostController extends Controller
                 ]);
                 return redirect()->back();
             } else {
-                return redirect('/login');
+                $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+                return redirect('/login')->with('err', $err);
             }
         } catch (\Throwable $th) {
             return back()->with('fail', 'Bình luận chưa được gửi!');
@@ -123,7 +125,8 @@ class PostController extends Controller
                 return response()->json(['success' => true, 'message' => 'Bình luận đã được báo cáo.']);
                 // return response()->json(['message' => 'Bình luận đã được báo cáo.']);
             } else {
-                return redirect('/login');
+                $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+                return redirect('/login')->with('err', $err);
             }
         } catch (\Throwable $th) {
             return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi báo cáo bình luận.']);

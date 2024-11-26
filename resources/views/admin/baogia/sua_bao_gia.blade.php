@@ -195,7 +195,6 @@
                                                 <i class="tio-briefcase-outlined"></i>
                                             </div>
                                         </div>
-                                        {{-- TODO: sửa chỗ này --}}
                                         <select name="tac_gia" id="tac_gia"
                                                 class="form-control">
                                                 <optgroup label="Tác giả">

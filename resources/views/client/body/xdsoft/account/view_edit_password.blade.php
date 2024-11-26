@@ -47,6 +47,8 @@
                                 <form class="js-validate" action="{{Request::root().'/action-edit-password'}}"
                                     method="post">
                                     @csrf
+                                    <input type="hidden" name="account_id" value="{{ request('id') }}">
+
                                     <div class="text-center">
                                         <div class="mb-3">
                                             <div class="mb-3 d-flex align-items-center justify-content-center">
@@ -89,11 +91,7 @@
                                                 name="confirm_password" id="signupSrConfirmPassword"
                                                 placeholder="Nhập lại mật khẩu mới" aria-label="6+ characters required"
                                                 required pattern=".{6,}" title="Vui lòng nhập từ 6 kí tự trở lên">
-                                            {{-- <div id="changePassTarget" class="input-group-append">
-                                                <a class="input-group-text" href="javascript:;">
-                                                    <i id="changePassIcon" class="tio-hidden-outlined"></i>
-                                                </a>
-                                            </div> --}}
+                                            
                                         </div>
                                     </div>
                                     <!-- End Form Group -->

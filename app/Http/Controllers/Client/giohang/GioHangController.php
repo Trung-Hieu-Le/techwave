@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\XdSoft\giohang;
+namespace App\Http\Controllers\Client\giohang;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
@@ -13,7 +13,8 @@ class GioHangController extends Controller
     public function addToCart($id)
     {
         if (!session()->has('account_id')) {
-            return redirect("/login")->with('error', 'Bạn cần đăng nhập để thêm vào giỏ hàng!');
+            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+            return redirect('/login')->with('err', $err);
         }
         $course = Course::findOrFail($id);
         // $cart = session()->get('cart', []);
@@ -60,7 +61,8 @@ class GioHangController extends Controller
     public function addToCartNow($id)
     {
         if (!session()->has('account_id')) {
-            return redirect("/login")->with('error', 'Bạn cần đăng nhập để thêm vào giỏ hàng!');
+            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+                return redirect('/login')->with('err', $err);
         }
         $course = Course::findOrFail($id);
         // $cart = session()->get('cart', []);
@@ -116,7 +118,8 @@ class GioHangController extends Controller
     public function deleteCartItem(Request $request)
     {
         if (!session()->has('account_id')) {
-            return redirect("/login")->with('error', 'Bạn cần đăng nhập để thực hiện thao tác này!');
+            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+                return redirect('/login')->with('err', $err);
         }
         $userId = session('account_id');
         $invoice = DB::table('invoices')
@@ -136,7 +139,8 @@ class GioHangController extends Controller
     public function deleteAllCart(Request $request)
     {
         if (!session()->has('account_id')) {
-            return redirect("/login")->with('error', 'Bạn cần đăng nhập để thực hiện thao tác này!');
+            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+                return redirect('/login')->with('err', $err);
         }
         $userId = session('account_id');
         $invoice = DB::table('invoices')
@@ -160,9 +164,10 @@ class GioHangController extends Controller
     {
         //TODO: sửa lại cái này
         // try{
-        if (!session()->has('account_id')) {
-            return redirect("/login")->with('error', 'Bạn cần đăng nhập để thực hiện thao tác này!');
-        }
+            if (!session()->has('account_id')) {
+                $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+                    return redirect('/login')->with('err', $err);
+            }
 
         $accountId = session('account_id');
         $invoice = DB::table('invoices')

@@ -23,7 +23,6 @@
                             <div class="d-flex align-items-center position-relative">
                                 <!-- Avatar -->
                                 <label class="avatar avatar-xl avatar-circle avatar-uploader mr-5" for="avatarUploader">
-                                    {{-- TODO: Ảnh default --}}
                                     <img id="output" class="avatar-img shadow-soft" style="padding: 10px"
                                          src="{{asset('image/no_img.jfif')}}" alt="Image Description">
 

@@ -59,12 +59,12 @@
   <div class="menu-tintuc">
     <ul class="list-inline mb-0">
       <li class="list-inline-item mb-3"><a class="text-uppercase {{!empty($GET['cur_category']) ? 'active' : ''}}" 
-        href="{{ route('xdsoft.dohoa', array_merge(request()->all(), ['cur_category' => null])) }}">tất cả</a>
+        href="{{ route('xdsoft.baiviet', array_merge(request()->all(), ['cur_category' => null])) }}">tất cả</a>
       </li>
       @foreach ($ds_category as $item)
       <li class="list-inline-item mb-3">
         <a class="text-uppercase {{$item->slug == $cur_category ? 'active' : ''}}" 
-          href="{{ route('xdsoft.dohoa', array_merge(request()->all(), ['cur_category' => $item->slug])) }}">{{$item->name}}</a>
+          href="{{ route('xdsoft.baiviet', array_merge(request()->all(), ['cur_category' => $item->slug])) }}">{{$item->name}}</a>
       </li>      
     @endforeach
     </ul>
@@ -73,7 +73,7 @@
   <div class="row tintuc">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
       <div class="row mb-4">
-        <form action="{{ route('xdsoft.dohoa') }}" method="GET" class="form-inline row">
+        <form action="{{ route('xdsoft.baiviet') }}" method="GET" class="form-inline row">
           <div class="col-5">
             <input type="text" name="keyword" class="form-control mr-2" placeholder="Tìm kiếm bài viết" value="{{ request()->keyword }}">
           </div>
@@ -82,6 +82,8 @@
               <option value="">Lọc theo</option>
               <option value="newest" {{ request()->sort_by == 'newest' ? 'selected' : '' }}>Bài viết mới nhất</option>
               <option value="popular" {{ request()->sort_by == 'popular' ? 'selected' : '' }}>Bài viết được xem nhiều nhất</option>
+              <option value="discuss" {{ request()->sort_by == 'discuss' ? 'selected' : '' }}>Bài viết được thảo luận nhiều nhất</option>
+
             </select>
           </div>
             

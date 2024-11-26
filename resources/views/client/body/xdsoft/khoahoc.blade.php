@@ -30,8 +30,13 @@
       <section class="container ps-5 pe-5 ps-xl-1 pe-xl-1 pt-0 mt-4">
         <form action="{{ route('xdsoft.khoahoc') }}" method="GET" class="mb-4">
           <div class="row">
+              <!-- Keyword Search -->
+              <div class="col-md-4 mb-1">
+                <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm khóa học" value="{{ request('keyword') }}">
+              </div>
+
               <!-- Course Category Filter -->
-              <div class="col-md-4">
+              <div class="col-md-3 mb-1">
                   <select name="course_category" class="form-control">
                       <option value="">Tất cả danh mục</option>
                       @foreach ($ds_category as $category)
@@ -42,25 +47,23 @@
                   </select>
               </div>
   
-              <!-- Keyword Search -->
-              <div class="col-md-4">
-                  <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm khóa học" value="{{ request('keyword') }}">
-              </div>
-  
               <!-- Sort By Filter -->
-              <div class="col-md-4">
+              <div class="col-md-3 mb-1">
                   <select name="sort_by" class="form-control">
                       <option value="">Sắp xếp</option>
                       <option value="newest" {{ request('sort_by') == 'newest' ? 'selected' : '' }}>Mới nhất</option>
                       <option value="most_watch" {{ request('sort_by') == 'most_watch' ? 'selected' : '' }}>Xem nhiều nhất</option>
                   </select>
               </div>
+              <div class="col-md-2 mb-1">
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </div>
           </div>
-          <div class="row mt-3">
-              <div class="col-md-12">
-                  <button type="submit" class="btn btn-primary">Lọc khóa học</button>
-              </div>
-          </div>
+          {{-- <div class="row mt-3">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary">Lọc khóa học</button>
+            </div>
+          </div> --}}
       </form>
         <div class="row justify-content-center g-0 ps-0 pe-0">
           <p class="text-center fw-bold fs-3">Khóa học miễn phí</p>

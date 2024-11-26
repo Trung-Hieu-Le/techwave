@@ -734,6 +734,10 @@
         console.log("click")
         $(this).parent().children('.nav-sub').toggleClass('d-block')
     })
+    document.querySelector('.js-navbar-vertical-aside-toggle-invoker').addEventListener('click', function() {
+    const sidebar = document.querySelector('.js-navbar-vertical-aside');
+    sidebar.classList.toggle('d-none');
+});
 </script>
 
 <script>

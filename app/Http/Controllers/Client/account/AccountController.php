@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\XdSoft\account;
+namespace App\Http\Controllers\Client\account;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,20 +13,21 @@ class AccountController extends Controller
 {
     public function indexLogin(Request $request)
     { {
-            try {
-                $previousUrl = url()->previous();
+            // try {
+            $previousUrl = url()->previous();
 
-                $keywords = ['register', 'action-register'];
-                if (collect($keywords)->contains(function ($keyword) use ($previousUrl) {
-                    return str_contains($previousUrl, $keyword);
-                })) {
-                    $previousUrl = "/";
-                }
-                $request->session()->put('previous_url_before_login', $previousUrl);
-                return view('client.body.xdsoft.account.view_login');
-            } catch (\Exception $e) {
-                return view('errors.404');
+            $keywords = ['register', 'action-register'];
+            if (collect($keywords)->contains(function ($keyword) use ($previousUrl) {
+                return str_contains($previousUrl, $keyword);
+            })) {
+                $previousUrl = "/";
             }
+            $request->session()->put('previous_url_before_login', $previousUrl);
+            $err = $request->session()->get('err', null);
+            return view('client.body.xdsoft.account.view_login', compact('err'));
+            // } catch (\Exception $e) {
+            //     return view('errors.404');
+            // }
         }
     }
     public function indexRegister()
@@ -131,11 +132,13 @@ class AccountController extends Controller
             $user = DB::table('users')
                 ->where('username', '=', $request->username)
                 ->where('email', '=', $request->email)
-                ->get()->toArray();
-            if (count($user) == 1) {
+                ->first();
+            if ($user) {
                 //TODO: ko dùng session chỗ này
-                $request->session()->put('account_id', $user[0]->id);
-                return redirect()->route('xdsoft.account.editPassword');
+                // $request->session()->put('account_id', $user[0]->id);
+                return redirect()->route('xdsoft.account.editPassword', [
+                    'id' => $user->id
+                ]);
             } else {
                 $err = "Sai tài khoản hoặc email";
                 return view('client.body.xdsoft.account.view_forget_password', compact('err'));
@@ -149,7 +152,8 @@ class AccountController extends Controller
     public function actionEditPassword(Request $request)
     {
         $err = '';
-        if (session('account_id')) {
+        $account_id = $request->account_id;
+        if (!empty($account_id)) {
             if ($request->password == $request->confirm_password) {
 
                 $rs = DB::table('users')
@@ -159,7 +163,7 @@ class AccountController extends Controller
                         'updated_at' => date('y-m-d h:i:s'),
                     ]);
                 if ($rs == true) {
-                    return redirect("/profile");
+                    return redirect("/login");
                 } else {
                     $err = 'Vui lòng kiểm tra lại thông tin';
                     return view('client.body.xdsoft.account.view_edit_password', compact('err'));
@@ -190,7 +194,8 @@ class AccountController extends Controller
     public function indexProfile()
     {
         if (!session()->has('account_id')) {
-            return redirect("/login");
+            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+            return redirect('/login')->with('err', $err);
         }
         $user = DB::table('users')
             ->where('id', session('account_id'))
@@ -207,7 +212,8 @@ class AccountController extends Controller
     public function editProfile()
     {
         if (!session()->has('account_id')) {
-            return redirect("/login");
+            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+            return redirect('/login')->with('err', $err);
         }
         $user = DB::table('users')
             ->where('id', session('account_id'))
@@ -217,7 +223,8 @@ class AccountController extends Controller
     public function updateProfile(Request $request)
     {
         if (!session()->has('account_id')) {
-            return redirect("/login");
+            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+            return redirect('/login')->with('err', $err);
         }
         $name_image = '';
         if ($request->has('avatar')) {
@@ -227,42 +234,49 @@ class AccountController extends Controller
             $path = public_path('images/') . $name_image;
             $file_image->move(public_path('images'), $name_image);
             DB::table('users')
-            ->where('users.id', '=', $request->id)
-            ->update([
-                'username' => $request->username,
-                'display_name' => $request->display_name,
-                'phone' => $request->phone,
-                'email' => $request->email == null ? "" : $request->email,
-                'updated_at' => date('y-m-d h:i:s'),
-                'avatar' =>  URL::to('') . '/images/' . $name_image,
-            ]);
-        }
-        else {
+                ->where('users.id', '=', $request->id)
+                ->update([
+                    'username' => $request->username,
+                    'display_name' => $request->display_name,
+                    'phone' => $request->phone,
+                    'email' => $request->email == null ? "" : $request->email,
+                    'updated_at' => date('y-m-d h:i:s'),
+                    'avatar' =>  URL::to('') . '/images/' . $name_image,
+                ]);
+        } else {
             DB::table('users')
-            ->where('users.id', '=', $request->id)
-            ->update([
-                'username' => $request->username,
-                'display_name' => $request->display_name,
-                'phone' => $request->phone,
-                'email' => $request->email == null ? "" : $request->email,
-                'updated_at' => date('y-m-d h:i:s'),
-            ]);
+                ->where('users.id', '=', $request->id)
+                ->update([
+                    'username' => $request->username,
+                    'display_name' => $request->display_name,
+                    'phone' => $request->phone,
+                    'email' => $request->email == null ? "" : $request->email,
+                    'updated_at' => date('y-m-d h:i:s'),
+                ]);
         }
-        
+
         return redirect('/profile');
     }
 
     public function changePassword()
     {
+        if (!session()->has('account_id')) {
+            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+            return redirect('/login')->with('err', $err);
+        }
         $err = '';
         return view('client.body.xdsoft.account.change_password', compact('err'));
     }
 
     public function actionChangePassword(Request $request)
     {
+        if (!session()->has('account_id')) {
+            $err = 'Hết phiên đăng nhập, vui lòng đăng nhập lại!';
+            return redirect('/login')->with('err', $err);
+        }
         $err = '';
         if (session('account_id')) {
-            $userWithOldPassword=DB::table('users')
+            $userWithOldPassword = DB::table('users')
                 ->select('id')
                 ->where('id', session('account_id'))
                 ->where('password', $request->current_password)->first();
@@ -288,7 +302,6 @@ class AccountController extends Controller
                 $err = 'Mật khẩu hiện tại không đúng';
                 return view('client.body.xdsoft.account.change_password', compact('err'));
             }
-           
         } else {
             $err = 'Hết phiên đăng nhập, vui lòng đăng nhập lại';
             return redirect()->route('xdsoft.account.login', compact('err'));

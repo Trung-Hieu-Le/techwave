@@ -35,7 +35,7 @@ class KhoaHocController extends Controller
             return redirect('/admin/login');
         }
     }
-    //TODO: tên slug khóa học phải độc nhất ko trùng
+    //TODO: tên slug khóa học phải độc nhất ko trùng 
     public function themKhoaHoc()
     {
 

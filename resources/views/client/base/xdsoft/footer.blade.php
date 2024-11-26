@@ -5,7 +5,7 @@
         <div class="col-11">
           <div class="row justify-content-center align-items-center g-2">
             <div class="col-xl-3 col-md-4 col-6 text-center ps-xl-2">
-              <img src="{{ asset('image/footer-logo-04.png')}}" class="logo--footer" alt="">
+              <img src="{{ asset('image/techwave-logo.png')}}" class="logo--footer" alt="" width="80" height="80">
             </div>
             <div class="col-xl-9 col-md-8 col-12 text-start">
               <h4>Về chúng tôi</h4>
@@ -19,7 +19,7 @@
       <div class="col-12 col-md-2">
         <h4>Đường dẫn</h4>
         <div class="text-start fs-6"><a class="text-white footer-link" href="{{ route('xdsoft.mainpage')}}">Trang chủ</a></div>
-        <div class="text-start fs-6"><a class="text-white footer-link" href="{{ route('xdsoft.dohoa')}}">Bài viết</a></div>
+        <div class="text-start fs-6"><a class="text-white footer-link" href="{{ route('xdsoft.baiviet')}}">Bài viết</a></div>
         <div class="text-start fs-6"><a class="text-white footer-link" href="{{ route('xdsoft.khoahoc')}}">Khóa học</a></div>
         <div class="text-start fs-6"><a class="text-white footer-link" href="{{ route('xdsoft.account.profile')}}">Tài khoản</a></div>
       </div>

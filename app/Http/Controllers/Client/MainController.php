@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\XdSoft;
+namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Intros;
@@ -22,25 +22,25 @@ class MainController extends Controller
         });
         asort($head_carousels);
 
-        $khoa_hoc=DB::table('courses')
-        ->orderBy('created_at', 'desc')
-        ->limit(4)->get()->toArray();
+        $khoa_hoc = DB::table('courses')
+            ->orderBy('created_at', 'desc')
+            ->limit(4)->get()->toArray();
         $post = DB::table("posts")
             ->select('posts.slug', 'posts.post_title', 'posts.description', 'posts.post_image', 'posts.post_date')
             ->limit(5)->orderBy('post_date', 'desc')->get()->toArray();
 
-        return view('client.body.xdsoft.home', compact( 'post', 'head_carousels', 'khoa_hoc'));
+        return view('client.body.xdsoft.home', compact('post', 'head_carousels', 'khoa_hoc'));
     }
 
-    public function dichvu()
-    {
-        return view('client.body.xdsoft.gioithieu.dichvu');
-    }
+    // public function dichvu()
+    // {
+    //     return view('client.body.xdsoft.gioithieu.dichvu');
+    // }
 
-    public function camnhan()
-    {
-        return view('client.body.xdsoft.gioithieu.camnhan');
-    }
+    // public function camnhan()
+    // {
+    //     return view('client.body.xdsoft.gioithieu.camnhan');
+    // }
 
     public function khoahoc(Request $request)
     {
@@ -85,13 +85,13 @@ class MainController extends Controller
             DB::table('courses')
                 ->where('id', $course->id)
                 ->update(['average_rate' => $average_rate]);
-            
+
             $course->bought = DB::table('invoices')
-            ->join('invoice_relationships', 'invoice_relationships.id_invoice', 'invoices.id')
-            ->where('invoices.id_user', $userId)
-            ->where('invoices.trang_thai', "Đã thanh toán")
-            ->where('invoice_relationships.id_course', $course->id)
-            ->exists();
+                ->join('invoice_relationships', 'invoice_relationships.id_invoice', 'invoices.id')
+                ->where('invoices.id_user', $userId)
+                ->where('invoices.trang_thai', "Đã thanh toán")
+                ->where('invoice_relationships.id_course', $course->id)
+                ->exists();
             if ($course->gia_giam == 0) {
                 $freeCourses[] = $course;
             } elseif ($course->gia_giam > 0) {
@@ -134,6 +134,8 @@ class MainController extends Controller
             $query->orderBy('post_date', 'desc');
         } elseif ($request->sort_by == 'popular') {
             $query->orderBy('post_view', 'desc');
+        } elseif ($request->sort_by == 'discuss') {
+            $query->orderBy('comment_count', 'desc');
         } else {
             $query->orderBy('post_date', 'desc');
         }
@@ -152,7 +154,7 @@ class MainController extends Controller
             ->groupBy('post_categories.id')
             ->get()->toArray();
 
-        return view('client.body.xdsoft.tintuc.dohoa', compact('post', 'list_chu_de_noi_bat', 'cur_category', 'ds_category'));
+        return view('client.body.xdsoft.baiviet', compact('post', 'list_chu_de_noi_bat', 'cur_category', 'ds_category'));
     }
 
 
@@ -160,7 +162,8 @@ class MainController extends Controller
     {
         $current_user = DB::table('users')->where('display_name', session('account_name'))->first();
         if (!session()->has('account_id') || empty($current_user)) {
-            return redirect("/login");
+            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+            return redirect('/login')->with('err', $err);
         }
         $invoice = DB::table('invoices')
             ->where('id_user', session('account_id'))

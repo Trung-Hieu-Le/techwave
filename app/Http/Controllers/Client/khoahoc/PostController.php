@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\XdSoft\khoahoc;
+namespace App\Http\Controllers\Client\khoahoc;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -55,16 +55,18 @@ class PostController extends Controller
         $course->lesson_count = count($lessons);
         $course->author_course = DB::table('users')->where('id', $course->id_author)->first();
 
-        $commentCount = DB::table('comments')
-            ->where('id_course', $course->id)
-            ->where('show', 1)
-            ->count();
+        // $commentCount = DB::table('comments')
+        //     ->where('id_course', $course->id)
+        //     ->where('show', 1)
+        //     ->count();
         $comments = DB::table('comments')
             ->select('comments.id', 'content', 'display_name', 'comments.created_at', 'rate', 'avatar')
             ->join('users', 'users.id', 'comments.id_user')
             ->where('id_course', $course->id)
             ->where('id_parent', null)
+            ->where('show', 1)
             ->get()->toArray();
+        $commentCount = count($comments);
         if (session('account_role') == 'user') {
             $coursePaid = DB::table('courses')
                 ->select('courses.id')
@@ -72,12 +74,12 @@ class PostController extends Controller
                 ->leftJoin('invoices', 'invoice_relationships.id_invoice', '=', 'invoices.id')
                 ->where(function ($query) use ($course) {
                     $query->where('invoices.id_user', session('account_id'))
-                          ->where('courses.id', $course->id)
-                          ->where('invoices.trang_thai', 'Đã thanh toán');
+                        ->where('courses.id', $course->id)
+                        ->where('invoices.trang_thai', 'Đã thanh toán');
                 })
                 ->orWhere(function ($query) use ($course) {
                     $query->where('courses.id', $course->id)
-                          ->where('courses.gia_giam', 0);
+                        ->where('courses.gia_giam', 0);
                 })
                 ->first();
             if (!$coursePaid) {
@@ -95,6 +97,7 @@ class PostController extends Controller
 
     public function addComment(Request $request)
     {
+        //TODO: add cmt khóa học free
         try {
             $ses = $request->session()->get('account_id');
             if (isset($ses)) {
@@ -127,7 +130,8 @@ class PostController extends Controller
                 ]);
                 return back()->with('success', 'Bình luận đã được gửi!');
             } else {
-                return redirect('/login');
+                $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+                return redirect('/login')->with('err', $err);
             }
         } catch (\Throwable $th) {
             return back()->with('fail', 'Bình luận chưa được gửi!');
