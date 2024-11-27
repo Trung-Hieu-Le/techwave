@@ -153,10 +153,7 @@ class KhoaHocController extends Controller
         try {
             $ses = $request->session()->get('tk_user');
             if (isset($ses) && ($request->session()->get('role')[0] == 'admin')) {
-                $existingCourse = DB::table('courses')
-                    ->where('slug', $request->slug)
-                    ->whereNot('id', $request->id)
-                    ->first();
+                $existingCourse = DB::table('courses')->where('slug', $request->slug)->whereNot('id', $request->id)->first();
                 if ($existingCourse) {
                     return redirect()->back()->with('fail', 'Slug đã tồn tại, vui lòng chọn slug khác!');
                 }

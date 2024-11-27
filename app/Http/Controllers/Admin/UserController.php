@@ -81,6 +81,10 @@ class UserController extends Controller
                 $err = 'Hết phiên đăng nhập, vui lòng đăng nhập lại!';
                 return redirect('/admin/login')->with('err', $err);
             }
+            $existingUser = DB::table('users')->where('username', $request->username)->first();
+            if ($existingUser) {
+                return redirect()->back()->with('fail', 'Username đã tồn tại!');
+            }
             $rs = DB::table('users')->insert([
                 'username' => $request->username,
                 'password' => $request->password,
@@ -128,9 +132,12 @@ class UserController extends Controller
             if (
                 isset($ses) && ($request->session()->get('role')[0] == 'admin')
             ) {
-
+                $existingUser = DB::table('users')->where('username', $request->username)->whereNot('id', $request->id)->first();
+                if ($existingUser) {
+                    return redirect()->back()->with('fail', 'Username đã tồn tại!');
+                }
                 $rs = DB::table('users')
-                    ->where('users.ID', '=', $request->id)
+                    ->where('users.id', '=', $request->id)
                     ->update([
                         'username' => $request->username,
                         'password' => $request->password,

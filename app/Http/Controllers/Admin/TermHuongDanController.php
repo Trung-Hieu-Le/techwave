@@ -53,7 +53,10 @@ class TermHuongDanController extends Controller
                 $err = 'Hết phiên đăng nhập, vui lòng đăng nhập lại!';
                 return redirect('/admin/login')->with('err', $err);
             }
-
+            $existingTag = DB::table('post_categories')->where('slug', $request->slug)->first();
+                if ($existingTag) {
+                    return redirect()->back()->with('fail', 'Slug đã tồn tại!');
+                }
             DB::table('post_categories')->insert([
                 'name' => $request->term_name,
                 'slug' => $request->term_slug,
@@ -85,6 +88,10 @@ class TermHuongDanController extends Controller
         try {
             $ses = $request->session()->get('tk_user');
             if (isset($ses) && ($request->session()->get('role')[0] == 'admin' || $request->session()->get('role')[0] == 'nv')) {
+                $existingTag = DB::table('post_categories')->where('slug', $request->slug)->whereNot('id', $request->id)->first();
+                if ($existingTag) {
+                    return redirect()->back()->with('fail', 'Slug đã tồn tại!');
+                }
                 DB::table('post_categories')
                     ->where("post_categories.id", '=', $request->id)
                     ->update([

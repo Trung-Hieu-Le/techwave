@@ -67,6 +67,10 @@ class BaiVietController extends Controller
                 $err = 'Hết phiên đăng nhập, vui lòng đăng nhập lại!';
                 return redirect('/admin/login')->with('err', $err);
             }
+            $existingPost = DB::table('posts')->where('slug', $request->slug)->first();
+            if ($existingPost) {
+                return redirect()->back()->with('fail', 'Slug đã tồn tại!');
+            }
             // $markupFixer  = new \TOC\MarkupFixer();
             // $contentWithMenu = $markupFixer->fix($request->noi_dung);
             if ($request->has('image_upload')) {
@@ -139,6 +143,10 @@ class BaiVietController extends Controller
             $ses = $request->session()->get('tk_user');
 
             if (isset($ses) && ($request->session()->get('role')[0] == 'admin' || $request->session()->get('role')[0] == 'nv')) {
+                $existingPost = DB::table('posts')->where('slug', $request->slug)->whereNot("id", $request->id)->first();
+                if ($existingPost) {
+                    return redirect()->back()->with('fail', 'Slug đã tồn tại!');
+                }
                 $request->tieu_de = preg_replace('/\s+/', " ", $request->tieu_de);
                 if ($request->has('image_upload')) {
                     $file_image = $request->file('image_upload');

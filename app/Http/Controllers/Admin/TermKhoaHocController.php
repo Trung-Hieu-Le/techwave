@@ -53,7 +53,10 @@ class TermKhoaHocController extends Controller
                 $err = 'Hết phiên đăng nhập, vui lòng đăng nhập lại!';
                 return redirect('/admin/login')->with('err', $err);
             }
-
+            $existingTag = DB::table('course_categories')->where('slug', $request->slug)->first();
+            if ($existingTag) {
+                return redirect()->back()->with('fail', 'Slug đã tồn tại!');
+            }
             DB::table('course_categories')->insert([
                 'name' => $request->term_name,
                 'slug' => $request->term_slug,
@@ -86,7 +89,10 @@ class TermKhoaHocController extends Controller
             $ses = $request->session()->get('tk_user');
 
             if (isset($ses) && ($request->session()->get('role')[0] == 'admin' || $request->session()->get('role')[0] == 'nv')) {
-
+                $existingTag = DB::table('course_categories')->where('slug', $request->slug)->whereNot("id", $request->id)->first();
+                if ($existingTag) {
+                    return redirect()->back()->with('fail', 'Slug đã tồn tại!');
+                }
                 DB::table('course_categories')
                     ->where("course_categories.id", '=', $request->id)
                     ->update([
