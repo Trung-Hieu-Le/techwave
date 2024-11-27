@@ -68,6 +68,15 @@
 
 <main class="h-100 mt-5">
     <section class="container-fluid h-100 mt-5 text-center p-5">
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @elseif(session('fail'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('fail') }}
+            </div>
+        @endif
         <div class="profile-form-container">
             <h4 class="text-title"><b>CHỈNH SỬA THÔNG TIN CÁ NHÂN</b></h4>
             <form action="{{ route('xdsoft.account.updateProfile') }}" method="post" enctype="multipart/form-data">

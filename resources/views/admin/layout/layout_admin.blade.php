@@ -231,6 +231,7 @@
                     type="button"
                     class="js-navbar-vertical-aside-toggle-invoker navbar-vertical-aside-toggle btn btn-icon btn-xs btn-ghost-dark"
                 >
+                {{-- TODO: toggle navbar --}}
                     <i class="tio-clear tio-lg"></i>
                 </button>
                 <!-- End Navbar Vertical Toggle -->

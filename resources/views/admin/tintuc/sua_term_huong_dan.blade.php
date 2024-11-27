@@ -2,10 +2,17 @@
 @section("main")
     <div class="row justify-content-lg-center">
         <div class="col-lg-8">
-
-
             <!-- Content Step Form -->
             <div id="addUserStepFormContent">
+                @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @elseif(session('fail'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('fail') }}
+                    </div>
+                @endif
                 <h2 class="text-center">Sửa Phân loại bài viết</h2>
                 <!-- Card -->
                 <form action="{{Request::root().'/admin/edit-term-huong-dan'}}" method="post">

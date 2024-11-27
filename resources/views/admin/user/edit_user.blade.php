@@ -6,6 +6,15 @@
 
             <!-- Content Step Form -->
             <div id="addUserStepFormContent">
+                @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @elseif(session('fail'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('fail') }}
+                    </div>
+                @endif
                 <h2 class="text-center">Sửa Tài khoản người dùng</h2>
 
                 <!-- Card -->

@@ -5,6 +5,15 @@
     <div class="col-lg-12">
         <!-- Card -->
         <div class="card card-lg mb-3 mb-lg-5">
+            @if(session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @elseif(session('fail'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('fail') }}
+                </div>
+            @endif
             <form action="{{route('luuBV')}}" method="post" enctype="multipart/form-data">
             @csrf
             <!-- Header -->

@@ -2,6 +2,15 @@
 @section("main")
     <div class="card" style="max-height: 100vh">
         <!-- Header -->
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @elseif(session('fail'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('fail') }}
+            </div>
+        @endif
         <div class="card-header">
             <div class="row justify-content-between align-items-center flex-grow-1">
                 <div class="col-sm-6 col-md-4 mb-3 mb-sm-0">

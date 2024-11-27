@@ -12,98 +12,106 @@ class GioHangController extends Controller
 {
     public function addToCart($id)
     {
-        if (!session()->has('account_id')) {
-            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
-            return redirect('/login')->with('err', $err);
-        }
-        $course = Course::findOrFail($id);
-        // $cart = session()->get('cart', []);
-        $accountId = session('account_id');
-        $user = DB::table('users')->where('id', $accountId)->first();
-        $invoice = DB::table('invoices')
-            ->where('id_user', $accountId)
-            ->where('trang_thai', 'Chưa mua')
-            ->orderBy("id", "desc")
-            ->first();
-        if (!$invoice) {
-            $invoiceId = DB::table('invoices')->insertGetId([
-                'ho_ten' => $user->display_name,
-                'email' => $user->email,
-                'so_dien_thoai' => $user->phone,
-                'gia_goc' => 0,
-                'gia_giam' => 0,
-                'ghi_chu' => null,
-                'created_at' => now(),
-                'updated_at' => now(),
-                'id_user' => $accountId,
-                'trang_thai' => 'Chưa mua'
-            ]);
-        } else {
-            $invoiceId = $invoice->id;
-        }
+        try {
+            if (!session()->has('account_id')) {
+                $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+                return redirect('/login')->with('err', $err);
+            }
+            $course = Course::findOrFail($id);
+            // $cart = session()->get('cart', []);
+            $accountId = session('account_id');
+            $user = DB::table('users')->where('id', $accountId)->first();
+            $invoice = DB::table('invoices')
+                ->where('id_user', $accountId)
+                ->where('trang_thai', 'Chưa mua')
+                ->orderBy("id", "desc")
+                ->first();
+            if (!$invoice) {
+                $invoiceId = DB::table('invoices')->insertGetId([
+                    'ho_ten' => $user->display_name,
+                    'email' => $user->email,
+                    'so_dien_thoai' => $user->phone,
+                    'gia_goc' => 0,
+                    'gia_giam' => 0,
+                    'ghi_chu' => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'id_user' => $accountId,
+                    'trang_thai' => 'Chưa mua'
+                ]);
+            } else {
+                $invoiceId = $invoice->id;
+            }
 
-        $exists = DB::table('invoice_relationships')
-            ->where('id_invoice', $invoiceId)
-            ->where('id_course', $course->id)
-            ->exists();
+            $exists = DB::table('invoice_relationships')
+                ->where('id_invoice', $invoiceId)
+                ->where('id_course', $course->id)
+                ->exists();
 
-        if (!$exists) {
-            DB::table('invoice_relationships')->insert([
-                'id_invoice' => $invoiceId,
-                'id_course' => $course->id,
-            ]);
-            DB::table('invoices')->where('id', $invoiceId)->increment('gia_goc', $course->gia_goc);
-            DB::table('invoices')->where('id', $invoiceId)->increment('gia_giam', $course->gia_giam);
+            if (!$exists) {
+                DB::table('invoice_relationships')->insert([
+                    'id_invoice' => $invoiceId,
+                    'id_course' => $course->id,
+                ]);
+                DB::table('invoices')->where('id', $invoiceId)->increment('gia_goc', $course->gia_goc);
+                DB::table('invoices')->where('id', $invoiceId)->increment('gia_giam', $course->gia_giam);
+            }
+            return redirect()->back()->with('success', 'Đã thêm vào giỏ hàng!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm vào giỏ hàng!');
         }
-        return redirect()->back()->with('success', 'Đã thêm vào giỏ hàng!');
     }
 
     public function addToCartNow($id)
     {
-        if (!session()->has('account_id')) {
-            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+        try {
+            if (!session()->has('account_id')) {
+                $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
                 return redirect('/login')->with('err', $err);
-        }
-        $course = Course::findOrFail($id);
-        // $cart = session()->get('cart', []);
-        $accountId = session('account_id');
-        $user = DB::table('users')->where('id', $accountId)->first();
-        $invoice = DB::table('invoices')
-            ->where('id_user', $accountId)
-            ->where('trang_thai', 'Chưa mua')
-            ->orderBy("id", "desc")
-            ->first();
-        if (!$invoice) {
-            $invoiceId = DB::table('invoices')->insertGetId([
-                'ho_ten' => $user->display_name,
-                'email' => $user->email,
-                'so_dien_thoai' => $user->phone,
-                'gia_goc' => 0,
-                'gia_giam' => 0,
-                'ghi_chu' => null,
-                'created_at' => now(),
-                'updated_at' => now(),
-                'id_user' => $accountId,
-                'trang_thai' => 'Chưa mua'
-            ]);
-        } else {
-            $invoiceId = $invoice->id;
-        }
+            }
+            $course = Course::findOrFail($id);
+            // $cart = session()->get('cart', []);
+            $accountId = session('account_id');
+            $user = DB::table('users')->where('id', $accountId)->first();
+            $invoice = DB::table('invoices')
+                ->where('id_user', $accountId)
+                ->where('trang_thai', 'Chưa mua')
+                ->orderBy("id", "desc")
+                ->first();
+            if (!$invoice) {
+                $invoiceId = DB::table('invoices')->insertGetId([
+                    'ho_ten' => $user->display_name,
+                    'email' => $user->email,
+                    'so_dien_thoai' => $user->phone,
+                    'gia_goc' => 0,
+                    'gia_giam' => 0,
+                    'ghi_chu' => null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'id_user' => $accountId,
+                    'trang_thai' => 'Chưa mua'
+                ]);
+            } else {
+                $invoiceId = $invoice->id;
+            }
 
-        $exists = DB::table('invoice_relationships')
-            ->where('id_invoice', $invoiceId)
-            ->where('id_course', $course->id)
-            ->exists();
+            $exists = DB::table('invoice_relationships')
+                ->where('id_invoice', $invoiceId)
+                ->where('id_course', $course->id)
+                ->exists();
 
-        if (!$exists) {
-            DB::table('invoice_relationships')->insert([
-                'id_invoice' => $invoiceId,
-                'id_course' => $course->id,
-            ]);
-            DB::table('invoices')->where('id', $invoiceId)->increment('gia_goc', $course->gia_goc);
-            DB::table('invoices')->where('id', $invoiceId)->increment('gia_giam', $course->gia_giam);
+            if (!$exists) {
+                DB::table('invoice_relationships')->insert([
+                    'id_invoice' => $invoiceId,
+                    'id_course' => $course->id,
+                ]);
+                DB::table('invoices')->where('id', $invoiceId)->increment('gia_goc', $course->gia_goc);
+                DB::table('invoices')->where('id', $invoiceId)->increment('gia_giam', $course->gia_giam);
+            }
+            return redirect()->route('xdsoft.cart')->with('success', 'Đã thêm vào giỏ hàng!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm vào giỏ hàng!');
         }
-        return redirect()->route('xdsoft.cart')->with('success', 'Đã thêm vào giỏ hàng!');
     }
 
     // public function updateCart(Request $request)
@@ -117,93 +125,103 @@ class GioHangController extends Controller
 
     public function deleteCartItem(Request $request)
     {
-        if (!session()->has('account_id')) {
-            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
-                return redirect('/login')->with('err', $err);
-        }
-        $userId = session('account_id');
-        $invoice = DB::table('invoices')
-            ->where('id_user', $userId)
-            ->where('trang_thai', 'Chưa mua')
-            ->orderBy("id", "desc")
-            ->first();
+        try {
+            if (!session()->has('account_id')) {
+                return response()->json(['message' => 'Đã hết phiên đăng nhập, vui lòng đăng nhập lại!'], 403);
+            }
+            $userId = session('account_id');
+            $invoice = DB::table('invoices')
+                ->where('id_user', $userId)
+                ->where('trang_thai', 'Chưa mua')
+                ->orderBy("id", "desc")
+                ->first();
 
-        if ($invoice) {
-            DB::table('invoice_relationships')
-                ->where('id_invoice', $invoice->id)
-                ->where('id_course', $request->id)
-                ->delete();
+            if ($invoice) {
+                DB::table('invoice_relationships')
+                    ->where('id_invoice', $invoice->id)
+                    ->where('id_course', $request->id)
+                    ->delete();
+                $course = DB::table('courses')->where('id', $request->id)->first();
+                if (!$course) {
+                    return response()->json(['message' => 'Khóa học không tồn tại!'], 404);
+                }
+                DB::table('invoices')->where('id', $invoice->id)->decrement('gia_goc', $course->gia_goc);
+                DB::table('invoices')->where('id', $invoice->id)->decrement('gia_giam', $course->gia_giam);
+                return response()->json(['message' => 'Xóa khóa học khỏi giỏ hàng thành công!']);
+            } else {
+                return response()->json(['message' => 'Không tìm thấy hóa đơn hợp lệ!'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Có lỗi xảy ra khi xóa khóa học!'], 404);
         }
     }
 
     public function deleteAllCart(Request $request)
     {
-        if (!session()->has('account_id')) {
-            $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
+        try {
+            if (!session()->has('account_id')) {
+                $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
                 return redirect('/login')->with('err', $err);
-        }
-        $userId = session('account_id');
-        $invoice = DB::table('invoices')
-            ->where('id_user', $userId)
-            ->where('trang_thai', 'Chưa mua')
-            ->orderBy("id", "desc")
-            ->first();
+            }
+            $userId = session('account_id');
+            $invoice = DB::table('invoices')
+                ->where('id_user', $userId)
+                ->where('trang_thai', 'Chưa mua')
+                ->orderBy("id", "desc")
+                ->first();
 
-        if ($invoice) {
-            DB::table('invoice_relationships')
-                ->where('id_invoice', $invoice->id)
-                ->delete();
-            DB::table('invoices')
-                ->where('id', $invoice->id)
-                ->delete();
+            if ($invoice) {
+                DB::table('invoice_relationships')
+                    ->where('id_invoice', $invoice->id)
+                    ->delete();
+                DB::table('invoices')
+                    ->where('id', $invoice->id)
+                    ->delete();
+            }
+            return redirect()->back()->with('success', 'Đã xóa tất cả khóa học khỏi giỏ hàng!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('fail', 'Xóa tất cả khóa học thất bại!');
         }
-        return redirect()->back()->with('success', 'Đã xóa tất cả khóa học khỏi giỏ hàng!');
     }
 
     public function insertCart(Request $request)
     {
-        //TODO: sửa lại cái này
-        // try{
+        try {
             if (!session()->has('account_id')) {
                 $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
-                    return redirect('/login')->with('err', $err);
+                return redirect('/login')->with('err', $err);
             }
 
-        $accountId = session('account_id');
-        $invoice = DB::table('invoices')
-            ->where('id_user', $accountId)
-            ->where('trang_thai', 'Chưa mua')
-            ->orderBy("id", "desc")
-            ->first();
-        dd($invoice, $request->request);
-        $giohang = session()->get('cart');
-        DB::table('invoices')->insert([
-            'ho_ten' => $request->ho_ten,
-            'email' => $request->email,
-            'so_dien_thoai' => $request->so_dien_thoai,
-            'gia_goc' => $request->gia_goc,
-            'gia_giam' => $request->gia_giam,
-            'ghi_chu' => $request->ghi_chu,
-            'created_at' => date('y-m-d h:i:s'),
-            'updated_at' => date('y-m-d h:i:s'),
-            'id_user' => session('account_id')
-        ]);
-        $cartID = DB::table('invoices')->select("id")
-            ->orderBy("id", "desc")
-            ->first();
-        foreach ($giohang as $key) {
-            if (!empty($key)) {
-                DB::table('invoice_relationships')->insert([
-                    'id_invoice' => $cartID->id,
-                    'id_course' => $key['id'],
-                ]);
+            $accountId = session('account_id');
+            $invoice = DB::table('invoices')
+                ->where('id_user', $accountId)
+                ->where('trang_thai', 'Chưa mua')
+                ->orderBy("id", "desc")
+                ->first();
+            $existCourse = DB::table(('invoice_relationships'))
+                ->where('id_invoice', $invoice->id)->exists();
+            if ($invoice && $existCourse) {
+                DB::table('invoices')
+                    ->where('id', $invoice->id)
+                    ->update([
+                        'ho_ten' => $request->ho_ten,
+                        'email' => $request->email,
+                        'so_dien_thoai' => $request->so_dien_thoai,
+                        'gia_goc' => $request->gia_goc,
+                        'gia_giam' => $request->gia_giam,
+                        'ghi_chu' => $request->ghi_chu,
+                        'updated_at' => date('y-m-d h:i:s'),
+                        'id_user' => session('account_id'),
+                        'trang_thai' => "Đã đặt mua"
+                    ]);
+            } else {
+                return back()->with('fail', 'Lỗi không tồn tại giỏ hàng, vui lòng thử lại!');
             }
+            GioHangController::deleteAllCart($request);
+            return redirect()->back()->with('success', 'Đặt hàng thành công!');
+        } catch (\Exception $e) {
+            return back()->with('fail', 'Đã xảy ra lỗi khi đặt hàng!');
         }
-        GioHangController::deleteAllCart($request);
-        return redirect()->back()->with('success', 'Đặt hàng thành công!');
-        // } catch (\Exception $e) {
-        //     return abort(404);
-        // }
     }
 
     public function processVNPay(Request $request)
@@ -281,19 +299,23 @@ class GioHangController extends Controller
     }
     public function vnpayReturn(Request $request)
     {
-        if ($request->vnp_ResponseCode == '00') {
-            // Cập nhật trạng thái hóa đơn
-            DB::table('invoices')
-                ->where('id_user', session('account_id'))
-                ->where('trang_thai', 'Chưa mua')
-                ->update(['trang_thai' => 'Đã thanh toán']);
-            return redirect()->route('xdsoft.cart')->with('success', 'Thanh toán thành công!');
-        } else {
-            DB::table('invoices')
-                ->where('id_user', session('account_id'))
-                ->where('trang_thai', 'Chưa mua')
-                ->update(['trang_thai' => 'Lỗi thanh toán']);
-            return redirect()->route('xdsoft.cart')->with('error', 'Thanh toán không thành công!');
+        try {
+            if ($request->vnp_ResponseCode == '00') {
+                // Cập nhật trạng thái hóa đơn
+                DB::table('invoices')
+                    ->where('id_user', session('account_id'))
+                    ->where('trang_thai', 'Chưa mua')
+                    ->update(['trang_thai' => 'Đã thanh toán']);
+                return redirect()->route('xdsoft.cart')->with('success', 'Thanh toán thành công!');
+            } else {
+                DB::table('invoices')
+                    ->where('id_user', session('account_id'))
+                    ->where('trang_thai', 'Chưa mua')
+                    ->update(['trang_thai' => 'Lỗi thanh toán']);
+                return redirect()->route('xdsoft.cart')->with('error', 'Thanh toán không thành công!');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('xdsoft.cart')->with('error', 'Xảy ra lỗi trong khi thanh toán! Vui lòng thử lại.');
         }
     }
 }

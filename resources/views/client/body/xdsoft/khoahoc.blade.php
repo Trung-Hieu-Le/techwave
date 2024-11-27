@@ -21,6 +21,15 @@
       <li><p><strong>Chứng Nhận Hoàn Thành:</strong> Hoàn thành khóa học, bạn sẽ nhận được chứng nhận có giá trị, khẳng định kỹ năng và kiến thức của bạn trên thị trường lao động.</p></li>
     </ol>
   </div>
+  @if(session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @elseif(session('fail'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('fail') }}
+        </div>
+    @endif
   <div class="row justify-content-center align-items-center g-2">
     <div class="col-11 p-0">
       <div class="container pt-5 pb-2 text-center border--bottom--203864 w-350px border--bottom--203864 p-0 pb-2">

@@ -33,15 +33,35 @@
 <div style="height: 24px"></div>
 <main class="h-100 mt-5">
     <section class="container-fluid h-100 mt-5 text-center p-5" style="width:90%">
-
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @elseif(session('fail'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('fail') }}
+            </div>
+        @endif
         <body>
             <h4 class="text-title"><b>Giỏ hàng</b></h4>
+            
             <form action="{{route('insert_cart')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-shopping">
 
                     <div class="modal-container-shopping row">
                         <div class="cart-inner col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
+                            <div>
+                                @if(session('success'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('success') }}
+                                    </div>
+                                @elseif(session('fail'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ session('fail') }}
+                                    </div>
+                                @endif
+                            </div>
                             <table id="datatable"
                                 class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table dataTable no-footer"
                                 role="grid" aria-describedby="datatable_info">
@@ -197,7 +217,12 @@
                     id: ele.parents("tr").attr("rowId")
                 },
                 success: function (response) {
-                    window.location.reload();
+                    alert(response.message);
+                    location.reload();
+                },
+                error: function (error) {
+                    console.error("Lỗi:", error);
+                    alert("Không thể xóa khóa học. Vui lòng thử lại!");
                 }
             });
         }

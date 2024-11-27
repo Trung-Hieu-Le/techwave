@@ -31,6 +31,15 @@
         text-align: right;
     }
     </style>
+    @if(session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @elseif(session('fail'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('fail') }}
+        </div>
+    @endif
     <div class="content-left col-xxl-9 col-xl-9 col-lg-2 col-lg-9 col-md-9 col-sm-12 col-xs-12  ">
         <header class="entry-header">
             <h1 class="entry-title">{{$post->post_title}}</h1>
@@ -95,7 +104,11 @@
                 </div>
                 <div class="">
                     <div class="comment-content mb-1">
-                        <p>{{ $comment->content }}</p>
+                        @if ($comment->show==1)
+                            <p>{{ $comment->content }}</p>
+                        @else
+                            <p class="text-muted fst-italic">Bình luận đã được ẩn</p>
+                        @endif
                     </div>
         
                     <div class="comment-actions text-right mb-1" style="text-align: right;">
@@ -129,7 +142,11 @@
                             </div>
                             <div class="">
                                 <div class="comment-content mb-1">
-                                    <p>{{ $reply->content }}</p>
+                                    @if ($reply->show==1)
+                                        <p>{{ $reply->content }}</p>
+                                    @else
+                                        <p class="text-muted fst-italic">Bình luận đã được ẩn</p>
+                                    @endif
                                 </div>
         
                                 <div class="comment-actions text-right mb-1" style="text-align: right;">
@@ -178,11 +195,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
                     alert(data.message);
-                } else {
-                    alert(data.message);
-                }
             })
             .catch(error => console.error("Lỗi báo cáo:", error));
         }

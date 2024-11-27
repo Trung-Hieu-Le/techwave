@@ -55,6 +55,15 @@
 
 @section('content-left')
 <div class="container">
+  @if(session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @elseif(session('fail'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('fail') }}
+        </div>
+    @endif
   @if (!empty($ds_category))
   <div class="menu-tintuc">
     <ul class="list-inline mb-0">

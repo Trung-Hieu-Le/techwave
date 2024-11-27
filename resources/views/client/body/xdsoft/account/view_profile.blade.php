@@ -68,6 +68,15 @@
 <main class="h-100 mt-5">
     <section class="container-fluid h-100 mt-5 p-5">
         <div class="row">
+            @if(session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @elseif(session('fail'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('fail') }}
+                </div>
+            @endif
             <!-- User Info Display -->
             <div class="col-lg-4 col-md-12 mb-4">
                 <div class="profile-form-container">

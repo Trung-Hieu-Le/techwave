@@ -156,8 +156,8 @@ Route::controller(App\Http\Controllers\Client\khoahoc\PostController::class)->gr
     // Route::post('/khoa-hoc/reply-comment', 'replyComment')->name('khoahoc.replyComment');
 
 });
-Route::controller(App\Http\Controllers\Client\dohoa\PostController::class)->group(function () {
-    Route::get('/baiviet/{slug}', 'tutorial_cate')->name('dohoa.tutorial');
-});
+// Route::controller(App\Http\Controllers\Client\dohoa\PostController::class)->group(function () {
+//     Route::get('/baiviet/{slug}', 'tutorial_cate')->name('dohoa.tutorial');
+// });
 
 

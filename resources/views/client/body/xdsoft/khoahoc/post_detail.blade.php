@@ -82,6 +82,15 @@
     }
 </style>
 <div class="content-left ">
+    @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @elseif(session('fail'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('fail') }}
+            </div>
+        @endif
     <header class="entry-header">
         <h1 class="entry-title">{{$course->name}}</h1>
         <div class="post-meta my-1">

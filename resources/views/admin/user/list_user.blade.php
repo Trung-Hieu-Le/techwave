@@ -1,6 +1,15 @@
 @extends('admin.layout.layout_admin')
 @section("main")
     <div class="card" style="max-height: 100vh">
+        @if(session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @elseif(session('fail'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('fail') }}
+                </div>
+            @endif
         <!-- Header -->
         <div class="card-header">
             <div class="row justify-content-between align-items-center flex-grow-1">
