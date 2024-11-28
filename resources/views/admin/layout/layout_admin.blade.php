@@ -159,22 +159,22 @@
 
 <!-- ========== HEADER ========== -->
 <header
-    id="header"
+    id="header" style="height:4.25rem;"
     class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-flush navbar-container navbar-bordered"
 >
-    <div class="navbar-nav-wrap">
-        <div class="navbar-brand-wrapper">
+    <div class="navbar-nav-wrap h-100">
+        <div class="navbar-brand-wrapper h-100">
             <!-- Logo -->
-            <a class="navbar-brand" href="" aria-label="Front">
+            <a class="navbar-brand toggle-navbar" href="javascript:void(0)" aria-label="Front">
                 <img
                     class="navbar-brand-logo"
                     src="{{ asset('image/techwave-logo.png')}}"
-                    alt="Logo"
+                    alt="Logo" style="min-width:3rem; height:3rem;"
                 />
                 <img
                     class="navbar-brand-logo-mini"
                     src="{{ asset('image/techwave-logo.png')}}"
-                    alt="Logo"
+                    alt="Logo" style="min-width:3rem; height:3rem;"
                 />
             </a>
             <!-- End Logo -->
@@ -211,30 +211,20 @@
             <div class="navbar-brand-wrapper justify-content-center" style="height: auto">
                 <!-- Logo -->
 
-                <a class="navbar-brand" href="{{Request::root().'/admin/trang-chu'}}" aria-label="Front">
+                <a class="navbar-brand toggle-navbar" href="javascript:void(0)" aria-label="Front">
                     <img
                         class="navbar-brand-logo"
                         src="{{ asset('image/techwave-logo.png')}}"
-                        alt="Logo"
+                        alt="Logo" style="min-width:5rem; height:5rem;"
                     />
                     <img
                         class="navbar-brand-logo-mini"
                         src="{{ asset('image/techwave-logo.png')}}"
-                        alt="Logo"
+                        alt="Logo" style="min-width:5rem; height:5rem;"
                     />
                 </a>
 
                 <!-- End Logo -->
-
-                <!-- Navbar Vertical Toggle -->
-                <button
-                    type="button"
-                    class="js-navbar-vertical-aside-toggle-invoker navbar-vertical-aside-toggle btn btn-icon btn-xs btn-ghost-dark"
-                >
-                {{-- TODO: toggle navbar --}}
-                    <i class="tio-clear tio-lg"></i>
-                </button>
-                <!-- End Navbar Vertical Toggle -->
             </div>
 
             <!-- Content -->
@@ -735,10 +725,32 @@
         console.log("click")
         $(this).parent().children('.nav-sub').toggleClass('d-block')
     })
-    document.querySelector('.js-navbar-vertical-aside-toggle-invoker').addEventListener('click', function() {
-    const sidebar = document.querySelector('.js-navbar-vertical-aside');
-    sidebar.classList.toggle('d-none');
-});
+    
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy tất cả các nút có class toggle-navbar
+        const toggleButtons = document.querySelectorAll('.toggle-navbar');
+        
+        // Lấy các phần tử cần toggle class
+        const verticalAside = document.querySelector('.js-navbar-vertical-aside');
+        const mobileOverlay = document.querySelector('.js-navbar-vertical-aside-toggle-invoker');
+
+        // Thêm sự kiện click cho mỗi nút
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Toggle class cho aside
+                if (verticalAside) {
+                    verticalAside.classList.toggle('navbar-vertical-aside-initialized');
+                }
+
+                // Toggle class cho overlay
+                if (mobileOverlay) {
+                    mobileOverlay.classList.toggle('navbar-vertical-aside-mobile-overlay');
+                }
+            });
+        });
+    });
 </script>
 
 <script>

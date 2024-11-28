@@ -33,7 +33,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="tieu_de" class="input-label">Tên bài giảng
+                                        <label for="tieu_de" class="input-label">Tên bài giảng <span class="text-danger">(*)</span>
                                         </label>
 
                                         <div class="input-group input-group-merge">
@@ -53,7 +53,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="tieu_de" class="input-label">URL Youtube
+                                        <label for="tieu_de" class="input-label">URL Youtube <span class="text-danger">(*)</span>
                                         </label>
                                         <div class="input-group input-group-merge">
                                             <div class="input-group-prepend">
@@ -74,7 +74,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả<i
+                                        <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả <span class="text-danger">(*)</span><i
                                                 class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                                 data-placement="top"
                                                 title=""
@@ -106,7 +106,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="projectNameProjectSettingsLabel" class="input-label">Khóa học<i
+                                        <label for="projectNameProjectSettingsLabel" class="input-label">Khóa học <span class="text-danger">(*)</span><i
                                                 class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                                 data-placement="top"
                                                 title=""

@@ -113,7 +113,7 @@
                     <!-- Phone -->
                     <div class="form-group">
                         <label class="input-label">Số điện thoại</label>
-                        <input type="text" class="form-control" value="{{ $user->phone }}" disabled>
+                        <input type="text" class="form-control" value="{{ $user->phone }}" disabled pattern="[0-9]*" title="Chỉ được nhập số">
                     </div>
 
                     <!-- Edit Profile Button -->

@@ -28,7 +28,7 @@
 
                     <div class="d-flex justify-content-between">
                         <div class="form-group">
-                            <label class="input-label" for="avatarUploader">Ảnh Bài Viết</label>
+                            <label class="input-label" for="avatarUploader">Ảnh Bài Viết <span class="text-danger">(*)</span></label>
                             <div class="d-flex align-items-center position-relative">
                                 <!-- Avatar -->
                                 <label class="avatar avatar-xl avatar-circle avatar-uploader mr-5" for="avatarUploader">
@@ -75,7 +75,7 @@
                                             viết
                                             <b>(<=60)</b>
                                             <span>Có:</span>
-                                            <b><span id="count"></span></b>
+                                            <b><span id="count"></span> <span class="text-danger">(*)</span></b>
                                         </label>
 
                                         <div class="input-group input-group-merge">
@@ -99,7 +99,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="projectNameProjectSettingsLabel" class="input-label">Slug <i
+                                        <label for="projectNameProjectSettingsLabel" class="input-label">Slug <span class="text-danger">(*)</span><i
                                                 class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                                 data-placement="top"
                                                 title=""
@@ -126,7 +126,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả<i
+                                        <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả <span class="text-danger">(*)</span><i
                                                 class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                                 data-placement="top"
                                                 title=""
@@ -164,7 +164,7 @@
                                         <label for="projectNameProjectSettingsLabel" class="input-label">Mô tả
                                             <b>(<140)</b>
                                             <span>Có:</span>
-                                            <b><span id="count1"></span></b>
+                                            <b><span id="count1"></span> <span class="text-danger">(*)</span></b>
                                         </label>
 
                                         <div class="input-group input-group-merge">
@@ -189,7 +189,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="projectNameProjectSettingsLabel" class="input-label">Phân loại bài viết<i
+                                        <label for="projectNameProjectSettingsLabel" class="input-label">Phân loại bài viết <span class="text-danger">(*)</span><i
                                                 class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                                 data-placement="top"
                                                 title=""

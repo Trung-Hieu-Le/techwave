@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class UserController extends Controller
 {
@@ -85,22 +86,27 @@ class UserController extends Controller
             if ($existingUser) {
                 return redirect()->back()->with('fail', 'Username đã tồn tại!');
             }
+            if ($request->has('image_upload')) {
+                $file_image = $request->file('image_upload');
+                $ext = $request->file('image_upload')->extension();
+                $name_image = now()->toDateString() . '-' . time() . '-' . 'post_img.' . $ext;
+                // $img = (new \Intervention\Image\ImageManager)->make($file_image->path())->fit(300)->encode('jpg');
+                $path = public_path('images/') . $name_image;
+                // $file_image->save($path);
+                $file_image->move(public_path('images'), $name_image);
+            }
             $rs = DB::table('users')->insert([
                 'username' => $request->username,
                 'password' => $request->password,
                 'display_name' => $request->full_name,
+                'phone' => $request->phone,
                 'email' => $request->email == null ? "" : $request->email,
                 'created_at' => date('y-m-d h:i:s'),
                 'updated_at' => date('y-m-d h:i:s'),
                 'role' => $request->quyen,
-            ]);
+                'avatar' =>  URL::to('') . '/images/' . $name_image,
 
-            // if ($rs == true) {
-            //     return redirect('/admin/index-user');
-            // } else {
-            //     $err = 'Vui lòng kiểm tra lại thông tin';
-            //     return view('admin.user.them_user', compact('err'));
-            // }
+            ]);
             return redirect('/admin/index-user')->with('success', 'Thêm tài khoản thành công!');
         } catch (\Exception $e) {
             return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tài khoản!');
@@ -124,7 +130,7 @@ class UserController extends Controller
             return abort(404);
         }
     }
-
+    //TODO: add phone, avatar; pattern các loại phone và giá: pattern="[0-9]*" title="Chỉ được nhập số"
     public function edit_user(Request $request)
     {
         try {
@@ -136,17 +142,43 @@ class UserController extends Controller
                 if ($existingUser) {
                     return redirect()->back()->with('fail', 'Username đã tồn tại!');
                 }
-                $rs = DB::table('users')
+
+                if ($request->has('image_upload')) {
+                    $file_image = $request->file('image_upload');
+                    $ext = $request->file('image_upload')->extension();
+                    $name_image = now()->toDateString() . '-' . time() . '-' . 'post_img.' . $ext;
+                    // $img = (new \Intervention\Image\ImageManager)->make($file_image->path())->fit(300)->encode('jpg');
+                    $path = public_path('images/') . $name_image;
+                    // $img->save($path);
+                    $file_image->move(public_path('images'), $name_image);
+
+                    DB::table('users')
                     ->where('users.id', '=', $request->id)
                     ->update([
                         'username' => $request->username,
                         'password' => $request->password,
                         'display_name' => $request->full_name,
+                        'phone' => $request->phone,
+                        'email' => $request->email == null ? "" : $request->email,
+                        'created_at' => date('y-m-d h:i:s'),
+                        'updated_at' => date('y-m-d h:i:s'),
+                        'role' => $request->quyen,
+                        'avatar' =>  URL::to('') . '/images/' . $name_image,
+                    ]);
+                } else {
+                    DB::table('users')
+                    ->where('users.id', '=', $request->id)
+                    ->update([
+                        'username' => $request->username,
+                        'password' => $request->password,
+                        'display_name' => $request->full_name,
+                        'phone' => $request->phone,
                         'email' => $request->email == null ? "" : $request->email,
                         'created_at' => date('y-m-d h:i:s'),
                         'updated_at' => date('y-m-d h:i:s'),
                         'role' => $request->quyen,
                     ]);
+                }
 
                 return redirect()->route('index_user')->with('success', 'Sửa tài khoản thành công!');
             } else {
@@ -185,6 +217,10 @@ class UserController extends Controller
                     $search_text = $_GET['s'];
                     $ds_user = DB::table('users')
                         ->where('display_name', 'like', '%' . $search_text . '%')
+                        ->orWhere('username', 'like', '%' . $search_text . '%')
+                        ->orWhere('email', 'like', '%' . $search_text . '%')
+                        ->orWhere('phone', 'like', '%' . $search_text . '%')
+                        ->orWhere('role', 'like', '%' . $search_text . '%')
                         ->orderBy('users.id', 'desc')
                         ->paginate(15);
                     Session::put('tasks_url', $request->fullUrl());

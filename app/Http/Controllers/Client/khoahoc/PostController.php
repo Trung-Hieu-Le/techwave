@@ -40,7 +40,6 @@ class PostController extends Controller
     }
     public function post_detail($post_name)
     {
-        //TODO: được xem các kh có gia_giam=0 (free); hiện đang sửa lại kiểu ko course mà có lessons
         try {
             $course = $coursePaid = DB::table('courses')->where('slug', '=', $post_name)->first();
             $lessons = DB::table("lessons")

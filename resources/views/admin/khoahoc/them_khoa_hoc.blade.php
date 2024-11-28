@@ -66,7 +66,7 @@
                                         <label for="tieu_de" class="input-label">Tên khóa học
                                             <b>(<=60)</b>
                                             <span>Có:</span>
-                                            <b><span id="count"></span></b>
+                                            <b><span id="count"></span> <span class="text-danger">(*)</span></b>
                                         </label>
 
                                         <div class="input-group input-group-merge">
@@ -89,7 +89,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="projectNameProjectSettingsLabel" class="input-label">Slug <i
+                                        <label for="projectNameProjectSettingsLabel" class="input-label">Slug <span class="text-danger">(*)</span><i
                                                 class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                                 data-placement="top"
                                                 title=""
@@ -114,7 +114,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="tieu_de" class="input-label">Giá gốc
+                                        <label for="tieu_de" class="input-label">Giá gốc <span class="text-danger">(*)</span>
                                         </label>
     
                                         <div class="input-group input-group-merge">
@@ -123,7 +123,7 @@
                                                     <i class="tio-briefcase-outlined"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control" name="gia_goc" id="tieu_de"
+                                            <input type="text" class="form-control" name="gia_goc" id="tieu_de" pattern="[0-9]*" title="Chỉ được nhập số"
                                                 placeholder="Nhập tổng học phí gốc" aria-label="Enter project name here" required>
                                         </div>
                                     </div>
@@ -133,7 +133,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="tieu_de" class="input-label">Giá giảm
+                                        <label for="tieu_de" class="input-label">Giá giảm <span class="text-danger">(*)</span>
                                         </label>
     
                                         <div class="input-group input-group-merge">
@@ -142,7 +142,7 @@
                                                     <i class="tio-briefcase-outlined"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control" name="gia_giam" id="tieu_de"
+                                            <input type="text" class="form-control" name="gia_giam" id="tieu_de" pattern="[0-9]*" title="Chỉ được nhập số"
                                                 placeholder="Nhập học phí sau khi giảm" aria-label="Enter project name here" required>
                                         </div>
                                     </div>
@@ -153,7 +153,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả<i
+                                        <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả <span class="text-danger">(*)</span><i
                                                 class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                                 data-placement="top"
                                                 title=""
@@ -189,7 +189,7 @@
                                         <label for="projectNameProjectSettingsLabel" class="input-label">Mô tả
                                             <b>(<140)</b>
                                             <span>Có:</span>
-                                            <b><span id="count1"></span></b>
+                                            <b><span id="count1"></span> <span class="text-danger">(*)</span></b>
                                         </label>
 
                                         <div class="input-group input-group-merge">

@@ -39,7 +39,7 @@
                             <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="tieu_de" class="input-label">Họ tên khách hàng
+                                    <label for="tieu_de" class="input-label">Họ tên khách hàng <span class="text-danger">(*)</span>
                                     </label>
 
                                     <div class="input-group input-group-merge">
@@ -57,7 +57,7 @@
                             <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="tieu_de" class="input-label">Tài khoản mua hàng
+                                    <label for="tieu_de" class="input-label">Tài khoản mua hàng <span class="text-danger">(*)</span>
                                     </label>
                                     <div class="input-group input-group-merge">
                                         <div class="input-group-prepend">
@@ -81,7 +81,7 @@
                             <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="tieu_de" class="input-label">Số điện thoại
+                                    <label for="tieu_de" class="input-label">Số điện thoại <span class="text-danger">(*)</span>
                                     </label>
 
                                     <div class="input-group input-group-merge">
@@ -91,7 +91,7 @@
                                             </div>
                                         </div>
                                         <input id="so_dien_thoai" name="so_dien_thoai" type="text" value="{{$cart_detail->so_dien_thoai}}"
-                                        placeholder="Nhập số điện thoại" aria-label="Enter project name here"
+                                        placeholder="Nhập số điện thoại" aria-label="Enter project name here" pattern="[0-9]*" title="Chỉ được nhập số"
                                         class="form-control">
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@
                             <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="tieu_de" class="input-label">Email
+                                    <label for="tieu_de" class="input-label">Email <span class="text-danger">(*)</span>
                                     </label>
 
                                     <div class="input-group input-group-merge">
@@ -121,7 +121,7 @@
                             <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="tieu_de" class="input-label">Giá gốc
+                                    <label for="tieu_de" class="input-label">Giá gốc <span class="text-danger">(*)</span>
                                     </label>
 
                                     <div class="input-group input-group-merge">
@@ -131,7 +131,7 @@
                                             </div>
                                         </div>
                                         <input type="text" class="form-control" name="gia_goc" id="tieu_de" value="{{$cart_detail->gia_goc}}"
-                                            placeholder="Nhập tổng học phí gốc" aria-label="Enter project name here" required>
+                                            placeholder="Nhập tổng học phí gốc" aria-label="Enter project name here" required pattern="[0-9]*" title="Chỉ được nhập số">
                                     </div>
                                 </div>
                                 <!-- End Form Group -->
@@ -140,7 +140,7 @@
                             <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="tieu_de" class="input-label">Giá giảm
+                                    <label for="tieu_de" class="input-label">Giá giảm <span class="text-danger">(*)</span>
                                     </label>
 
                                     <div class="input-group input-group-merge">
@@ -150,7 +150,7 @@
                                             </div>
                                         </div>
                                         <input type="text" class="form-control" name="gia_giam" id="tieu_de" value="{{$cart_detail->gia_giam}}"
-                                            placeholder="Nhập học phí sau khi giảm" aria-label="Enter project name here" required>
+                                            placeholder="Nhập học phí sau khi giảm" aria-label="Enter project name here" required pattern="[0-9]*" title="Chỉ được nhập số">
                                     </div>
                                 </div>
                                 <!-- End Form Group -->
@@ -158,7 +158,7 @@
                             <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="tieu_de" class="input-label">Trạng thái phiếu
+                                    <label for="tieu_de" class="input-label">Trạng thái phiếu <span class="text-danger">(*)</span>
                                     </label>
                                     <select id="trang_thai" name="trang_thai" value="{{$cart_detail->trang_thai}}" class="form-control">
                                         <option value="Chưa mua" {{($cart_detail->trang_thai == "Chưa mua") ? 'selected' : ''}}>Chưa mua</option>

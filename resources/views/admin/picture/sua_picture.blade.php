@@ -28,7 +28,7 @@
 
                     <div class="d-flex justify-content-between">
                         <div class="form-group">
-                            <label class="input-label" for="avatarUploader">Ảnh</label>
+                            <label class="input-label" for="avatarUploader">Ảnh <span class="text-danger">(*)</span></label>
                             <div class="d-flex align-items-center position-relative">
                                 <!-- Avatar -->
                                 <label class="avatar avatar-xl avatar-uploader mr-5" for="avatarUploader" style="width:100%; height:100%; object-fit:contain;">
@@ -73,7 +73,7 @@
             <div class="col-6">
                 <!-- Form Group -->
                 <div class="form-group">
-                    <label for="projectNameProjectSettingsLabel" class="input-label">Tên hình ảnh<i
+                    <label for="projectNameProjectSettingsLabel" class="input-label">Tên hình ảnh <span class="text-danger">(*)</span><i
                         class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                         data-placement="top"
                         title=""
@@ -97,7 +97,7 @@
             <div class="col-6">
                 <!-- Form Group -->
                 <div class="form-group">
-                    <label for="projectNameProjectSettingsLabel" class="input-label">Phân loại<i
+                    <label for="projectNameProjectSettingsLabel" class="input-label">Phân loại <span class="text-danger">(*)</span><i
                             class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                             data-placement="top"
                             title=""
@@ -135,7 +135,7 @@
             <div class="col-6">
                 <!-- Form Group -->
                 <div class="form-group">
-                    <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả<i
+                    <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả <span class="text-danger">(*)</span><i
                             class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                             data-placement="top"
                             title=""
@@ -187,44 +187,5 @@
 
 
     </div>
-
-    {{--        <section class="content">--}}
-    {{--            <div class="col-6">--}}
-    {{--                <form action="{{route('themBV')}}" method="post">--}}
-    {{--                    @csrf--}}
-    {{--                    <div class="form-group">--}}
-    {{--                        <label for="exampleInputEmail1">Tiêu đề</label>--}}
-    {{--                        <input type="text" name="tieu_de" class="form-control" placeholder="Tiêu đề">--}}
-    {{--                    </div>--}}
-    {{--                    <div class="form-group">--}}
-    {{--                        <label for="exampleInputEmail1">Nội dung</label>--}}
-    {{--                        <input type="text" id="noi_dung" name="noi_dung" placeholder="Nhập nội dung bài viết"> </input>--}}
-    {{--                    </div>--}}
-    {{--                    <div class="form-group">--}}
-    {{--                        <label for="exampleInputEmail1">Tác giả </label>--}}
-    {{--                        <input type="number" name="name" class="form-control" placeholder="Tác giả">--}}
-    {{--                    </div>--}}
-    {{--                    <div class="form-group">--}}
-    {{--                        <label for="exampleInputEmail1">Date </label>--}}
-    {{--                        <input type="datetime-local" name="date" class="form-control" placeholder="Date">--}}
-    {{--                    </div>--}}
-
-    {{--                    <div class="form-group">--}}
-    {{--                        <label for="exampleInputEmail1">modified </label>--}}
-    {{--                        <input type="datetime-local" name="modified" class="form-control" placeholder="Date">--}}
-    {{--                    </div>--}}
-    {{--                    <div class="form-group">--}}
-    {{--                        <label for="exampleInputEmail1">name</label>--}}
-    {{--                        <input type="text" name="name" class="form-control" placeholder="name">--}}
-    {{--                    </div>--}}
-    {{--                    <div class="col-md-12 text-center ">--}}
-    {{--                        <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Enter</button>--}}
-    {{--                    </div>--}}
-    {{--                </form>--}}
-    {{--            </div>--}}
-
-    {{--        </section>--}}
-
-
 
 @endsection

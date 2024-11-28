@@ -24,7 +24,7 @@
                         <div class="card-body">
                             <!-- Form Group -->
                             <div class="row form-group">
-                                <label for="emailLabel" class="col-sm-3 col-form-label input-label">Name</label>
+                                <label for="emailLabel" class="col-sm-3 col-form-label input-label">Name <span class="text-danger">(*)</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" name="term_name" required
                                            placeholder="VD: Hướng dẫn...">
@@ -33,7 +33,7 @@
                             <!-- End Form Group -->
                             <!-- Form Group -->
                             <div class="row form-group">
-                                <label for="emailLabel" class="col-sm-3 col-form-label input-label">Slug</label>
+                                <label for="emailLabel" class="col-sm-3 col-form-label input-label">Slug <span class="text-danger">(*)</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" name="term_slug" required
                                            placeholder="VD: huongdan, huong-dan,...">

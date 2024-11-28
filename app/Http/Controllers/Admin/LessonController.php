@@ -163,6 +163,7 @@ class LessonController extends Controller
                         ->join('courses', 'lesson_relationships.id_course', 'courses.id')
                         ->leftJoin('users', 'users.id', 'lessons.id_author')
                         ->where('lessons.lesson_title', 'like', '%' . $search_text . '%')
+                        ->orWhere('courses.name', 'like', '%' . $search_text . '%')
                         ->orderBy('lessons.id', 'desc')
                         ->paginate(15);
                     Session::put('tasks_url', $request->fullUrl());

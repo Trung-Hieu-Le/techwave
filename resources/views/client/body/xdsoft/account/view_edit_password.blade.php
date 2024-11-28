@@ -47,7 +47,7 @@
                                 <form class="js-validate" action="{{Request::root().'/action-edit-password'}}"
                                     method="post">
                                     @csrf
-                                    <input type="hidden" name="account_id" value="{{ request('id') }}">
+                                    <input type="hidden" name="account_id" value="{{ session('account_id_forget') }}">
 
                                     <div class="text-center">
                                         <div class="mb-3">

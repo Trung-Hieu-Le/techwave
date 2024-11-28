@@ -126,7 +126,7 @@
                         <div class="form-group col-6">
                             <label class="input-label">Số điện thoại</label>
                             <input type="text" class="form-control" name="phone" required
-                                value="{{ $user->phone }}">
+                                value="{{ $user->phone }}" pattern="[0-9]*" title="Chỉ được nhập số">
                         </div>
                     </div>
                 </div>

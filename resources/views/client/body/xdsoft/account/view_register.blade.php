@@ -83,7 +83,7 @@
 
                                         <input type="text" class="form-control form-control-md" name="phone"
                                             id="signinSrEmail" tabindex="1" placeholder="Số điện thoại"
-                                            aria-label="email@address.com" required
+                                            aria-label="email@address.com" required pattern="[0-9]*" title="Chỉ được nhập số"
                                             data-msg="Please enter a valid email address.">
                                     </div>
                                     <!-- Form Group -->

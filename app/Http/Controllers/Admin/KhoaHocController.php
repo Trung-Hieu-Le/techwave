@@ -39,7 +39,6 @@ class KhoaHocController extends Controller
             return abort(404);
         }
     }
-    //TODO: tên slug khóa học phải độc nhất ko trùng 
     public function themKhoaHoc()
     {
 

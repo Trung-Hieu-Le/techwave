@@ -70,14 +70,8 @@ class AccountController extends Controller
                     $request->session()->put('account_name', $user[0]->display_name);
                     $request->session()->put('account_role', $user[0]->role);
                     $request->session()->put('account_id', $user[0]->id);
-                    if ($request->session()->has('previous_url_before_login')) {
-                        // Lấy URL trang trước đó và chuyển hướng đến nó
-                        $previousUrl = $request->session()->pull('previous_url_before_login');
-                        return redirect()->to($previousUrl);
-                    } else {
-                        // Nếu không có URL trang trước đó, chuyển hướng đến một trang mặc định
-                        return redirect('/');
-                    }
+                    return redirect('/');
+                    
                 } else {
                     $err = "Sai tài khoản hoặc mật khẩu";
                     return view('client.body.xdsoft.account.view_login', compact('err'));
@@ -145,10 +139,7 @@ class AccountController extends Controller
                     ->first();
                 if ($user) {
                     // $request->session()->put('account_id', $user[0]->id);
-                    //TODO: lộ id
-                    return redirect()->route('xdsoft.account.editPassword', [
-                        'id' => $user->id
-                    ]);
+                    return redirect()->route('xdsoft.account.editPassword')->with('account_id_forget', $user->id);
                 } else {
                     $err = "Sai tài khoản hoặc email";
                     return view('client.body.xdsoft.account.view_forget_password', compact('err'));
@@ -170,9 +161,8 @@ class AccountController extends Controller
             $account_id = $request->account_id;
             if (!empty($account_id)) {
                 if ($request->password == $request->confirm_password) {
-
                     $rs = DB::table('users')
-                        ->where('users.id', '=', session('account_id'))
+                        ->where('users.id', '=', $account_id)
                         ->update([
                             'password' => $request->password,
                             'updated_at' => date('y-m-d h:i:s'),

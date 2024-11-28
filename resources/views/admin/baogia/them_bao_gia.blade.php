@@ -33,7 +33,7 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="tieu_de" class="input-label">Họ tên khách hàng
+                                    <label for="tieu_de" class="input-label">Họ tên khách hàng <span class="text-danger">(*)</span>
                                     </label>
 
                                     <div class="input-group input-group-merge">
@@ -141,7 +141,7 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="tieu_de" class="input-label">SĐT khách hàng
+                                    <label for="tieu_de" class="input-label">SĐT khách hàng <span class="text-danger">(*)</span>
                                     </label>
 
                                     <div class="input-group input-group-merge">
@@ -151,7 +151,7 @@
                                             </div>
                                         </div>
                                         <input type="text" class="form-control" name="phone" id="tieu_de"
-                                            placeholder="SĐT khách hàng" aria-label="Enter project name here" pattern="[0-9]+" title="Chỉ nhập chữ số" required>
+                                            placeholder="SĐT khách hàng" aria-label="Enter project name here" pattern="[0-9]*" title="Chỉ được nhập số" required>
                                     </div>
                                 </div>
                                 <!-- End Form Group -->
@@ -160,7 +160,7 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="tieu_de" class="input-label">Thông tin
+                                    <label for="tieu_de" class="input-label">Thông tin <span class="text-danger">(*)</span>
                                     </label>
 
                                     <div class="input-group input-group-merge">
@@ -183,7 +183,7 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="projectNameProjectSettingsLabel" class="input-label">Người yêu cầu tư vấn<i
+                                    <label for="projectNameProjectSettingsLabel" class="input-label">Người yêu cầu tư vấn <span class="text-danger">(*)</span><i
                                             class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                             data-placement="top"
                                             title=""

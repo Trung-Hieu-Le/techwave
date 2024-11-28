@@ -132,6 +132,8 @@ class BaoGiaController extends Controller
                     $search_text = $_GET['s'];
                     $ds_bao_gia = DB::table('advices')
                         ->where('ho_ten', 'like', '%' . $search_text . '%')
+                        ->orWhere('tinh_thanh', 'like', '%' . $search_text . '%')
+                        ->orWhere('phone', 'like', '%' . $search_text . '%')
                         ->orderBy('id', 'desc')
                         ->simplePaginate(15);
                     Session::put('tasks_url', $request->fullUrl());

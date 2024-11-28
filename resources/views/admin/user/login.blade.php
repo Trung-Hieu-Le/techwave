@@ -61,7 +61,7 @@
 
                             <!-- Form Group -->
                             <div class="js-form-message form-group">
-                                <label class="input-label" for="signinSrEmail">Tên tài khoản</label>
+                                <label class="input-label" for="signinSrEmail">Tên tài khoản <span class="text-danger">(*)</span></label>
 
                                 <input type="email" class="form-control form-control-lg" name="username" id="signinSrEmail"
                                        tabindex="1" placeholder="email@address.com" aria-label="email@address.com"
@@ -71,8 +71,7 @@
 
                             <!-- Form Group -->
                             <div class="js-form-message form-group">
-        
-
+                                <label class="input-label" for="signinSrEmail">Mật khẩu <span class="text-danger">(*)</span></label>
                                 <div class="input-group input-group-merge">
                                     <input type="password" class="js-toggle-password form-control form-control-lg"
                                            name="password" id="signupSrPassword" placeholder="8+ characters required"

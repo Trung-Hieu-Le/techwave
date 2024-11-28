@@ -159,7 +159,6 @@ class PictureController extends Controller
             return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa hình ảnh!');
         }
     }
-    //TODO: search nhiều lĩnh vực, cho các loại find khác nữa
     public function findPicture(Request $request)
     {
         try {
@@ -169,6 +168,7 @@ class PictureController extends Controller
                     $search_text = $_GET['s'];
                     $ds_pictures = DB::table('pictures')
                         ->where('picture_name', 'like', '%' . $search_text . '%')
+                        ->orWhere('picture_type', 'like', '%' . $search_text . '%')
                         ->orderBy('id', 'desc')
                         ->simplePaginate(15);
                     Session::put('tasks_url', $request->fullUrl());

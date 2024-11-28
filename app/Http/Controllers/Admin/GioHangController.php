@@ -186,6 +186,9 @@ class GioHangController extends Controller
                             'invoices.trang_thai'
                         )
                         ->where('invoices.ho_ten', 'like', '%' . $search_text . '%')
+                        ->orWhere('invoices.trang_thai', 'like', '%' . $search_text . '%')
+                        ->orWhere('invoices.email', 'like', '%' . $search_text . '%')
+                        ->orWhere('invoices.so_dien_thoai', 'like', '%' . $search_text . '%')
                         ->orderBy('invoices.id', 'desc')
                         ->simplePaginate(15);
                     Session::put('tasks_url', $request->fullUrl());

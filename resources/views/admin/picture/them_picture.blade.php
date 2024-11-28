@@ -28,7 +28,7 @@
 
                     <div class="d-flex justify-content-between">
                         <div class="form-group">
-                            <label class="input-label" for="avatarUploader">Ảnh</label>
+                            <label class="input-label" for="avatarUploader">Ảnh <span class="text-danger">(*)</span></label>
                             <div class="d-flex align-items-center position-relative">
                                 <!-- Avatar -->
                                 <label class="avatar avatar-xl avatar-uploader mr-5" for="avatarUploader" style="width:100%; height:100%; object-fit:contain;">
@@ -65,7 +65,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="projectNameProjectSettingsLabel" class="input-label">Tên hình ảnh<i
+                                        <label for="projectNameProjectSettingsLabel" class="input-label">Tên hình ảnh <span class="text-danger">(*)</span><i
                                             class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                             data-placement="top"
                                             title=""
@@ -88,7 +88,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="projectNameProjectSettingsLabel" class="input-label">Phân loại<i
+                                        <label for="projectNameProjectSettingsLabel" class="input-label">Phân loại <span class="text-danger">(*)</span><i
                                                 class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                                 data-placement="top"
                                                 title=""
@@ -119,7 +119,7 @@
                                 <div class="col-6">
                                     <!-- Form Group -->
                                     <div class="form-group">
-                                        <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả<i
+                                        <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả <span class="text-danger">(*)</span><i
                                                 class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                                 data-placement="top"
                                                 title=""

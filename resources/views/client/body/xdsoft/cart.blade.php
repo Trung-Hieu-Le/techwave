@@ -51,17 +51,7 @@
 
                     <div class="modal-container-shopping row">
                         <div class="cart-inner col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
-                            <div>
-                                @if(session('success'))
-                                    <div class="alert alert-success" role="alert">
-                                        {{ session('success') }}
-                                    </div>
-                                @elseif(session('fail'))
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ session('fail') }}
-                                    </div>
-                                @endif
-                            </div>
+                            
                             <table id="datatable"
                                 class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table dataTable no-footer"
                                 role="grid" aria-describedby="datatable_info">
@@ -107,15 +97,15 @@
                                     <p class="text-title"><b style="font-size: 18px">Khách hàng</b></p>
                                     <span class="input-customer name-customer">
                                         <input type="text" name="ho_ten" class="form-control" id="validationDefault01"
-                                            placeholder="Họ tên" required value="{{$current_user->display_name}}">
+                                            placeholder="Họ tên (*)" required value="{{$current_user->display_name}}">
                                     </span>
                                     <span class="input-customer number-customer">
                                         <input type="text" name="so_dien_thoai" class="form-control" value="{{$current_user->phone}}"
-                                            id="validationDefault02" placeholder="Số điện thoại" required>
+                                            id="validationDefault02" placeholder="Số điện thoại (*)" required pattern="[0-9]*" title="Chỉ được nhập số">
                                     </span>
                                     <span class="input-customer email-customer">
                                         <input type="email" name="email" class="form-control" id="validationDefault03"
-                                        placeholder="Email" required value="{{$current_user->email}}">
+                                        placeholder="Email (*)" required value="{{$current_user->email}}">
                                     </span>
                                     {{-- <span class="input-customer address-customer">
                                         <input type="text" name="dia_chi" class="form-control" id="validationDefault04"
