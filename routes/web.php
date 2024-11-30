@@ -24,6 +24,8 @@ Route::controller(App\Http\Controllers\Client\MainController::class)->group(func
     Route::get('/chitiet/tintuc/chude/{news}', 'detail_chude')->name('xdsoft.detail.chude');
     Route::get('/giohang', 'cart')->name('xdsoft.cart');
     Route::post('/insert/baogia', 'insert_bao_gia')->name('xdsoft.create.baogia');
+    Route::get('/tracnghiem', 'tracnghiem')->name('xdsoft.tracnghiem');
+
 });
 
 Route::controller(App\Http\Controllers\Client\account\AccountController::class)->group(function () {
@@ -41,6 +43,7 @@ Route::controller(App\Http\Controllers\Client\account\AccountController::class)-
     Route::get('/change-password', 'changePassword')->name('xdsoft.account.changePassword'); 
     Route::post('/action-change-password', 'actionChangePassword')->name('xdsoft.account.actionChangePassword');     
     Route::get('/logout', 'indexLogout')->name('xdsoft.account.logout'); 
+    Route::post('/courses/favorite', 'toggleFavoriteCourse')->name('xdsoft.account.favoriteCourse');
 });
 
 Route::prefix('/admin')->group(function () {
@@ -128,6 +131,21 @@ Route::prefix('/admin')->group(function () {
     Route::patch('/toggle-comment-post-show/{id}', 'Admin\BaiVietController@toggleCommentShow')->name('show_comment_BV');
     Route::delete('/delete-comment-post/{id}', 'Admin\BaiVietController@deleteComment')->name('delete_comment_BV');
 
+    Route::get('/them-bai-trac-nghiem', 'Admin\QuizController@themTracNghiem')->name('them_trac_nghiem');
+    Route::post('/insert-bai-trac-nghiem', 'Admin\QuizController@insertTracNghiem')->name('insert_trac_nghiem');
+    Route::get('/index-bai-trac-nghiem', 'Admin\QuizController@indexTracNghiem')->name('index_trac_nghiem');
+    Route::get('/edit-bai-trac-nghiem/{id}', 'Admin\QuizController@pageEditTracNghiem')->name('page_edit_trac_nghiem');
+    Route::post('/edit-bai-trac-nghiem', 'Admin\QuizController@editTracNghiem')->name('edit_trac_nghiem');
+    Route::get('/delete-bai-trac-nghiem/{id}', 'Admin\QuizController@deleteTracNghiem')->name('delete_trac_nghiem');
+    Route::get('/find-bai-trac-nghiem', 'Admin\QuizController@findTracNghiem')->name('find_trac_nghiem');
+
+    Route::get('/them-history-trac-nghiem', 'Admin\QuizAttemptController@themHistoryTracNghiem')->name('them_history_trac_nghiem');
+    Route::post('/insert-history-trac-nghiem', 'Admin\QuizAttemptController@insertHistoryTracNghiem')->name('insert_history_trac_nghiem');
+    Route::get('/index-history-trac-nghiem', 'Admin\QuizAttemptController@indexHistoryTracNghiem')->name('index_history_trac_nghiem');
+    Route::get('/edit-history-trac-nghiem/{id}', 'Admin\QuizAttemptController@pageEditHistoryTracNghiem')->name('page_edit_history_trac_nghiem');
+    Route::post('/edit-history-trac-nghiem', 'Admin\QuizAttemptController@editHistoryTracNghiem')->name('edit_history_trac_nghiem');
+    Route::get('/delete-history-trac-nghiem/{id}', 'Admin\QuizAttemptController@deleteHistoryTracNghiem')->name('delete_history_trac_nghiem');
+    Route::get('/find-history-trac-nghiem', 'Admin\QuizAttemptController@findHistoryTracNghiem')->name('find_history_trac_nghiem');
 });
 
 Route::controller(App\Http\Controllers\Client\giohang\GioHangController::class)->group(function () {
@@ -156,8 +174,10 @@ Route::controller(App\Http\Controllers\Client\khoahoc\PostController::class)->gr
     // Route::post('/khoa-hoc/reply-comment', 'replyComment')->name('khoahoc.replyComment');
 
 });
-// Route::controller(App\Http\Controllers\Client\dohoa\PostController::class)->group(function () {
-//     Route::get('/baiviet/{slug}', 'tutorial_cate')->name('dohoa.tutorial');
-// });
+Route::controller(App\Http\Controllers\Client\tracnghiem\QuizController::class)->group(function () {
+    Route::get('/tracnghiem/{id}', 'show')->name('quiz.show');
+Route::post('/tracnghiem/{id}/submit', 'submit')->name('quiz.submit');
 
+
+});
 

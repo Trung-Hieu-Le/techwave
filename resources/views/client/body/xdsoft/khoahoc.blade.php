@@ -5,6 +5,7 @@
 @section('content-right')
 <style>
   .form-control, .form-control:hover { background-color: #fff!important; color: black!important;}
+
 </style>
 
 <link rel="stylesheet" href="{{ asset('css/card.css') }}">
@@ -84,6 +85,19 @@
                     <div class="card card-hover border-0 text-start">
                         <img src="{{$item->img}}" class="card-img-top img-fluid w-100" alt="...">
                         <div class="card-body">
+                          <div class="favorite-icon-container position-absolute top-0 end-0 p-2">
+                            @php
+                                $isFavorite = DB::table('favorite_courses')
+                                    ->where('id_user', session('account_id'))
+                                    ->where('id_course', $item->id)
+                                    ->exists();
+                            @endphp
+                            <i 
+                                class="fa fa-heart favorite-icon" 
+                                data-course-id="{{ $item->id }}" 
+                                style="font-size: 2rem; color: {{ $isFavorite ? '#fe5f75' : '#adacad' }}; cursor: pointer;"
+                            ></i>
+                          </div>
                             <h5 class="card-title text-dark fw-bolder">{{$item->name}}</h5>
                             <div class="star-rating mb-2" data-rating="{{ $item->average_rate ?? 0 }}"></div>
                             <div class="text-muted">
@@ -123,6 +137,19 @@
                     <div class="card card-hover border-0 text-start">
                         <img src="{{ $item->img }}" class="card-img-top img-fluid w-100 rounded" alt="...">
                         <div class="card-body">
+                          <div class="favorite-icon-container position-absolute top-0 end-0 p-2">
+                            @php
+                                $isFavorite = DB::table('favorite_courses')
+                                    ->where('id_user', session('account_id'))
+                                    ->where('id_course', $item->id)
+                                    ->exists();
+                            @endphp
+                            <i 
+                                class="fa fa-heart favorite-icon" 
+                                data-course-id="{{ $item->id }}" 
+                                style="font-size: 2rem; color: {{ $isFavorite ? '#fe5f75' : '#adacad' }}; cursor: pointer;"
+                            ></i>
+                          </div>
                             <h5 class="card-title overflow-hidden text-dark fw-bolder">{{ $item->name }}</h5>
                             <div class="star-rating mb-2" data-rating="{{ $item->average_rate ?? 0 }}"></div>
                             <div class="text-muted">
@@ -184,17 +211,48 @@
         768: { items: 2 },
         1200: { items: 3 }
     }
+  });
+
+  $('.paid-courses-carousel').owlCarousel({
+      loop: false,
+      nav: true,
+      responsive: {
+          0: { items: 1 },
+          768: { items: 2 },
+          1200: { items: 3 }
+      }
+  });
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.favorite-icon').forEach(icon => {
+        icon.addEventListener('click', function (event) {
+            event.preventDefault(); // Ngăn chuyển trang
+            const courseId = this.getAttribute('data-course-id');
+
+            fetch('/courses/favorite', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({ course_id: courseId }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        this.style.color = data.is_favorite ? '#fe5f75' : '#adacad';
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Đã xảy ra lỗi, vui lòng thử lại sau!');
+                });
+        });
+    });
 });
 
-$('.paid-courses-carousel').owlCarousel({
-    loop: false,
-    nav: true,
-    responsive: {
-        0: { items: 1 },
-        768: { items: 2 },
-        1200: { items: 3 }
-    }
-});
+
 
 </script>
 @endsection

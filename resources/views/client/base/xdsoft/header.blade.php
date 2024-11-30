@@ -25,7 +25,9 @@
                         <li class="nav-item ms-1 me-5">
                             <a class="nav-link fw-semibold " href="{{ route('xdsoft.khoahoc')}}" style="color:#040404 ;z-index: 2;">KHÓA HỌC</a>
                         </li>
-                        
+                        <li class="nav-item ms-1 me-5">
+                            <a class="nav-link fw-semibold " href="{{ route('xdsoft.tracnghiem')}}" style="color:#040404 ;z-index: 2;">KIỂM TRA</a>
+                        </li>
                         <li class="nav-item ms-1 me-5">
                             <a class="nav-link fw-semibold " href="{{ route('xdsoft.baiviet')}}" style="color:#040404 ;z-index: 2;">BÀI VIẾT</a>
                         </li>

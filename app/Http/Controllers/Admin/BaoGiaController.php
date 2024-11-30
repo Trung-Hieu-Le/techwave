@@ -17,7 +17,7 @@ class BaoGiaController extends Controller
                 //                $index = 1;
                 $ds_bao_gia = DB::table('advices')
                     ->orderBy('id', 'desc')
-                    ->simplePaginate(15);
+                    ->paginate(15);
                 Session::put('tasks_url', $request->fullUrl());
                 return view("admin.baogia.danh_sach_bao_gia", compact('ds_bao_gia'));
             } else {
@@ -135,7 +135,7 @@ class BaoGiaController extends Controller
                         ->orWhere('tinh_thanh', 'like', '%' . $search_text . '%')
                         ->orWhere('phone', 'like', '%' . $search_text . '%')
                         ->orderBy('id', 'desc')
-                        ->simplePaginate(15);
+                        ->paginate(15);
                     Session::put('tasks_url', $request->fullUrl());
                     return view("admin.baogia.danh_sach_bao_gia", compact('ds_bao_gia', 'search_text'));
                 } else {

@@ -102,6 +102,7 @@
                                                         <option value="" disabled hidden>Chọn tác giả</option>
                                                         @foreach($users as $user)
                                                         @if($lesson_detail->id_author == $user->id && $lesson_detail->id_author == 1)
+                                                        {{-- TODO: cb??? --}}
                                                         <option value="1" selected>cb</option>
                                                         @else
                                                         <option value="{{$user->id}}" {{($lesson_detail->id_author == $user->id) ? 'selected' : ''}}>{{$user->display_name}}</option>

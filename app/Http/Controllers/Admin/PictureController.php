@@ -18,7 +18,7 @@ class PictureController extends Controller
                 //                $index = 1;
                 $ds_pictures = DB::table('pictures')
                     ->orderBy('id', 'desc')
-                    ->simplePaginate(15);
+                    ->paginate(15);
                 Session::put('tasks_url', $request->fullUrl());
                 return view("admin.picture.danh_sach_picture", compact('ds_pictures'));
             } else {
@@ -170,7 +170,7 @@ class PictureController extends Controller
                         ->where('picture_name', 'like', '%' . $search_text . '%')
                         ->orWhere('picture_type', 'like', '%' . $search_text . '%')
                         ->orderBy('id', 'desc')
-                        ->simplePaginate(15);
+                        ->paginate(15);
                     Session::put('tasks_url', $request->fullUrl());
                     return view("admin.picture.danh_sach_picture", compact('ds_pictures', 'search_text'));
                 } else {

@@ -27,6 +27,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div class="form-group">
+                                    {{-- TODO: avatar can null --}}
                                     <label class="input-label" for="avatarUploader">Ảnh đại diện <span class="text-danger">(*)</span></label>
                                     <div class="d-flex align-items-center position-relative">
                                         <!-- Avatar -->
@@ -134,7 +135,26 @@
                                 </div>
                             </div>
 
-
+                            <div class="form-group row">
+                                <label for="inputGroupMergeGenderSelect" class=" col-sm-3 input-label">Khóa học đang theo dõi</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="tio-user-outlined"></i>
+                                        </span>
+                                        </div>
+                                        <select name="favorite_courses[]" id="favorite_courses"
+                                                class="form-control" multiple multiselect-search="true">
+    
+                                                @foreach($courses as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                                @endforeach
+    
+                                            </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- End Body -->
 

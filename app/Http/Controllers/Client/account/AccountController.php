@@ -71,7 +71,6 @@ class AccountController extends Controller
                     $request->session()->put('account_role', $user[0]->role);
                     $request->session()->put('account_id', $user[0]->id);
                     return redirect('/');
-                    
                 } else {
                     $err = "Sai tài khoản hoặc mật khẩu";
                     return view('client.body.xdsoft.account.view_login', compact('err'));
@@ -217,7 +216,12 @@ class AccountController extends Controller
                 ->where('invoices.id_user', session('account_id'))
                 ->where('invoices.trang_thai', 'Đã thanh toán')
                 ->get()->toArray();
-            return view('client.body.xdsoft.account.view_profile', compact('user', 'purchasedCourses'));
+            $favoriteCourses = DB::table('courses')
+                ->select('courses.name', 'courses.img', 'description', 'favorite_courses.created_at as favorite_date')
+                ->join('favorite_courses', 'courses.id', 'favorite_courses.id_course')
+                ->where('favorite_courses.id_user', session('account_id'))
+                ->get()->toArray();
+            return view('client.body.xdsoft.account.view_profile', compact('user', 'purchasedCourses', 'favoriteCourses'));
         } catch (\Exception $e) {
             return view('errors.404');
         }
@@ -335,6 +339,41 @@ class AccountController extends Controller
         } catch (\Exception $e) {
             $err = 'Có lỗi xảy ra khi thực hiện đổi mật khẩu!';
             return view('client.body.xdsoft.account.change_password', compact('err'));
+        }
+    }
+
+    public function toggleFavoriteCourse(Request $request)
+    {
+        try {
+            if (!session()->has('account_id')) {
+                return response()->json(['success' => false, 'message' => 'Bạn cần đăng nhập để theo dõi khóa học.']);
+            }
+            $userId = session('account_id');
+            $courseId = $request->course_id;
+            $exists = DB::table('favorite_courses')->where('id_user', $userId)->where('id_course', $courseId)->exists();
+            if ($exists) {
+                DB::table('favorite_courses')->where('id_user', $userId)->where('id_course', $courseId)->delete();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Đã xóa khỏi danh sách theo dõi!',
+                    'is_favorite' => false,
+                ]);
+            } else {
+                DB::table('favorite_courses')->insert([
+                    'id_user' => $userId,
+                    'id_course' => $courseId,
+                    'created_at' => now(),
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Đã thêm vào danh sách theo dõi!',
+                    'is_favorite' => true,
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi theo dõi khóa học.']);
         }
     }
 }

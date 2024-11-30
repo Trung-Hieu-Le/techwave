@@ -95,6 +95,7 @@ class UserController extends Controller
                 // $file_image->save($path);
                 $file_image->move(public_path('images'), $name_image);
             }
+            //TODO: sử dụng insertGetId ở đây
             $rs = DB::table('users')->insert([
                 'username' => $request->username,
                 'password' => $request->password,
@@ -107,6 +108,15 @@ class UserController extends Controller
                 'avatar' =>  URL::to('') . '/images/' . $name_image,
 
             ]);
+            if ($request->favorite_courses) {
+                $rs = DB::table('users')->select("id")->orderBy("id", "desc")->first();
+                foreach ($request->favorite_courses as $key) {
+                    DB::table('favorite_courses')->insert([
+                        'id_user' => $rs->id,
+                        'id_course' => $key,
+                    ]);
+                }
+            }
             return redirect('/admin/index-user')->with('success', 'Thêm tài khoản thành công!');
         } catch (\Exception $e) {
             return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tài khoản!');
@@ -125,12 +135,13 @@ class UserController extends Controller
                 ->where("users.id", '=', $request->id)
                 ->get()->toArray()[0];
             $courses = DB::table('courses')->get()->toArray();
-            return view('admin.user.edit_user', compact('user', 'courses'));
+            $favorite_courses = DB::table('favorite_courses')->where('id_user', $user->id)->get()->toArray();
+            return view('admin.user.edit_user', compact('user', 'courses', 'favorite_courses'));
         } catch (\Exception $e) {
             return abort(404);
         }
     }
-    //TODO: add phone, avatar; pattern các loại phone và giá: pattern="[0-9]*" title="Chỉ được nhập số"
+    //TODO: add phone, avatar; pattern các loại phone và giá: pattern="[0-9]*" title="Chỉ được nhập số"; kiểm tra full password
     public function edit_user(Request $request)
     {
         try {
@@ -179,7 +190,15 @@ class UserController extends Controller
                         'role' => $request->quyen,
                     ]);
                 }
-
+                if ($request->favorite_courses) {
+                    DB::table('favorite_courses')->where('id_user', $request->id)->delete();
+                    foreach ($request->favorite_courses as $key) {
+                        DB::table('favorite_courses')->insert([
+                            'id_user' => $request->id,
+                            'id_course' => $key,
+                        ]);
+                    }
+                }
                 return redirect()->route('index_user')->with('success', 'Sửa tài khoản thành công!');
             } else {
                 $err = 'Hết phiên đăng nhập, vui lòng đăng nhập lại!';

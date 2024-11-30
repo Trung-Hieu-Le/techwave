@@ -288,6 +288,42 @@
                             <i class="tio-apps nav-icon"></i>
                             <span
                                 class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate"
+                            >Quản lý bộ câu hỏi
+                   </span>
+                        </a>
+
+                        <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link "
+                                    href="{{Request::root().'/admin/index-bai-trac-nghiem'}}"
+                                    title="Calendar"
+                                >
+                                    <span class="tio-circle nav-indicator-icon"></span>
+                                    <span class="text-truncate">Danh sách câu hỏi trắc nghiệm</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link "
+                                    href="{{Request::root().'/admin/index-history-trac-nghiem'}}"
+                                    title="Kanban"
+                                >
+                                    <span class="tio-circle nav-indicator-icon"></span>
+                                    <span class="text-truncate">Danh sách lịch sử kiểm tra</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="navbar-vertical-aside-has-menu ">
+                        <a
+                            class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
+                            href="javascript:;"
+                            title="Apps"
+                        >
+                            <i class="tio-apps nav-icon"></i>
+                            <span
+                                class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate"
                             >Quản lý bài viết
                    </span>
                         </a>

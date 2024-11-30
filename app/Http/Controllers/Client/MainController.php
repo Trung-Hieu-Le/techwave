@@ -211,4 +211,32 @@ class MainController extends Controller
             return abort(404);
         }
     }
+
+    public function tracnghiem(Request $request)
+    {
+        try {
+            $search = $request->input('search', '');
+            $quizzes = DB::table('quizzes')
+                ->leftJoin('questions', 'quizzes.id', '=', 'questions.id_quiz')
+                ->select('quizzes.*', DB::raw('COUNT(questions.id) as question_count'))
+                ->where('quizzes.title', 'LIKE', "%{$search}%")
+                ->groupBy('quizzes.id')
+                ->paginate(10);
+                $recentAttempts = [];
+                if ($request->session()->has('account_id')) {
+                    $recentAttempts = DB::table('quiz_histories')
+                        ->join('quizzes', 'quiz_histories.id_quiz', '=', 'quizzes.id')
+                        ->leftJoin('questions', 'quizzes.id', '=', 'questions.id_quiz')
+                        ->select('quizzes.title', 'quiz_histories.score', 'quiz_histories.created_at', DB::raw('COUNT(questions.id) as question_count'))
+                        ->where('quiz_histories.id_user', $request->session()->get('account_id'))
+                        ->groupBy('quizzes.id', 'quiz_histories.id')
+                        ->orderBy('quiz_histories.created_at', 'desc')
+                        ->limit(6)
+                        ->get();
+                }
+            return view('client.body.xdsoft.tracnghiem', compact('quizzes', 'search', 'recentAttempts'));
+        } catch (\Exception $e) {
+            return view('errors.404');
+        }
+    }
 }

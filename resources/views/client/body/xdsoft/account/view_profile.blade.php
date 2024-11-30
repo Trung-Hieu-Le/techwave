@@ -5,6 +5,11 @@
 <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 <link rel="stylesheet" href="{{ asset('css/card.css') }}">
 <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
 <style>
     /* Container for the form */
     .profile-form-container {
@@ -59,6 +64,10 @@
     .text-title {
         font-size: 24px;
         margin-bottom: 20px;
+    }
+
+    .owl-nav {
+        display: none !important;
     }
 </style>
 @endsection
@@ -126,30 +135,77 @@
             </div>
             <!-- End User Info Display -->
 
-            <!-- Purchased Courses List -->
             <div class="col-lg-8 col-md-12 mb-4">
-                <div class="course-list-container">
-                    <h4 class="text-title"><b>KHÓA HỌC ĐÃ MUA</b></h4>
-                    <div class="course-list">
-                        @forelse ($purchasedCourses as $course)
-                            <div class="course-item border p-3 mb-3 rounded row">
+                <div class="paid-courses-carousel owl-carousel">
+                    @forelse ($purchasedCourses as $course)
+                        <div class="course-item border p-3 mb-3 rounded">
+                            <div class="row">
                                 <div class="col-3 px-0">
-                                    <img src="{{$course->img}}" alt="{{$course->name}}"
-                                    class="img-responsive img_1 lazy" style="height: 150px; width:180px; object-fit:cover;">
+                                    <img src="{{ $course->img }}" alt="{{ $course->name }}"
+                                        class="img-responsive img_1 lazy" 
+                                        style="height: 150px; width: 180px; object-fit: cover;">
                                 </div>
                                 <div class="col-9 px-0">
                                     <p class="fs-3"><strong>{{ $course->name }}</strong></p>
-                                    <p class="fs-5 text-dark">{{$course->description}}</p>
+                                    <p class="fs-5 text-dark">{{ $course->description }}</p>
                                     <p class="fs-5 text-secondary">Ngày mua: {{ $course->purchase_date }}</p>
                                 </div>
                             </div>
+                        </div>
+                    @empty
+                        <p>Bạn chưa mua khóa học nào.</p>
+                    @endforelse
+                </div>
+                
+                <div class="course-list-container">
+                    <h4 class="text-title"><b>KHÓA HỌC ĐÃ THEO DÕI</b></h4>
+                    <div class="course-list favorite-courses-carousel">
+                        @forelse ($favoriteCourses as $course)
+                            <div class="course-item border p-3 mb-3 rounded">
+                                <div class="row">
+                                    <div class="col-3 px-0">
+                                        <img src="{{ $course->img }}" alt="{{ $course->name }}"
+                                            class="img-responsive img_1 lazy" 
+                                            style="height: 150px; width: 180px; object-fit: cover;">
+                                    </div>
+                                    <div class="col-9 px-0">
+                                        <p class="fs-3"><strong>{{ $course->name }}</strong></p>
+                                        <p class="fs-5 text-dark">{{ $course->description }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         @empty
-                            <p>Bạn chưa mua khóa học nào.</p>
+                            <p>Bạn chưa theo dõi khóa học nào.</p>
                         @endforelse
                     </div>
                 </div>
             </div>
+            
         </div>
     </section>
 </main>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    $('.paid-courses-carousel').owlCarousel({
+        loop: false,
+        nav: false,
+        responsive: {
+            0: { items: 1 },
+            768: { items: 2 },
+            1200: { items: 3 }
+        }
+    });
+
+    $('.favorite-courses-carousel').owlCarousel({
+        loop: false,
+        nav: false,
+        responsive: {
+            0: { items: 1 },
+            768: { items: 2 },
+            1200: { items: 3 }
+        }
+    });
+});
+
+</script>
 @endsection

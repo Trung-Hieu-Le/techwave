@@ -28,7 +28,7 @@ class GioHangController extends Controller
                         'invoices.trang_thai'
                     )
                     ->orderBy('invoices.id', 'desc')
-                    ->simplePaginate(15);
+                    ->paginate(15);
 
                 Session::put('tasks_url', $request->fullUrl());
                 return view("admin.giohang.danh_sach_gio_hang", compact('ds_invoices'));
@@ -190,7 +190,7 @@ class GioHangController extends Controller
                         ->orWhere('invoices.email', 'like', '%' . $search_text . '%')
                         ->orWhere('invoices.so_dien_thoai', 'like', '%' . $search_text . '%')
                         ->orderBy('invoices.id', 'desc')
-                        ->simplePaginate(15);
+                        ->paginate(15);
                     Session::put('tasks_url', $request->fullUrl());
                     return view("admin.giohang.danh_sach_gio_hang", compact('ds_invoices'));
                 } else {

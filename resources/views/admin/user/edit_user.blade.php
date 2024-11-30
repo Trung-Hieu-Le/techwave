@@ -136,8 +136,30 @@
                                     </div>
                                 </div>
                             </div>
-
-
+                            <div class="form-group row">
+                                <label for="inputGroupMergeGenderSelect" class=" col-sm-3 input-label">Khóa học đang theo dõi</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="tio-user-outlined"></i>
+                                        </span>
+                                        </div>
+                                        <select name="favorite_courses[]" id="favorite_courses"
+                                                class="form-control" multiple multiselect-search="true">
+    
+                                                @foreach($courses as $course)
+                                                    <option value="{{$course->id}}"
+                                                        @foreach($favorite_courses as $item) 
+                                                            {{($item->id_course == $course->id) ? 'selected': ''}}
+                                                        @endforeach>
+                                                        {{ $course->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- End Body -->
 
