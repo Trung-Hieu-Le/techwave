@@ -51,7 +51,7 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <!-- Form Group -->
                                 <div class="form-group">
-                                    <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả <span class="text-danger">(*)</span><i
+                                    <label for="projectNameProjectSettingsLabel" class="input-label">Phân loại<i
                                             class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
                                             data-placement="top"
                                             title=""
@@ -63,16 +63,12 @@
                                                 <i class="tio-briefcase-outlined"></i>
                                             </div>
                                         </div>
-                                        <select name="id_author" id="tac_gia"
+                                        <select name="category" id="projectNameProjectSettingsLabel"
                                                 class="form-control">
-                                            @foreach($users as $user)
-                                                @if(session()->get('tk_user')[0] == $user->username)
-                                                    <option value="{{$user->id}}"
-                                                            >{{$user->display_name}}</option>
-                                                @else
-                                                    <option value="{{$user->id}}">{{$user->display_name}}</option>
-                                                @endif
-
+                                            <option value="">-- Chọn một lựa chọn --</option>
+                                            @foreach($course_categories as $category)
+                                                <option
+                                                    value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach
 
                                         </select>
@@ -120,6 +116,40 @@
                                                 placeholder="Mô tả đề kiểm tra" aria-label="Enter project name here" required>
                                         </div>
                                         
+                                    </div>
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="projectNameProjectSettingsLabel" class="input-label">Tác giả <span class="text-danger">(*)</span><i
+                                            class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
+                                            data-placement="top"
+                                            title=""
+                                            data-original-title="Displayed on public forums, such as Front."></i></label>
+
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="tio-briefcase-outlined"></i>
+                                            </div>
+                                        </div>
+                                        <select name="id_author" id="tac_gia"
+                                                class="form-control">
+                                            @foreach($users as $user)
+                                                @if(session()->get('tk_user')[0] == $user->username)
+                                                    <option value="{{$user->id}}"
+                                                            >{{$user->display_name}}</option>
+                                                @else
+                                                    <option value="{{$user->id}}">{{$user->display_name}}</option>
+                                                @endif
+
+                                            @endforeach
+
+                                        </select>
                                     </div>
                                 </div>
                                 <!-- End Form Group -->

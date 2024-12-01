@@ -43,7 +43,9 @@ class QuizController extends Controller
             }
             //TODO: kiểm tra các user role này
             $users = DB::table('users')->select("id", 'username', "display_name")->whereNot('role', 'user')->get()->toArray();
-            return view('admin.tracnghiem.them_trac_nghiem', compact('users'));
+            $course_categories = DB::table('course_categories')
+                ->get()->toArray();
+            return view('admin.tracnghiem.them_trac_nghiem', compact('users', 'course_categories'));
         } catch (\Exception $e) {
             return abort(404);
         }
@@ -71,6 +73,7 @@ class QuizController extends Controller
                 'duration' => $request->duration,
                 'description' => $request->description,
                 //TODO: Phân loại=course_categories
+                'category' => $request->category,
                 'created_at' => date('y-m-d h:i:s'),
                 'updated_at' => date('y-m-d h:i:s'),
             ]);
@@ -106,7 +109,8 @@ class QuizController extends Controller
                 ->first();
             $question_detail = DB::table('questions')->where('id_quiz', '=', $request->id)->get()->toArray();
             $users = DB::table('users')->whereNot('role', 'user')->get()->toArray();
-            return view('admin.tracnghiem.sua_trac_nghiem', compact('quiz_detail', 'question_detail', 'users'));
+            $course_categories = DB::table('course_categories')->get()->toArray();
+            return view('admin.tracnghiem.sua_trac_nghiem', compact('quiz_detail', 'question_detail', 'users', 'course_categories'));
         } catch (\Exception $e) {
             return abort(404);
         }
@@ -132,6 +136,7 @@ class QuizController extends Controller
                         'duration' => $request->duration,
                         'description' => $request->description,
                         //TODO: Phân loại=course_categories
+                        'category' => $request->category,
                         'updated_at' => date('y-m-d h:i:s'),
                     ]);
 

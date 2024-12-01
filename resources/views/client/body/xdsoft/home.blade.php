@@ -357,7 +357,8 @@
                 </div>
               </div>
             </section>
-
+            {{-- TODO: sua lai cho nay neu count post<4 --}}
+            @if ($post && count($post) >4)
             <section class="w-100 g-2 mb-2 row justify-content-center">
                 <div class="category-item " style="width:85%; max-width:1400px;">
                     <section class="category_tin_tuc ele-reveal left">
@@ -403,6 +404,7 @@
                     </section>
                 </div>
             </section>
+            @endif
           </article>
 
         </aside>

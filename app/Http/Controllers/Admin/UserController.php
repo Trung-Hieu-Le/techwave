@@ -75,6 +75,7 @@ class UserController extends Controller
             return abort(404);
         }
     }
+    //TODO: mật khẩu bị mã hóa ko biết vì sao
     public function insert_user(Request $request)
     {
         try {

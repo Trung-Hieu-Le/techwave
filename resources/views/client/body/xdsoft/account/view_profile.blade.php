@@ -92,14 +92,16 @@
                     <h4 class="text-title"><b>THÔNG TIN CÁ NHÂN</b></h4>
                     
                     <!-- Avatar -->
-                    <div class="form-group">
-                        <label class="input-label">Ảnh đại diện</label>
-                        <div class="text-center">
-                            <img class="avatar-img shadow-soft"
-                                src="{{ $user->avatar ? asset($user->avatar) : asset('image/no_img.jfif')}}"
-                                alt="Avatar" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 1px solid black;">
+                    <center>
+                        <div class="form-group">
+                            <label class="input-label">Ảnh đại diện</label>
+                            <div class="text-center">
+                                <img class="avatar-img shadow-soft"
+                                    src="{{ $user->avatar ? asset($user->avatar) : asset('image/no_img.jfif')}}"
+                                    alt="Avatar" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 1px solid black;">
+                            </div>
                         </div>
-                    </div>
+                    </center>
 
                     <!-- Username -->
                     <div class="form-group">
@@ -136,41 +138,53 @@
             <!-- End User Info Display -->
 
             <div class="col-lg-8 col-md-12 mb-4">
-                <div class="paid-courses-carousel owl-carousel">
-                    @forelse ($purchasedCourses as $course)
-                        <div class="course-item border p-3 mb-3 rounded">
-                            <div class="row">
-                                <div class="col-3 px-0">
-                                    <img src="{{ $course->img }}" alt="{{ $course->name }}"
-                                        class="img-responsive img_1 lazy" 
-                                        style="height: 150px; width: 180px; object-fit: cover;">
-                                </div>
-                                <div class="col-9 px-0">
-                                    <p class="fs-3"><strong>{{ $course->name }}</strong></p>
-                                    <p class="fs-5 text-dark">{{ $course->description }}</p>
-                                    <p class="fs-5 text-secondary">Ngày mua: {{ $course->purchase_date }}</p>
+                <div class="course-list-container">
+                    <h4 class="text-title"><b>KHÓA HỌC ĐÃ MUA</b></h4>
+                    <div class="courses-carousel owl-carousel">
+                        @forelse ($purchasedCourses as $course)
+                            <div class="p-3">
+                                <div class="item card border rounded shadow-sm">
+                                    <img src="{{ $course->img }}" alt="{{ $course->name }}" 
+                                        class="card-img-top img-fluid w-100" 
+                                        style="height: 200px; object-fit: cover;">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title text-center mb-3">
+                                            <strong>{{ $course->name }}</strong>
+                                        </h5>
+                                        <p class="card-text text-dark mb-2 fs-5">
+                                            {{ $course->description }}
+                                        </p>
+                                        <p class="text-secondary mt-auto fs-5 fst-italic">
+                                            Ngày mua: {{ $course->purchase_date }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @empty
+                        @empty
                         <p>Bạn chưa mua khóa học nào.</p>
-                    @endforelse
+                        @endforelse
+                    </div>
                 </div>
                 
-                <div class="course-list-container">
+                <div class="course-list-container mt-4">
                     <h4 class="text-title"><b>KHÓA HỌC ĐÃ THEO DÕI</b></h4>
-                    <div class="course-list favorite-courses-carousel">
+                    <div class="courses-carousel owl-carousel">
                         @forelse ($favoriteCourses as $course)
-                            <div class="course-item border p-3 mb-3 rounded">
-                                <div class="row">
-                                    <div class="col-3 px-0">
-                                        <img src="{{ $course->img }}" alt="{{ $course->name }}"
-                                            class="img-responsive img_1 lazy" 
-                                            style="height: 150px; width: 180px; object-fit: cover;">
-                                    </div>
-                                    <div class="col-9 px-0">
-                                        <p class="fs-3"><strong>{{ $course->name }}</strong></p>
-                                        <p class="fs-5 text-dark">{{ $course->description }}</p>
+                            <div class="p-3">
+                                <div class="item card border rounded shadow-sm">
+                                    <img src="{{ $course->img }}" alt="{{ $course->name }}" 
+                                        class="card-img-top img-fluid w-100" 
+                                        style="height: 200px; object-fit: cover;">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title text-center mb-3">
+                                            <strong>{{ $course->name }}</strong>
+                                        </h5>
+                                        <p class="card-text text-dark mb-2 fs-5">
+                                            {{ $course->description }}
+                                        </p>
+                                        <p class="text-secondary mt-auto fs-5 fst-italic">
+                                            Ngày theo dõi: {{ $course->favorite_date }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -186,17 +200,7 @@
 </main>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-    $('.paid-courses-carousel').owlCarousel({
-        loop: false,
-        nav: false,
-        responsive: {
-            0: { items: 1 },
-            768: { items: 2 },
-            1200: { items: 3 }
-        }
-    });
-
-    $('.favorite-courses-carousel').owlCarousel({
+    $('.courses-carousel').owlCarousel({
         loop: false,
         nav: false,
         responsive: {

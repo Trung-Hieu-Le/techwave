@@ -80,7 +80,7 @@
           @if($freeCourses)
           <div class="free-courses-carousel owl-carousel">
             @foreach ($freeCourses as $item)
-            <div class="item p-3">
+            <div class="item p-3" title="{{ $item->name }} - {{ $item->description }} (Ngày tạo: {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }})">
                 <a href="{{route('khoahoc.post',['slug'=>$item->slug])}}" class="text-decoration-none">
                     <div class="card card-hover border-0 text-start">
                         <img src="{{$item->img}}" class="card-img-top img-fluid w-100" alt="...">
