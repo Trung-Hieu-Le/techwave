@@ -4,6 +4,36 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+    <style>
+        .comment-box {
+        margin-bottom: 15px;
+    }
+
+    .user-info {
+        display: flex;
+    }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .comment-content {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-left: 50px;
+        padding: 10px 10px 0 10px;
+    }
+    .comment-content p {
+        font-size: 12px;
+    }
+
+    .comment-actions {
+        text-align: right;
+    }
+    </style>
 @endsection
 @section('content')
     <div class="content container mb-4 nav-top">

@@ -179,7 +179,7 @@
                                             <!-- Các đáp án -->
                                             @foreach(['A', 'B', 'C', 'D'] as $option)
                                                 <div class="row mb-2 align-items-center">
-                                                    <div class="col-1 pb-4">
+                                                    <div class="col-1">
                                                         <input type="radio" name="questions[{{ $index }}][correct_option]" value="{{ $option }}" {{ $question->correct_option == $option ? 'checked' : '' }}>
                                                     </div>
                                                     <div class="col-1">

@@ -83,6 +83,86 @@
   .star-rating > span:hover ~ span:before {
     color: gold; /* Màu ngôi sao golden khi di chuột qua */
   }
+
+  .stars {
+        display: inline-flex;
+        cursor: pointer;
+    }
+
+    .star {
+        font-size: 2rem;
+        color: gray;
+        transition: color 0.2s;
+    }
+
+    .star.selected,
+    .star.hovered {
+        color: gold;
+    }
+
+    .tab-container {
+        display: flex;
+        margin: 20px;
+    }
+
+    .tab {
+        cursor: pointer;
+        /* margin-right: 20px; */
+    }
+
+    .tab img {
+        max-width: 100px;
+        height: auto;
+        border: 1px solid #ccc;
+    }
+
+    .video-container {
+        margin: 20px;
+    }
+
+    .iframe-wrapper {
+        /* max-width: 800px; */
+        width: 100%;
+    }
+
+    .iframe-container {
+        position: relative;
+        padding-top: 56.25%;
+        /* Tỉ lệ 16:9 */
+    }
+
+    .iframe-container iframe {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .comment-box {
+        margin-bottom: 15px;
+    }
+
+    .user-info {
+        display: flex;
+    }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .comment-content {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-left: 50px;
+        padding: 10px 0 0 10px;
+    }
+    .comment-content p {
+        font-size: 12px;
+    }
 </style>
 @endsection
 @section('content')

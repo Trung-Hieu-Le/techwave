@@ -1,36 +1,6 @@
 @extends('client.body.xdsoft.tintuc.layout_tin_tuc')
 
 @section('content-left')
-    <style>
-        .comment-box {
-        margin-bottom: 15px;
-    }
-
-    .user-info {
-        display: flex;
-    }
-
-    .avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
-    }
-
-    .comment-content {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin-left: 50px;
-        padding: 10px 10px 0 10px;
-    }
-    .comment-content p {
-        font-size: 12px;
-    }
-
-    .comment-actions {
-        text-align: right;
-    }
-    </style>
     @if(session('success'))
         <div class="alert alert-success" role="alert">
             {{ session('success') }}
@@ -98,7 +68,7 @@
             @foreach($comments as $comment)
             <div class="comment-box mb-4">
                 <div class="user-info">
-                    <img src="{{ asset($comment->avatar) }}" alt="Avatar" class="avatar">
+                    <img src="{{ $comment->avatar ? asset($comment->avatar) : asset('image/no_img.jfif') }}" alt="Avatar" class="avatar">
                     <strong class="fs-5">{{ $comment->display_name }}</strong>
                     <div class="ms-3"><small>Bình luận lúc {{ \Carbon\Carbon::parse($comment->created_at)->format('d-m-Y H:i:s') }}</small></div>
                 </div>
@@ -136,7 +106,7 @@
                         @foreach($comment->replies as $reply)
                         <div class="reply-box ml-3 mb-2">
                             <div class="user-info">
-                                <img src="{{ asset($reply->avatar) }}" alt="Avatar" class="avatar">
+                                <img src="{{ $reply->avatar ? asset($reply->avatar) : asset('image/no_img.jfif') }}" alt="Avatar" class="avatar">
                                 <strong class="fs-5">{{ $reply->display_name }}</strong>
                                 <div class="ms-3"><small>Bình luận lúc {{ \Carbon\Carbon::parse($reply->created_at)->format('d-m-Y H:i:s') }}</small></div>
                             </div>

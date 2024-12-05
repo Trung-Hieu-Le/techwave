@@ -163,7 +163,7 @@ class MainController extends Controller
     public function cart()
     {
         try {
-            $current_user = DB::table('users')->where('display_name', session('account_name'))->first();
+            $current_user = DB::table('users')->where('id', session('account_id'))->first();
             if (!session()->has('account_id') || empty($current_user)) {
                 $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
                 return redirect('/login')->with('err', $err);

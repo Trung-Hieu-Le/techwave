@@ -36,7 +36,7 @@
                                          src="{{$course_detail->img}}" alt="Image Description">
 
                                     <span class="avatar-uploader-trigger">
-                                    <i class="tio-edit avatar-uploader-icon shadow-soft"></i>
+                                    <i class="tio-edit avatar-uploader-icon shadow-soft">+</i>
                                     </span>
                                 </label>
                                 <input type="file" class="js-file-attach avatar-uploader-input form-control"

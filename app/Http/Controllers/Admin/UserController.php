@@ -83,9 +83,13 @@ class UserController extends Controller
                 $err = 'Hết phiên đăng nhập, vui lòng đăng nhập lại!';
                 return redirect('/admin/login')->with('err', $err);
             }
-            $existingUser = DB::table('users')->where('username', $request->username)->first();
+            $existingUser = DB::table('users')
+            ->where('username', $request->username)
+            ->orWhere('email', $request->email)
+            ->orWhere('phone', $request->phone)
+            ->first();
             if ($existingUser) {
-                return redirect()->back()->with('fail', 'Username đã tồn tại!');
+                return redirect()->back()->with('fail', 'Username, email hoặc số điện thoại đã tồn tại!');
             }
             if ($request->has('image_upload')) {
                 $file_image = $request->file('image_upload');
@@ -120,7 +124,7 @@ class UserController extends Controller
             }
             return redirect('/admin/index-user')->with('success', 'Thêm tài khoản thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tài khoản!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tài khoản!' . $e->getMessage());
         }
     }
 
@@ -142,7 +146,7 @@ class UserController extends Controller
             return abort(404);
         }
     }
-    //TODO: add phone, avatar; pattern các loại phone và giá: pattern="[0-9]*" title="Chỉ được nhập số"; kiểm tra full password
+    //TODO: kiểm tra full password; trùng email, sđt
     public function edit_user(Request $request)
     {
         try {
@@ -150,9 +154,16 @@ class UserController extends Controller
             if (
                 isset($ses) && ($request->session()->get('role')[0] == 'admin')
             ) {
-                $existingUser = DB::table('users')->where('username', $request->username)->whereNot('id', $request->id)->first();
+                $existingUser = DB::table('users')
+                    ->where(function ($query) use ($request) {
+                        $query->where('username', $request->username)
+                            ->orWhere('email', $request->email)
+                            ->orWhere('phone', $request->phone);
+                    })
+                    ->whereNot('id', $request->id)
+                    ->first();
                 if ($existingUser) {
-                    return redirect()->back()->with('fail', 'Username đã tồn tại!');
+                    return redirect()->back()->with('fail', 'Username, email hoặc số điện thoại đã tồn tại!');
                 }
 
                 if ($request->has('image_upload')) {
@@ -165,31 +176,31 @@ class UserController extends Controller
                     $file_image->move(public_path('images'), $name_image);
 
                     DB::table('users')
-                    ->where('users.id', '=', $request->id)
-                    ->update([
-                        'username' => $request->username,
-                        'password' => $request->password,
-                        'display_name' => $request->full_name,
-                        'phone' => $request->phone,
-                        'email' => $request->email == null ? "" : $request->email,
-                        'created_at' => date('y-m-d h:i:s'),
-                        'updated_at' => date('y-m-d h:i:s'),
-                        'role' => $request->quyen,
-                        'avatar' =>  URL::to('') . '/images/' . $name_image,
-                    ]);
+                        ->where('users.id', '=', $request->id)
+                        ->update([
+                            'username' => $request->username,
+                            'password' => $request->password,
+                            'display_name' => $request->full_name,
+                            'phone' => $request->phone,
+                            'email' => $request->email == null ? "" : $request->email,
+                            'created_at' => date('y-m-d h:i:s'),
+                            'updated_at' => date('y-m-d h:i:s'),
+                            'role' => $request->quyen,
+                            'avatar' =>  URL::to('') . '/images/' . $name_image,
+                        ]);
                 } else {
                     DB::table('users')
-                    ->where('users.id', '=', $request->id)
-                    ->update([
-                        'username' => $request->username,
-                        'password' => $request->password,
-                        'display_name' => $request->full_name,
-                        'phone' => $request->phone,
-                        'email' => $request->email == null ? "" : $request->email,
-                        'created_at' => date('y-m-d h:i:s'),
-                        'updated_at' => date('y-m-d h:i:s'),
-                        'role' => $request->quyen,
-                    ]);
+                        ->where('users.id', '=', $request->id)
+                        ->update([
+                            'username' => $request->username,
+                            'password' => $request->password,
+                            'display_name' => $request->full_name,
+                            'phone' => $request->phone,
+                            'email' => $request->email == null ? "" : $request->email,
+                            'created_at' => date('y-m-d h:i:s'),
+                            'updated_at' => date('y-m-d h:i:s'),
+                            'role' => $request->quyen,
+                        ]);
                 }
                 if ($request->favorite_courses) {
                     DB::table('favorite_courses')->where('id_user', $request->id)->delete();
