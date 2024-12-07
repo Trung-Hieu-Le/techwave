@@ -63,7 +63,7 @@ class TermHuongDanController extends Controller
             ]);
             return redirect()->route('index_terms_HD')->with('success', 'Thêm tag bài viết thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tag bài viết!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tag bài viết: '. $e->getMessage());
         }
     }
     public function pageEditTermHuongDan(Request $request)
@@ -105,7 +105,7 @@ class TermHuongDanController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa tag bài viết!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa tag bài viết: '. $e->getMessage());
         }
     }
 
@@ -124,7 +124,7 @@ class TermHuongDanController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa tag bài viết!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa tag bài viết: '. $e->getMessage());
         }
     }
     public function findTermHuongDan(Request $request)

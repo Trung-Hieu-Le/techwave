@@ -59,7 +59,7 @@ class BaoGiaController extends Controller
             ]);
             return redirect()->route('index_bao_gia')->with('success', 'Thêm yêu cầu tư vấn thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm yêu cầu tư vấn!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm yêu cầu tư vấn: '. $e->getMessage());
         }
     }
     public function pageEditBaoGia(Request $request)
@@ -102,7 +102,7 @@ class BaoGiaController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa yêu cầu tư vấn!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa yêu cầu tư vấn: '. $e->getMessage());
         }
     }
 
@@ -119,7 +119,7 @@ class BaoGiaController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa yêu cầu tư vấn!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa yêu cầu tư vấn: '. $e->getMessage());
         }
     }
 

@@ -76,7 +76,7 @@ class QuizAttemptController extends Controller
             ]);
             return redirect()->route('index_history_trac_nghiem')->with('success', 'Thêm lịch sử làm bài thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm lịch sử làm bài!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm lịch sử kiểm tra: '. $e->getMessage());
         }
     }
 
@@ -123,7 +123,7 @@ class QuizAttemptController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa lịch sử kiểm tra!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa lịch sử kiểm tra: '. $e->getMessage());
         }
     }
 
@@ -141,7 +141,7 @@ class QuizAttemptController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa lịch sử kiểm tra!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa lịch sử kiểm tra: '. $e->getMessage());
         }
     }
 

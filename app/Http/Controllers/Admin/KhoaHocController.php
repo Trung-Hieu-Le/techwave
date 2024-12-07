@@ -105,7 +105,7 @@ class KhoaHocController extends Controller
             }
             return redirect()->route('index_khoa_hoc')->with('success', 'Thêm khóa học thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm khóa học!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm khóa học: '. $e->getMessage());
         }
     }
     public function pageEditKhoaHoc(Request $request)
@@ -212,7 +212,7 @@ class KhoaHocController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa khóa học!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa khóa học: '. $e->getMessage());
         }
     }
 
@@ -232,7 +232,7 @@ class KhoaHocController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa khóa học!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa khóa học: '. $e->getMessage());
         }
     }
     public function findKhoaHoc(Request $request)

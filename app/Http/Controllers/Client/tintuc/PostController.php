@@ -81,7 +81,7 @@ class PostController extends Controller
                 return redirect('/login')->with('err', $err);
             }
         } catch (\Throwable $th) {
-            return back()->with('fail', 'Bình luận chưa được gửi!');
+            return back()->with('fail', 'Bình luận chưa được gửi: '. $th->getMessage());
         }
     }
 
@@ -110,7 +110,7 @@ class PostController extends Controller
                 return redirect('/login')->with('err', $err);
             }
         } catch (\Throwable $th) {
-            return back()->with('fail', 'Bình luận chưa được gửi!');
+            return back()->with('fail', 'Bình luận chưa được gửi: '. $th->getMessage());
         }
     }
 
@@ -131,7 +131,7 @@ class PostController extends Controller
                 // return redirect('/login')->with('err', $err);
             }
         } catch (\Throwable $th) {
-            return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi báo cáo bình luận.']);
+            return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi báo cáo bình luận: '. $th->getMessage()]);
         }
     }
 }

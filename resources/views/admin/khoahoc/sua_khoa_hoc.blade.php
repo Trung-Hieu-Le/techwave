@@ -180,13 +180,8 @@
                                                     <optgroup label="Tác giả">
                                                         <option value="" disabled hidden>Chọn tác giả</option>
                                                         @foreach($users as $user)
-                                                        @if($course_detail->id_author == $user->id && $course_detail->id_author == 1)
-                                                        <option value="1" selected>cb</option>
-                                                        @else
-                                                        <option value="{{$user->id}}" {{($course_detail->id_author == $user->id) ? 'selected' : ''}}>{{$user->display_name}}</option>
-                                                        @endif
-                                                        @endforeach
-        
+                                                            <option value="{{$user->id}}" {{($course_detail->id_author == $user->id) ? 'selected' : ''}}>{{$user->display_name}}</option>
+                                                        @endforeach        
                                                     </optgroup>
 
                                             </select>

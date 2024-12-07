@@ -279,7 +279,7 @@ class AccountController extends Controller
 
             return redirect('/profile')->with('success', 'Sửa thông tin thành công!');;
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa hồ sơ cá nhân!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa hồ sơ cá nhân: '. $e->getMessage());
         }
     }
 
@@ -373,7 +373,7 @@ class AccountController extends Controller
                 ]);
             }
         } catch (\Throwable $th) {
-            return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi theo dõi khóa học.']);
+            return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi theo dõi khóa học: '. $th->getMessage()]);
         }
     }
 }

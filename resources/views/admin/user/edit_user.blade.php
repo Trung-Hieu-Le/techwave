@@ -2,7 +2,6 @@
 @section("main")
     <div class="row justify-content-lg-center">
         <div class="col-lg-8">
-            {{-- TODO: input quan trọng thì có sao đỏ --}}
 
             <!-- Content Step Form -->
             <div id="addUserStepFormContent">
@@ -108,7 +107,7 @@
                                 <label for="emailLabel" class="col-sm-3 col-form-label input-label">Password <span class="text-danger">(*)</span></label>
                                 <div class="col-sm-9">
                                     <input type="password" class="form-control"
-                                           name="password" id="" required value="{{$user->password}}"
+                                           name="password" id="" required value="{{$user->password}}" pattern=".{6,}" title="Vui lòng nhập từ 6 kí tự trở lên"
                                            placeholder="Mật khẩu đăng nhập" aria-label="clarice@example.com">
                                 </div>
                             </div>

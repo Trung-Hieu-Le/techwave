@@ -100,7 +100,6 @@ class UserController extends Controller
                 // $file_image->save($path);
                 $file_image->move(public_path('images'), $name_image);
             }
-            //TODO: sử dụng insertGetId ở đây
             $rs = DB::table('users')->insert([
                 'username' => $request->username,
                 'password' => $request->password,
@@ -110,7 +109,7 @@ class UserController extends Controller
                 'created_at' => date('y-m-d h:i:s'),
                 'updated_at' => date('y-m-d h:i:s'),
                 'role' => $request->quyen,
-                'avatar' =>  URL::to('') . '/images/' . $name_image,
+                'avatar' =>  isset($name_image) ? URL::to('') . '/images/' . $name_image : null,
 
             ]);
             if ($request->favorite_courses) {
@@ -124,11 +123,11 @@ class UserController extends Controller
             }
             return redirect('/admin/index-user')->with('success', 'Thêm tài khoản thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tài khoản!' . $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tài khoản: '. $e->getMessage());
         }
     }
 
-
+    //TODO: delete mềm
     public function page_edit_user(Request $request)
     {
         try {
@@ -146,7 +145,6 @@ class UserController extends Controller
             return abort(404);
         }
     }
-    //TODO: kiểm tra full password; trùng email, sđt
     public function edit_user(Request $request)
     {
         try {
@@ -217,7 +215,7 @@ class UserController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa tài khoản này!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa tài khoản này: '. $e->getMessage());
         }
     }
 
@@ -235,7 +233,7 @@ class UserController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa tài khoản!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa tài khoản: '. $e->getMessage());
         }
     }
 

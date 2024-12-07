@@ -73,7 +73,7 @@ class PictureController extends Controller
             $users = DB::table('users')->select("id", 'username', "display_name")->whereNot('role', 'user')->get()->toArray();
             return redirect()->route('them_picture', compact("users"))->with('success', 'Thêm hình ảnh thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm hình ảnh!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm hình ảnh: '. $e->getMessage());
         }
     }
     public function pageEditPicture(Request $request)
@@ -132,7 +132,7 @@ class PictureController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa hình ảnh!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa hình ảnh: '. $e->getMessage());
         }
     }
 
@@ -156,7 +156,7 @@ class PictureController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa hình ảnh!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa hình ảnh: '. $e->getMessage());
         }
     }
     public function findPicture(Request $request)

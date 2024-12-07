@@ -63,7 +63,7 @@ class TermKhoaHocController extends Controller
             ]);
             return redirect()->route('index_terms_KH')->with('success', 'Thêm tag khóa học thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tag khóa học!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tag khóa học: '. $e->getMessage());
         }
     }
     public function pageEditTermKhoaHoc(Request $request)
@@ -107,7 +107,7 @@ class TermKhoaHocController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa tag khóa học!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa tag khóa học: '. $e->getMessage());
         }
     }
 
@@ -126,7 +126,7 @@ class TermKhoaHocController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa tag khóa học!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa tag khóa học: '. $e->getMessage());
         }
     }
 

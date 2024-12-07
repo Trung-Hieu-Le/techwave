@@ -81,12 +81,8 @@
                                         </div>
                                         <select name="id_user" id="tac_gia"
                                                 class="form-control">
-                                            @foreach($users as $user)
-                                                @if($history_detail->id_user == $user->id && $history_detail->id_user == 1)
-                                                <option value="1" selected>cb</option>
-                                                @else
+                                            @foreach($users as $user)                                                
                                                 <option value="{{$user->id}}" {{($history_detail->id_user == $user->id) ? 'selected' : ''}}>{{$user->display_name}}</option>
-                                                @endif
                                             @endforeach
 
                                         </select>

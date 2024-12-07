@@ -58,7 +58,7 @@ class GioHangController extends Controller
             }
             return redirect()->back()->with('success', 'Đã thêm vào giỏ hàng!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm vào giỏ hàng!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm vào giỏ hàng: '. $e->getMessage());
         }
     }
 
@@ -110,7 +110,7 @@ class GioHangController extends Controller
             }
             return redirect()->route('xdsoft.cart')->with('success', 'Đã thêm vào giỏ hàng!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm vào giỏ hàng!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm vào giỏ hàng: '. $e->getMessage());
         }
     }
 
@@ -152,7 +152,7 @@ class GioHangController extends Controller
                 return response()->json(['message' => 'Không tìm thấy hóa đơn hợp lệ!'], 404);
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Có lỗi xảy ra khi xóa khóa học!'], 404);
+            return response()->json(['message' => 'Có lỗi xảy ra khi xóa khóa học: '. $e->getMessage()], 404);
         }
     }
 
@@ -180,7 +180,7 @@ class GioHangController extends Controller
             }
             return redirect()->back()->with('success', 'Đã xóa tất cả khóa học khỏi giỏ hàng!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Xóa tất cả khóa học thất bại!');
+            return redirect()->back()->with('fail', 'Xóa tất cả khóa học thất bại: '. $e->getMessage());
         }
     }
 
@@ -220,7 +220,7 @@ class GioHangController extends Controller
             GioHangController::deleteAllCart($request);
             return redirect()->back()->with('success', 'Đặt hàng thành công!');
         } catch (\Exception $e) {
-            return back()->with('fail', 'Đã xảy ra lỗi khi đặt hàng!');
+            return back()->with('fail', 'Đã xảy ra lỗi khi đặt hàng: '. $e->getMessage());
         }
     }
 
@@ -315,7 +315,7 @@ class GioHangController extends Controller
                 return redirect()->route('xdsoft.cart')->with('error', 'Thanh toán không thành công!');
             }
         } catch (\Exception $e) {
-            return redirect()->route('xdsoft.cart')->with('error', 'Xảy ra lỗi trong khi thanh toán! Vui lòng thử lại.');
+            return redirect()->route('xdsoft.cart')->with('error', 'Xảy ra lỗi trong khi thanh toán! Vui lòng thử lại. Chi tiết lỗi: '. $e->getMessage());
         }
     }
 }

@@ -25,7 +25,7 @@ class QuizController extends Controller
             $questions = DB::table('questions')->where('id_quiz', $id)->get();
             return view('client.body.xdsoft.tracnghiem.show', compact('quiz', 'questions'));
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Lỗi xảy ra khi tải quiz.');
+            return redirect()->back()->with('fail', 'Lỗi xảy ra khi tải quiz: '. $e->getMessage());
         }
     }
 
@@ -70,7 +70,7 @@ class QuizController extends Controller
             ]);
             return view('client.body.xdsoft.tracnghiem.result', compact('quiz', 'results', 'score'));
         } catch (\Exception $e) {
-            return back()->with('fail', 'Đã xảy ra lỗi khi nộp bài.');
+            return back()->with('fail', 'Đã xảy ra lỗi khi nộp bài: '. $e->getMessage());
         }
     }
 }

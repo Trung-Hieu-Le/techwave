@@ -41,7 +41,6 @@ class QuizController extends Controller
                 $err = 'Hết phiên đăng nhập, vui lòng đăng nhập lại!';
                 return redirect('/admin/login')->with('err', $err);
             }
-            //TODO: kiểm tra các user role này
             $users = DB::table('users')->select("id", 'username', "display_name")->whereNot('role', 'user')->get()->toArray();
             $course_categories = DB::table('course_categories')
                 ->get()->toArray();
@@ -72,7 +71,6 @@ class QuizController extends Controller
                 'id_author' => $request->id_author,
                 'duration' => $request->duration,
                 'description' => $request->description,
-                //TODO: Phân loại=course_categories
                 'category' => $request->category,
                 'created_at' => date('y-m-d h:i:s'),
                 'updated_at' => date('y-m-d h:i:s'),
@@ -93,7 +91,7 @@ class QuizController extends Controller
             }
             return redirect()->route('index_trac_nghiem')->with('success', 'Thêm đề kiểm tra thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm đề kiểm tra!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm đề kiểm tra: '. $e->getMessage());
         }
     }
 
@@ -135,7 +133,6 @@ class QuizController extends Controller
                         'id_author' => $request->id_author,
                         'duration' => $request->duration,
                         'description' => $request->description,
-                        //TODO: Phân loại=course_categories
                         'category' => $request->category,
                         'updated_at' => date('y-m-d h:i:s'),
                     ]);
@@ -163,7 +160,7 @@ class QuizController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa đề kiểm tra!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa đề kiểm tra: '. $e->getMessage());
         }
     }
 
@@ -182,7 +179,7 @@ class QuizController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa đề kiểm tra!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa đề kiểm tra: '. $e->getMessage());
         }
     }
 

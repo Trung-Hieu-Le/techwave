@@ -74,7 +74,7 @@ class LessonController extends Controller
             $courses = DB::table('courses')->select("id", 'name')->get()->toArray();
             return redirect()->route('them_lesson', compact("users"))->with('success', 'Thêm bài giảng thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm bài giảng!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm bài giảng: '. $e->getMessage());
         }
     }
     public function pageEditLesson(Request $request)
@@ -129,7 +129,7 @@ class LessonController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa bài giảng!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa bài giảng: '. $e->getMessage());
         }
     }
 
@@ -147,7 +147,7 @@ class LessonController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa bài giảng!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa bài giảng: '. $e->getMessage());
         }
     }
     public function findLesson(Request $request)

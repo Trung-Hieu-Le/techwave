@@ -143,11 +143,7 @@
                                                     <optgroup label="Tác giả">
                                                         <option value="" disabled hidden>Chọn tác giả</option>
                                                         @foreach($users as $user)
-                                                        @if($post_detail->post_author == $user->ID && $post_detail->post_author == 1)
-                                                        <option value="1" selected>cb</option>
-                                                        @else
-                                                        <option value="{{$user->ID}}" {{($post_detail->post_author == $user->ID) ? 'selected' : ''}}>{{$user->display_name}}</option>
-                                                        @endif
+                                                            <option value="{{$user->ID}}" {{($post_detail->post_author == $user->ID) ? 'selected' : ''}}>{{$user->display_name}}</option>
                                                         @endforeach
 
                                                     </optgroup>

@@ -27,7 +27,6 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div class="form-group">
-                                    {{-- TODO: avatar can null --}}
                                     <label class="input-label" for="avatarUploader">Ảnh đại diện <span class="text-danger">(*)</span></label>
                                     <div class="d-flex align-items-center position-relative">
                                         <!-- Avatar -->
@@ -85,7 +84,7 @@
                             <div class="row form-group">
                                 <label for="emailLabel" class="col-sm-3 col-form-label input-label">Số điện thoại <span class="text-danger">(*)</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="phone" id="emailLabel" value=" " pattern="[0-9]*" title="Chỉ được nhập số"
+                                    <input type="text" class="form-control" name="phone" id="emailLabel" pattern="[0-9]*" title="Chỉ được nhập số"
                                            placeholder="Số điện thoại" aria-label="clarice@example.com">
                                 </div>
                             </div>
@@ -95,24 +94,9 @@
                                 <label for="emailLabel" class="col-sm-3 col-form-label input-label">Password <span class="text-danger">(*)</span></label>
                                 <div class="col-sm-9">
                                     <input type="password" class="form-control"
-                                           pattern="(?=.*\d)(?=.*[A-Z]).{6,}"
-                                           title="Mật khẩu phải chứa ít nhất 1 số, 1 ký tự viết hoa và không nhỏ hơn 6 ký tự"
+                                           pattern=".{6,}" title="Vui lòng nhập từ 6 kí tự trở lên"
                                            name="password" id="password" required
                                            placeholder="Mật khẩu đăng nhập">
-                                </div>
-                                <label for="emailLabel" class="col-sm-3 col-form-label input-label"></label>
-                                <div id="message" class="col-sm-9">
-                                    <h6>Mật khẩu phải chứa ít nhất:</h6>
-                                    <div class="d-flex">
-                                        <div class="mr-2 pr-2">
-                                            <p id="capital" class="invalid">1 <b>ký tự viết hoa</b></p>
-                                            <p id="number" class="invalid">1 <b>số</b></p>
-                                        </div>
-                                        <div class="pl-2">
-                                            <p id="length" class="invalid">Ít nhất <b>6 ký tự</b></p>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
 

@@ -74,9 +74,8 @@
                                 <label class="input-label" for="signinSrEmail">Mật khẩu <span class="text-danger">(*)</span></label>
                                 <div class="input-group input-group-merge">
                                     <input type="password" class="js-toggle-password form-control form-control-lg"
-                                           name="password" id="signupSrPassword" placeholder="8+ characters required"
-                                           aria-label="8+ characters required" required=""
-                                          >
+                                           name="password" id="signupSrPassword" placeholder="6+ characters required"
+                                           aria-label="6+ characters required" required="" pattern=".{6,}" title="Vui lòng nhập từ 6 kí tự trở lên">
                                     <div id="changePassTarget" class="input-group-append">
                                         <a class="input-group-text" href="javascript:;">
                                             <i id="changePassIcon" class="tio-hidden-outlined"></i>

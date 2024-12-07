@@ -109,7 +109,7 @@
                                                 <i class="tio-briefcase-outlined"></i>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control" name="email" id="tieu_de" value="{{$cart_detail->email}}"
+                                        <input type="email" class="form-control" name="email" id="tieu_de" value="{{$cart_detail->email}}"
                                             placeholder="Email..." aria-label="Enter project name here">
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                                                 <i class="tio-briefcase-outlined"></i>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control" name="gia_goc" id="tieu_de" value="{{$cart_detail->gia_goc}}"
+                                        <input type="text" class="form-control" name="gia_goc" id="gia_goc" value="{{$cart_detail->gia_goc}}"
                                             placeholder="Nhập tổng học phí gốc" aria-label="Enter project name here" required pattern="[0-9]*" title="Chỉ được nhập số">
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@
                                                 <i class="tio-briefcase-outlined"></i>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control" name="gia_giam" id="tieu_de" value="{{$cart_detail->gia_giam}}"
+                                        <input type="text" class="form-control" name="gia_giam" id="gia_giam" value="{{$cart_detail->gia_giam}}"
                                             placeholder="Nhập học phí sau khi giảm" aria-label="Enter project name here" required pattern="[0-9]*" title="Chỉ được nhập số">
                                     </div>
                                 </div>
@@ -239,7 +239,32 @@
             <!-- End Footer -->
         </div>
         <!-- End Card -->
-
-
     </div>
+
+    <script>
+        const coursesData = @json($courses);
+        document.addEventListener("DOMContentLoaded", function () {
+    const coursesSelect = document.getElementById("courses");
+    const giaGocInput = document.getElementById("gia_goc");
+    const giaGiamInput = document.getElementById("gia_giam");
+    const coursesData = @json($courses);
+    
+    coursesSelect.addEventListener("change", function () {
+        let totalGiaGoc = 0;
+        let totalGiaGiam = 0;
+        const selectedOptions = Array.from(coursesSelect.selectedOptions).map(option => option.value);
+        selectedOptions.forEach(courseId => {
+            const course = coursesData.find(item => item.id == courseId);
+            if (course) {
+                totalGiaGoc += parseInt(course.gia_goc || 0, 10);
+                totalGiaGiam += parseInt(course.gia_giam || 0, 10);
+            }
+        });
+
+        giaGocInput.value = totalGiaGoc;
+        giaGiamInput.value = totalGiaGiam;
+    });
+});
+
+    </script>
 @endsection

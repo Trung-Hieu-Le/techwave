@@ -93,7 +93,7 @@
                             @if(!empty($item->id_author))
                                 <td> {{ $item->id_author }}</td>
                             @else
-                                <td>cb</td>
+                                <td>Admin</td>
                             @endif
                             <td>
                                 @if(session()->get('role')[0] == 'admin' || session()->get('role')[0] == 'nv')

@@ -43,14 +43,13 @@ class GioHangController extends Controller
 
     public function themGioHang()
     {
-
         try {
             if (!session()->has('tk_user')) {
                 $err = 'Hết phiên đăng nhập, vui lòng đăng nhập lại!';
                 return redirect('/admin/login')->with('err', $err);
             }
-            $users = DB::table('users')->select("id", 'display_name')->get()->toArray();
-            $courses = DB::table('courses')->select("id", 'name')->get()->toArray();
+            $users = DB::table('users')->select("id", 'display_name')->where('role', 'user')->get()->toArray();
+            $courses = DB::table('courses')->select("id", 'name', 'gia_goc', 'gia_giam')->get()->toArray();
             return view('admin.giohang.them_gio_hang', compact("users", "courses"));
         } catch (\Exception $e) {
             return abort(404);
@@ -89,7 +88,7 @@ class GioHangController extends Controller
 
             return redirect()->route('index_gio_hang')->with('success', 'Thêm giỏ hàng thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm giỏ hàng!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm giỏ hàng: '. $e->getMessage());
         }
     }
     public function pageEditGioHang(Request $request)
@@ -102,8 +101,8 @@ class GioHangController extends Controller
             $cart_detail = DB::table('invoices')
                 ->where("invoices.id", '=', $request->id)
                 ->first();
-            $users = DB::table('users')->select("id", 'display_name')->get()->toArray();
-            $courses = DB::table('courses')->select("id", 'name')->get()->toArray();
+            $users = DB::table('users')->select("id", 'display_name')->where('role', 'user')->get()->toArray();
+            $courses = DB::table('courses')->select("id", 'name', 'gia_goc', 'gia_giam')->get()->toArray();
             $course_list = DB::table('invoice_relationships')->where('id_invoice', '=', $request->id)->get()->toArray();
             return view('admin.giohang.sua_gio_hang', compact('cart_detail', 'courses', 'course_list', 'users'));
         } catch (\Exception $e) {
@@ -131,7 +130,7 @@ class GioHangController extends Controller
                     ]);
 
                 DB::table("invoice_relationships")->where('id_invoice', '=', $request->id)->delete();
-                if ($request->course) {
+                if ($request->courses) {
                     foreach ($request->courses as $key) {
                         DB::table("invoice_relationships")->insert([
                             'id_invoice' => $request->id,
@@ -145,7 +144,7 @@ class GioHangController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa giỏ hàng!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa giỏ hàng: '. $e->getMessage());
         }
     }
 
@@ -163,7 +162,7 @@ class GioHangController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa giỏ hàng!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa giỏ hàng: '. $e->getMessage());
         }
     }
 

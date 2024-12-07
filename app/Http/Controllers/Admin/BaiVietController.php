@@ -99,7 +99,7 @@ class BaiVietController extends Controller
 
             return redirect()->route('indexBV')->with('success', 'Thêm bài viết thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm bài viết!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm bài viết: '. $e->getMessage());
         }
     }
     public function suaBaiViet(Request $request)
@@ -190,7 +190,7 @@ class BaiVietController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa bài viết!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa bài viết: '. $e->getMessage());
         }
     }
     public function xoaBaiViet($id, Request $request)
@@ -206,7 +206,7 @@ class BaiVietController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa bài viết!');
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa bài viết: '. $e->getMessage());
         }
     }
 

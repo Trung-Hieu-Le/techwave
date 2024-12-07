@@ -39,7 +39,7 @@ CREATE TABLE `advices` (
 
 LOCK TABLES `advices` WRITE;
 /*!40000 ALTER TABLE `advices` DISABLE KEYS */;
-INSERT INTO `advices` VALUES (196,'Khóa học Java sẽ mở khi nào?','Hà Nội','Nguyễn Văn An','0912345678',1),(197,'Tôi muốn biết thêm chi tiết về khóa học Python.','Hồ Chí Minh','Trần Thị Bình','0923456789',1),(198,'Lịch khai giảng gần nhất của lớp học SQL là khi nào?','Đà Nẵng','Lê Văn Cao','0934567890',1),(199,'Tôi cần tư vấn về khóa học quản trị mạng.','Cần Thơ','Phạm Minh Dĩ','0945678901',2),(200,'Khóa học thiết kế web có cần kiến thức nền tảng không?','Hải Phòng','Đỗ Thị Én','0956789012',2),(201,'Lệ phí đăng ký học Data Science là bao nhiêu?','Thanh Hóa','Ngô Văn Phùng','0967890123',2),(202,'Khóa học lập trình PHP kéo dài bao lâu?','Nghệ An','Bùi Văn Giang','0978901234',4),(203,'Tôi muốn học trực tuyến, có khóa nào phù hợp không?','Huế','Nguyễn Thị Huệ','0989012345',4),(204,'Khóa học AI có cần kiến thức toán nâng cao không?','Khánh Hòa','Trần Văn Linh','0990123456',4),(205,'Thời gian học lập trình Frontend trong bao lâu?','Bắc Ninh','Lý Nam Thư','0901234567',5),(206,'Tôi muốn đăng ký lớp học Machine Learning.','Quảng Ninh','Vũ Văn Kiệt','0913456789',5),(207,'Có lớp học nào vào buổi tối không?','Lâm Đồng','Hà Thị Lụa','0925678901',5),(208,'Khóa học ReactJS có bao nhiêu buổi?','Bình Dương','Hoàng Văn Minh','0936789012',6),(209,'Học phí của khóa học Python cơ bản là bao nhiêu?','Đắk Lắk','Phan Thị Ngọc','0947890123',6),(210,'Có chương trình ưu đãi nào khi đăng ký nhóm không?','Hà Tĩnh','Nguyễn Văn Tâm','0958901234',6);
+INSERT INTO `advices` VALUES (196,'Khóa học Java sẽ mở khi nào?','Hà Nội','Nguyễn Văn An','0912345678',1),(197,'Tôi muốn biết thêm chi tiết về khóa học Python.','Hồ Chí Minh','Trần Thị Bình','0923456789',1),(198,'Lịch khai giảng gần nhất của lớp học SQL là khi nào?','Đà Nẵng','Lê Văn Cao','0934567890',1),(199,'Tôi cần tư vấn về khóa học quản trị mạng.','Cần Thơ','Phạm Minh Dĩ','0945678901',2),(200,'Khóa học thiết kế web có cần kiến thức nền tảng không?','Hải Phòng','Đỗ Thị Én','0956789012',2),(201,'Lệ phí đăng ký học Data Science là bao nhiêu?','Thanh Hóa','Ngô Văn Phùng','0967890123',2),(202,'Khóa học lập trình PHP kéo dài bao lâu?','Nghệ An','Bùi Văn Giang','0978901234',4),(203,'Tôi muốn học trực tuyến, có khóa nào phù hợp không?','Huế','Nguyễn Thị Huệ','0989012345',4),(204,'Khóa học AI có cần kiến thức toán nâng cao không?','Khánh Hòa','Trần Văn Linh','0990123456',4),(205,'Thời gian học lập trình Frontend trong bao lâu?','Bắc Ninh','Lý Nam Thư','0901234567',5),(206,'Tôi muốn đăng ký lớp học Machine Learning.','Quảng Ninh','Vũ Văn Kiệt','0913456789',5),(207,'Có lớp học nào vào buổi tối không?','Lâm Đồng','Hà Thị Lụa','0925678901',5),(208,'Khóa học ReactJS có bao nhiêu buổi?','Bình Dương','Hoàng Văn Minh','0936789012',6),(209,'Học phí của khóa học Python cơ bản là bao nhiêu?','Đắk Lắk','Phan Thị Ngọc','0947890123',6),(210,'Có chương trình ưu đãi nào khi đăng ký nhóm không?','Hà Nội','Nguyễn Văn Tâm','0958901234',6);
 /*!40000 ALTER TABLE `advices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +183,7 @@ CREATE TABLE `invoice_relationships` (
 
 LOCK TABLES `invoice_relationships` WRITE;
 /*!40000 ALTER TABLE `invoice_relationships` DISABLE KEYS */;
-INSERT INTO `invoice_relationships` VALUES (15,11);
+INSERT INTO `invoice_relationships` VALUES (15,11),(16,13),(16,14),(17,17);
 /*!40000 ALTER TABLE `invoice_relationships` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,7 +207,7 @@ CREATE TABLE `invoices` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,7 +216,7 @@ CREATE TABLE `invoices` (
 
 LOCK TABLES `invoices` WRITE;
 /*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
-INSERT INTO `invoices` VALUES (15,'admin',2000000,1500000,NULL,'Đã thanh toán','admin',NULL,5,'2024-12-01 12:21:48','2024-12-01 12:21:48');
+INSERT INTO `invoices` VALUES (15,'admin',2000000,1500000,NULL,'Đã thanh toán','admin',NULL,5,'2024-12-01 12:21:48','2024-12-01 12:21:48'),(16,'admin',3200000,2300000,NULL,'Chưa mua','admin@gmail.com','0345708110',4,'2024-12-06 03:32:27','2024-12-06 19:34:07'),(17,'Phạm Nguyên',1500000,1000000,NULL,'Chưa mua','phamnguyen123@gmail.com','0123456789',8,'2024-12-06 18:48:27','2024-12-06 19:35:22');
 /*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,7 +376,7 @@ CREATE TABLE `questions` (
   `option_d` varchar(255) NOT NULL,
   `correct_option` char(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -385,7 +385,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES (1,1,'Ngôn ngữ lập trình nào thường được sử dụng để xây dựng ứng dụng web?','Python','HTML','C++','PHP','A'),(2,1,'Câu lệnh nào được dùng để in ra màn hình trong Python?','print()','echo','cout','System.out.println','A'),(3,1,'Cấu trúc vòng lặp nào là vô hạn?','for','while(true)','do while','if-else','B'),(4,1,'Biến nào được sử dụng để lưu trữ chuỗi ký tự trong Java?','int','char','String','float','C'),(5,1,'Hàm nào trả về số lượng phần tử trong mảng?','length()','size()','count()','len()','D'),(6,2,'Cấu trúc dữ liệu nào sử dụng nguyên lý LIFO?','Array','Queue','Stack','Linked List','C'),(7,2,'Cấu trúc dữ liệu nào tốt nhất để tìm kiếm nhanh?','Hash Table','Array','Tree','Graph','A'),(8,2,'Câu lệnh nào chèn phần tử vào cuối mảng trong Python?','append()','push()','insert()','add()','A'),(9,2,'Linked List có lợi thế gì so với Array?','Độ dài cố định','Truy cập nhanh hơn','Tốn ít bộ nhớ','Dễ chèn và xóa phần tử','D'),(10,2,'Tree nào có tối đa 2 con?','Binary Tree','Heap','Graph','Binary Search Tree','A'),(11,3,'Thuật toán nào sử dụng phương pháp chia để trị?','Bubble Sort','Quick Sort','Linear Search','DFS','B'),(12,3,'Độ phức tạp tốt nhất của thuật toán sắp xếp nổi bọt là gì?','O(n)','O(n^2)','O(log n)','O(n log n)','A'),(13,3,'Thuật toán Dijkstra giải quyết bài toán gì?','Sắp xếp','Tìm đường đi ngắn nhất','Tìm kiếm','Tối ưu hóa','B'),(14,3,'Binary Search hoạt động trên loại dữ liệu nào?','Không sắp xếp','Dữ liệu sắp xếp','Dữ liệu ngẫu nhiên','Không có điều kiện','B'),(15,3,'Đâu là một thuật toán quay lui?','Merge Sort','DFS','Backtracking','Dijkstra','C'),(16,4,'Hàm nào dùng để lấy dữ liệu người dùng trong Python?','input()','get()','scanf()','fetch()','A'),(17,4,'Kết quả của 5//2 trong Python là gì?','2.5','2','3','Lỗi','B'),(18,4,'Phương thức nào thêm phần tử vào danh sách?','add()','append()','insert()','push()','B'),(19,4,'Kiểu dữ liệu nào trong Python không thay đổi được?','List','Set','Tuple','Dictionary','C'),(20,4,'Từ khóa nào để khai báo hàm?','function','def','lambda','func','B'),(21,5,'Thư viện nào chứa hàm printf trong C?','math.h','stdio.h','string.h','stdlib.h','B'),(22,5,'Đâu là kiểu dữ liệu nguyên trong C?','float','int','double','char','B'),(23,5,'Hàm nào kết thúc chương trình trong C?','main()','return','exit()','break','C'),(24,5,'Để đọc giá trị từ bàn phím, ta dùng hàm nào?','scanf()','gets()','cin','input()','A'),(25,5,'Dòng nào là comment đúng trong C?','/* Comment */','// Comment','# Comment','<!-- Comment -->','A'),(26,6,'Câu lệnh nào dùng để chọn tất cả các cột?','SELECT ALL','SELECT *','SELECT ALL COLUMNS','SELECT FROM','B'),(27,6,'Khóa chính trong SQL là gì?','Key của bảng','Cột duy nhất','ID','Cột không rỗng','B'),(28,6,'Hàm nào trả về tổng giá trị trong cột?','SUM()','COUNT()','AVG()','MAX()','A'),(29,6,'Câu lệnh nào xóa bảng trong SQL?','DROP TABLE','DELETE TABLE','REMOVE TABLE','CLEAR TABLE','A'),(30,6,'Câu lệnh thêm dữ liệu vào bảng?','INSERT INTO','ADD ROW','ADD INTO','PUSH DATA','A'),(31,7,'Thuật toán nào có độ phức tạp tốt nhất?','Bubble Sort','Selection Sort','Quick Sort','Merge Sort','C'),(32,7,'Insertion Sort thuộc loại thuật toán nào?','Sắp xếp so sánh','Không so sánh','Sắp xếp nhanh','Quay lui','A'),(33,7,'Thuật toán Heap Sort sử dụng cấu trúc nào?','Array','Heap','Graph','Queue','B'),(34,7,'Thuật toán sắp xếp nào phù hợp cho dữ liệu nhỏ?','Merge Sort','Quick Sort','Bubble Sort','Radix Sort','C'),(35,7,'Sắp xếp chèn (Insertion Sort) có độ phức tạp trung bình là gì?','O(n)','O(n log n)','O(n^2)','O(log n)','C');
+INSERT INTO `questions` VALUES (1,1,'Ngôn ngữ lập trình nào thường được sử dụng để xây dựng ứng dụng web?','Python','HTML','C++','PHP','A'),(2,1,'Câu lệnh nào được dùng để in ra màn hình trong Python?','print()','echo','cout','System.out.println','A'),(3,1,'Cấu trúc vòng lặp nào là vô hạn?','for','while(true)','do while','if-else','B'),(4,1,'Biến nào được sử dụng để lưu trữ chuỗi ký tự trong Java?','int','char','String','float','C'),(5,1,'Hàm nào trả về số lượng phần tử trong mảng?','length()','size()','count()','len()','D'),(6,2,'Cấu trúc dữ liệu nào sử dụng nguyên lý LIFO?','Array','Queue','Stack','Linked List','C'),(7,2,'Cấu trúc dữ liệu nào tốt nhất để tìm kiếm nhanh?','Hash Table','Array','Tree','Graph','A'),(8,2,'Câu lệnh nào chèn phần tử vào cuối mảng trong Python?','append()','push()','insert()','add()','A'),(9,2,'Linked List có lợi thế gì so với Array?','Độ dài cố định','Truy cập nhanh hơn','Tốn ít bộ nhớ','Dễ chèn và xóa phần tử','D'),(10,2,'Tree nào có tối đa 2 con?','Binary Tree','Heap','Graph','Binary Search Tree','A'),(11,3,'Thuật toán nào sử dụng phương pháp chia để trị?','Bubble Sort','Quick Sort','Linear Search','DFS','B'),(12,3,'Độ phức tạp tốt nhất của thuật toán sắp xếp nổi bọt là gì?','O(n)','O(n^2)','O(log n)','O(n log n)','A'),(13,3,'Thuật toán Dijkstra giải quyết bài toán gì?','Sắp xếp','Tìm đường đi ngắn nhất','Tìm kiếm','Tối ưu hóa','B'),(14,3,'Binary Search hoạt động trên loại dữ liệu nào?','Không sắp xếp','Dữ liệu sắp xếp','Dữ liệu ngẫu nhiên','Không có điều kiện','B'),(15,3,'Đâu là một thuật toán quay lui?','Merge Sort','DFS','Backtracking','Dijkstra','C'),(16,4,'Hàm nào dùng để lấy dữ liệu người dùng trong Python?','input()','get()','scanf()','fetch()','A'),(17,4,'Kết quả của 5//2 trong Python là gì?','2.5','2','3','Lỗi','B'),(18,4,'Phương thức nào thêm phần tử vào danh sách?','add()','append()','insert()','push()','B'),(19,4,'Kiểu dữ liệu nào trong Python không thay đổi được?','List','Set','Tuple','Dictionary','C'),(20,4,'Từ khóa nào để khai báo hàm?','function','def','lambda','func','B'),(21,5,'Thư viện nào chứa hàm printf trong C?','math.h','stdio.h','string.h','stdlib.h','B'),(22,5,'Đâu là kiểu dữ liệu nguyên trong C?','float','int','double','char','B'),(23,5,'Hàm nào kết thúc chương trình trong C?','main()','return','exit()','break','C'),(24,5,'Để đọc giá trị từ bàn phím, ta dùng hàm nào?','scanf()','gets()','cin','input()','A'),(25,5,'Dòng nào là comment đúng trong C?','/* Comment */','// Comment','# Comment','<!-- Comment -->','A'),(26,6,'Câu lệnh nào dùng để chọn tất cả các cột?','SELECT ALL','SELECT *','SELECT ALL COLUMNS','SELECT FROM','B'),(27,6,'Khóa chính trong SQL là gì?','Key của bảng','Cột duy nhất','ID','Cột không rỗng','B'),(28,6,'Hàm nào trả về tổng giá trị trong cột?','SUM()','COUNT()','AVG()','MAX()','A'),(29,6,'Câu lệnh nào xóa bảng trong SQL?','DROP TABLE','DELETE TABLE','REMOVE TABLE','CLEAR TABLE','A'),(30,6,'Câu lệnh thêm dữ liệu vào bảng?','INSERT INTO','ADD ROW','ADD INTO','PUSH DATA','A'),(52,7,'Thuật toán nào có độ phức tạp tốt nhất?','Bubble Sort','Selection Sort','Quick Sort','Merge Sort','C'),(53,7,'Insertion Sort thuộc loại thuật toán nào?','Sắp xếp so sánh','Không so sánh','Sắp xếp nhanh','Quay lui','A'),(54,7,'Thuật toán Heap Sort sử dụng cấu trúc nào?','Array','Heap','Graph','Queue','B'),(55,7,'Thuật toán sắp xếp nào phù hợp cho dữ liệu nhỏ?','Merge Sort','Quick Sort','Bubble Sort','Radix Sort','C'),(56,7,'Sắp xếp chèn (Insertion Sort) có độ phức tạp trung bình là gì?','O(n)','O(n log n)','O(n^2)','O(log n)','C');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -404,7 +404,7 @@ CREATE TABLE `quiz_histories` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -413,7 +413,7 @@ CREATE TABLE `quiz_histories` (
 
 LOCK TABLES `quiz_histories` WRITE;
 /*!40000 ALTER TABLE `quiz_histories` DISABLE KEYS */;
-INSERT INTO `quiz_histories` VALUES (1,1,5,3,'2024-12-05 09:46:58','2024-12-05 09:46:58');
+INSERT INTO `quiz_histories` VALUES (1,1,5,3,'2024-12-05 09:46:58','2024-12-05 09:46:58'),(2,2,5,3,'2024-12-05 10:41:36','2024-12-05 10:41:36'),(3,4,5,0,'2024-12-06 10:27:55','2024-12-06 10:27:55'),(4,5,5,3,'2024-12-06 10:28:38','2024-12-06 10:28:38');
 /*!40000 ALTER TABLE `quiz_histories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -443,7 +443,7 @@ CREATE TABLE `quizzes` (
 
 LOCK TABLES `quizzes` WRITE;
 /*!40000 ALTER TABLE `quizzes` DISABLE KEYS */;
-INSERT INTO `quizzes` VALUES (1,'Lập trình cơ bản - Phần 1',1,30,'Kiến thức cơ bản về lập trình','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(2,'Cấu trúc dữ liệu - Phần 1',2,40,'Nhập môn cấu trúc dữ liệu','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(3,'Giải thuật - Phần 1',3,45,'Các thuật toán cơ bản','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(4,'Lập trình Python cơ bản',4,30,'Làm quen với Python','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(5,'Lập trình C cơ bản',5,30,'Học các khái niệm cơ bản trong ngôn ngữ C','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(6,'Hệ quản trị cơ sở dữ liệu',6,50,'Câu hỏi về cơ sở dữ liệu','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(7,'Thuật toán sắp xếp',7,40,'Tìm hiểu các thuật toán sắp xếp','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL);
+INSERT INTO `quizzes` VALUES (1,'Lập trình cơ bản - Phần 1',1,30,'Kiến thức cơ bản về lập trình','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(2,'Cấu trúc dữ liệu - Phần 1',2,40,'Nhập môn cấu trúc dữ liệu','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(3,'Giải thuật - Phần 1',3,45,'Các thuật toán cơ bản','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(4,'Lập trình Python cơ bản',4,30,'Làm quen với Python','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(5,'Lập trình C cơ bản',5,30,'Học các khái niệm cơ bản trong ngôn ngữ C','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(6,'Hệ quản trị cơ sở dữ liệu',6,50,'Câu hỏi về cơ sở dữ liệu','2024-12-01 21:40:30','2024-12-01 21:40:30',NULL),(7,'Thuật toán sắp xếp',2,40,'Tìm hiểu các thuật toán sắp xếp','2024-12-01 21:40:30','2024-12-07 01:01:43',2);
 /*!40000 ALTER TABLE `quizzes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -475,7 +475,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (2,'hieule1','Lê Trung Hiếu','letrunghieuconj@gmail.com','0345708107','123456','2024-12-05 03:22:48','2024-12-05 03:22:48','admin',NULL),(4,'TuanAnh','anhtuan891997@gmail.com','anhtuan891997@gmail.com',NULL,'123456','2023-10-29 19:28:36','2023-10-29 19:28:36','user',NULL),(5,'admin','admin','admin@gmail.com','0345708110','123456','2024-12-05 03:22:06','2024-12-05 03:22:06','admin',NULL),(6,'luutientam','luutientam','luutientam1@gmail.com',NULL,'mot23456789','2023-12-06 03:37:52','2023-12-06 03:37:52','user',NULL),(7,'tienthanh','thanh','tienthanh892@gmail.com','101011023','tienthanh8925','2024-12-05 03:20:51','2024-12-05 03:20:51','user',NULL),(8,'phamnguyen123','Phạm Nguyên','phamnguyen123@gmail.com','0345708108','nguyen123','2024-12-05 03:13:27','2024-12-05 03:13:27','user',NULL),(9,'hailong','Lê Hải Long','hailong16072000@gmail.com','0345708108','123456','2024-12-05 03:13:09','2024-12-05 03:13:09','user',NULL);
+INSERT INTO `users` VALUES (2,'hieule1','Lê Trung Hiếu','letrunghieuconj@gmail.com','0345708107','123456','2024-12-05 03:22:48','2024-12-05 03:22:48','admin',NULL),(4,'TuanAnh','anhtuan','anhtuan891997@gmail.com','1010110234','123456','2024-12-06 03:53:08','2024-12-06 03:53:08','user',NULL),(5,'admin','admin','admin@gmail.com','0345708110','123456','2024-12-05 03:22:06','2024-12-06 03:34:30','admin','http://127.0.0.1:8000/images/2024-12-06-1733456070-post_img.png'),(6,'luutientam','luutientam','luutientam1@gmail.com',NULL,'mot23456789','2023-12-06 03:37:52','2023-12-06 03:37:52','user',NULL),(7,'tienthanh','thanh','tienthanh892@gmail.com','101011023','tienthanh8925','2024-12-05 03:20:51','2024-12-05 03:20:51','user',NULL),(8,'phamnguyen123','Phạm Nguyên','phamnguyen123@gmail.com','0345708108','nguyen123','2024-12-05 03:13:27','2024-12-05 03:13:27','user',NULL),(9,'hailong','Lê Hải Long','hailong16072000@gmail.com','0345708108','123456','2024-12-05 03:13:09','2024-12-05 03:13:09','user',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -488,4 +488,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-05 10:38:28
+-- Dump completed on 2024-12-07 14:51:38

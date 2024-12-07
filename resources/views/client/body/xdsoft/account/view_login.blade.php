@@ -80,7 +80,6 @@
                                                     khẩu?</a>
                                             </span>
                                         </label>
-                                        {{-- TODO: thống nhất pattern mật khẩu --}}
                                         <div class="input-group input-group-merge">
                                             <input type="password"
                                                 class="js-toggle-password form-control form-control-md" name="password"

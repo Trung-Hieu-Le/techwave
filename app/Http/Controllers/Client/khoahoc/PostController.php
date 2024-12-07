@@ -145,7 +145,7 @@ class PostController extends Controller
                 return redirect('/login')->with('err', $err);
             }
         } catch (\Throwable $th) {
-            return back()->with('fail', 'Lỗi khi gửi đánh giá khóa học!');
+            return back()->with('fail', 'Lỗi khi gửi đánh giá khóa học: '. $th->getMessage());
         }
     }
 }

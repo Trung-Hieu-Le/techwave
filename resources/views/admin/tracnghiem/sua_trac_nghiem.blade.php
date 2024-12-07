@@ -147,12 +147,8 @@
                                         </div>
                                         <select name="id_author" id="tac_gia"
                                                 class="form-control">
-                                            @foreach($users as $user)
-                                                @if($quiz_detail->id_author == $user->id && $quiz_detail->id_author == 1)
-                                                <option value="1" selected>cb</option>
-                                                @else
+                                            @foreach($users as $user)                                                
                                                 <option value="{{$user->id}}" {{($quiz_detail->id_author == $user->id) ? 'selected' : ''}}>{{$user->display_name}}</option>
-                                                @endif
                                             @endforeach
 
                                         </select>
@@ -162,7 +158,6 @@
                             </div>
                         </div>
                         <div class="">
-                            {{-- todo: lỗi sửa list quest; giao diện trang list này --}}
                             <h4>Danh Sách Câu Hỏi: </h4>
                             <button type="button" class="btn btn-success mb-3" id="add-question">Thêm Câu Hỏi</button>
 
