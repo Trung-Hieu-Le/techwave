@@ -77,6 +77,7 @@ class QuizController extends Controller
             ]);
             if ($request->questions) {
                 $rs = DB::table('quizzes')->select("id")->orderBy("id", "desc")->first();
+
                 foreach ($request->questions as $key) {
                     DB::table('questions')->insert([
                         'id_quiz' => $rs->id,
@@ -91,7 +92,7 @@ class QuizController extends Controller
             }
             return redirect()->route('index_trac_nghiem')->with('success', 'Thêm đề kiểm tra thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm đề kiểm tra: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm đề kiểm tra: ' . $e->getMessage());
         }
     }
 
@@ -137,13 +138,11 @@ class QuizController extends Controller
                         'updated_at' => date('y-m-d h:i:s'),
                     ]);
 
-
-                DB::table("questions")->where('id_quiz', '=', $request->id)->delete();
                 if ($request->questions) {
-                    $rs = DB::table('quizzes')->select("id")->orderBy("id", "desc")->first();
+                    DB::table("questions")->where('id_quiz', '=', $request->id)->delete();
                     foreach ($request->questions as $key) {
                         DB::table('questions')->insert([
-                            'id_quiz' => $rs->id,
+                            'id_quiz' => $request->id,
                             'question' => $key['question_title'],
                             'option_a' => $key['option_a'],
                             'option_b' => $key['option_b'],
@@ -160,7 +159,7 @@ class QuizController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa đề kiểm tra: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa đề kiểm tra: ' . $e->getMessage());
         }
     }
 
@@ -171,6 +170,13 @@ class QuizController extends Controller
             $ses = $request->session()->get('tk_user');
 
             if (isset($ses) && $request->session()->get('role')[0] == 'admin') {
+                $isInQuizHistories = DB::table('quiz_histories')
+                    ->where('id_quiz', $id)->exists();
+
+                if ($isInQuizHistories) {
+                    return redirect()->back()->with('fail', 'Bộ đề kiểm tra đã được thực hiện bởi người dùng!');
+                }
+
                 DB::table('questions')->where('id_quiz', '=', $id)->delete();
                 DB::table('quizzes')->where('id', '=', $id)->delete();
                 return redirect()->back()->with('success', 'Xóa đề kiểm tra thành công!');
@@ -179,7 +185,7 @@ class QuizController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa đề kiểm tra: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa đề kiểm tra: ' . $e->getMessage());
         }
     }
 

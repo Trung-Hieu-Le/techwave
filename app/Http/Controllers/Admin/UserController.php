@@ -75,7 +75,6 @@ class UserController extends Controller
             return abort(404);
         }
     }
-    //TODO: mật khẩu bị mã hóa ko biết vì sao
     public function insert_user(Request $request)
     {
         try {
@@ -225,6 +224,7 @@ class UserController extends Controller
             if (isset($ses) && $request->session()->get('role')[0] == 'admin') {
                 DB::table("comments")->where('id_user', '=', $request->id)->delete();
                 DB::table("invoices")->where('id_user', '=', $request->id)->delete();
+                DB::table("favorite_courses")->where('id_user', '=', $request->id)->delete();
                 DB::table('users')->where('users.id', '=', $request->id)->delete();
                 return redirect()->back()->with('success', 'Xóa tài khoản thành công!');
             } else {

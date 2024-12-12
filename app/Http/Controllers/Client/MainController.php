@@ -146,7 +146,6 @@ class MainController extends Controller
                 ->get()->toArray();
 
             $cur_category = null;
-//TODO: đã có thì ko xóa; hoặc xóa mềm; đẩy kh lên top
             $ds_category = DB::table('post_categories')
                 ->select('post_categories.*')
                 ->join('posts', 'post_categories.id', '=', 'posts.category')
@@ -221,6 +220,7 @@ class MainController extends Controller
                 ->select('quizzes.*', DB::raw('COUNT(questions.id) as question_count'))
                 ->where('quizzes.title', 'LIKE', "%{$search}%")
                 ->groupBy('quizzes.id')
+                ->orderBy('id', 'desc')
                 ->paginate(10);
                 $recentAttempts = [];
                 if ($request->session()->has('account_id')) {

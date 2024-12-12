@@ -90,8 +90,7 @@
                                 @endif
                                 @if(session()->get('role')[0] == 'admin')
                                     <a class="btn btn-sm btn-white" href="{{route('delete_trac_nghiem',['id'=>$item->id])}}"
-                                       onclick="return confirm('Bạn có chắc muốn xóa đề kiểm tra này không?')">
-                                        Xóa
+                                        onclick="return confirm('Bạn có chắc muốn xóa đề kiểm tra {{ $item->title }} không?')">                                        Xóa
                                     </a>
                                 @endif
                             </td>

@@ -117,7 +117,6 @@ class PostController extends Controller
     public function reportComment(Request $request)
     {
         try {
-            //TODO: report 1 lần thôi
             $ses = $request->session()->get('account_id');
             if (isset($ses)) {
                 $commentId = $request->input('id');

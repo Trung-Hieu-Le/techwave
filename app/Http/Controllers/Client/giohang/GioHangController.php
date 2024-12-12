@@ -218,7 +218,7 @@ class GioHangController extends Controller
                 return back()->with('fail', 'Lỗi không tồn tại giỏ hàng, vui lòng thử lại!');
             }
             GioHangController::deleteAllCart($request);
-            return redirect()->back()->with('success', 'Đặt hàng thành công!');
+            return redirect()->back()->with('success', 'Đặt hàng thành công! Nhân viên hỗ trợ sẽ liên hệ với bạn sớm nhất.');
         } catch (\Exception $e) {
             return back()->with('fail', 'Đã xảy ra lỗi khi đặt hàng: ' . $e->getMessage());
         }

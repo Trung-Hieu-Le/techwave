@@ -99,7 +99,6 @@
             <button type="submit" class="btn btn-primary col-2">Tìm kiếm</button>
         </form>
       </div>
-      {{-- TODO: TH page=2, tìm category=sql nhưng ko có  --}}
       @if($post->count() > 0)
       <div class="row top_1">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

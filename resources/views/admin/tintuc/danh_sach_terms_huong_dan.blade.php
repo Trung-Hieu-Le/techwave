@@ -82,7 +82,7 @@
                             @endif
                             @if(session()->get('role')[0] == 'admin')
                                 <a class="btn btn-sm btn-white" href="{{route('delete_term_HD',['id'=>$ds_terms_huong_dan[$i]->id])}}"
-                                   onclick="return confirm('Bạn có chắc không?')">
+                                    onclick="return confirm('Bạn có chắc muốn xóa tag bài viết {{ $ds_terms_huong_dan[$i]->name }} không?')">
                                     Xóa
                                 </a>
                             @endif

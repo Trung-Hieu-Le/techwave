@@ -114,7 +114,7 @@
                                 @endif
                                 @if(session()->get('role')[0] == 'admin')
                                 <a class="btn btn-sm btn-white" href="{{route('xoaBV',['id'=>$item->ID])}}"
-                                   onclick="return confirm('Bạn có chắc không?')">
+                                    onclick="return confirm('Bạn có chắc muốn xóa bài viết {{ $item->post_title }} không?')">
                                     Xóa
                                 </a>
                                 @endif

@@ -105,7 +105,7 @@ class KhoaHocController extends Controller
             }
             return redirect()->route('index_khoa_hoc')->with('success', 'Thêm khóa học thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm khóa học: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm khóa học: ' . $e->getMessage());
         }
     }
     public function pageEditKhoaHoc(Request $request)
@@ -212,7 +212,7 @@ class KhoaHocController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa khóa học: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa khóa học: ' . $e->getMessage());
         }
     }
 
@@ -223,14 +223,27 @@ class KhoaHocController extends Controller
             $ses = $request->session()->get('tk_user');
 
             if (isset($ses) && $request->session()->get('role')[0] == 'admin') {
+
+                $isInInvoice = DB::table('invoice_relationships')
+                    ->where('id_course', $id)->exists();
+                if ($isInInvoice) {
+                    return redirect()->back()->with('fail', 'Khóa học đang được đặt mua bởi người dùng!');
+                }
+                $isInFavorite = DB::table('favorite_courses')
+                    ->where('id_course', $id)->exists();
+                if ($isInFavorite) {
+                    return redirect()->back()->with('fail', 'Khóa học đang được theo dõi bởi người dùng!');
+                }
+
                 $lessonIds = DB::table('lesson_relationships')
-                ->where('id_course', '=', $id)
-                ->pluck('id_lesson');
+                    ->where('id_course', '=', $id)
+                    ->pluck('id_lesson');
                 if ($lessonIds->isNotEmpty()) {
                     DB::table('lessons')->whereIn('id', $lessonIds)->delete();
                 }
                 DB::table('invoice_relationships')->where('id_course', '=', $id)->delete();
                 DB::table('lesson_relationships')->where('id_course', '=', $id)->delete();
+                DB::table("favorite_courses")->where('id_course', '=', $id)->delete();
                 DB::table('courses')->where('id', '=', $id)->delete();
                 return redirect()->back()->with('success', 'Xóa khóa học thành công!');
             } else {
@@ -238,7 +251,7 @@ class KhoaHocController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa khóa học: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa khóa học: ' . $e->getMessage());
         }
     }
     public function findKhoaHoc(Request $request)

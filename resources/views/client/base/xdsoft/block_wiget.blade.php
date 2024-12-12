@@ -169,7 +169,7 @@ height: 100%;
 </style>
 <div class="fixed-block-widget block-wiget" style="width:120px;">
     <div class="sonar-wrapper">
-        <a href="tel:0345708107">
+        <a href="https://zalo.me/0345708107">
             <div class="sonar-emitter green">
                 <div class="sonar-wave sonar-wave1 green"></div>
                 <div class="sonar-wave sonar-wave2 green"></div>
@@ -195,7 +195,7 @@ height: 100%;
     <div class="wiget-bottom">
         <div class="row" style="justify-content: space-around">
             {{-- <a href="" class="col-1"></a> --}}
-            <a href="tel:0345708107" class="col-6">
+            <a href="https://zalo.me/0345708107" class="col-6">
                 <img class="widget_img" style="width: 45px; height=45px"
                     src="https://spec.edu.vn/uploadfileimage/image/whatsapp.svg">
             </a>

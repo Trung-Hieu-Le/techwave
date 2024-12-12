@@ -64,11 +64,9 @@
     </div>
 
     <script>
-        // Thời gian làm bài (phút) từ server
         const duration = {{ $quiz->duration }};
-        let timeRemaining = duration; // Đổi ra giây
+        let timeRemaining = duration;
     
-        // Cập nhật bộ đếm ngược mỗi giây
         const countdownElement = document.getElementById('countdownTimer');
         const interval = setInterval(() => {
             const minutes = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
@@ -84,7 +82,6 @@
             timeRemaining--;
         }, 1000);
     
-        // Đếm số câu trả lời
         const answeredCountElement = document.getElementById('answeredCount');
         const radios = document.querySelectorAll('input[type="radio"]');
         const totalQuestions = {{ count($questions) }};
@@ -101,7 +98,6 @@
             });
         });
     
-        // Nộp bài khi nhấn nút "Nộp bài ngay"
         function submitForm() {
             if (confirm('Bạn có chắc muốn nộp bài?')) {
                 document.getElementById('quizForm').submit();

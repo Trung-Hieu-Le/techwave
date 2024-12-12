@@ -104,7 +104,7 @@
                                 @endif
                                 @if(session()->get('role')[0] == 'admin')
                                     <a class="btn btn-sm btn-white" href="{{route('delete_picture',['id'=>$item->id])}}"
-                                       onclick="return confirm('Bạn có chắc muốn xóa ảnh này không?')">
+                                        onclick="return confirm('Bạn có chắc muốn xóa ảnh {{ $item->picture_name }} không?')">
                                         Xóa
                                     </a>
                                 @endif

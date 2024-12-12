@@ -53,7 +53,7 @@ class TermKhoaHocController extends Controller
                 $err = 'Hết phiên đăng nhập, vui lòng đăng nhập lại!';
                 return redirect('/admin/login')->with('err', $err);
             }
-            $existingTag = DB::table('course_categories')->where('slug', $request->slug)->first();
+            $existingTag = DB::table('course_categories')->where('slug', $request->term_slug)->first();
             if ($existingTag) {
                 return redirect()->back()->with('fail', 'Slug đã tồn tại!');
             }
@@ -63,7 +63,7 @@ class TermKhoaHocController extends Controller
             ]);
             return redirect()->route('index_terms_KH')->with('success', 'Thêm tag khóa học thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tag khóa học: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm tag khóa học: ' . $e->getMessage());
         }
     }
     public function pageEditTermKhoaHoc(Request $request)
@@ -88,8 +88,8 @@ class TermKhoaHocController extends Controller
         try {
             $ses = $request->session()->get('tk_user');
 
-            if (isset($ses) && ($request->session()->get('role')[0] == 'admin' || $request->session()->get('role')[0] == 'nv')) {
-                $existingTag = DB::table('course_categories')->where('slug', $request->slug)->whereNot("id", $request->id)->first();
+            if (isset($ses) && ($request->session()->get('role')[0] == 'admin')) {
+                $existingTag = DB::table('course_categories')->where('slug', $request->term_slug)->whereNot("id", $request->id)->first();
                 if ($existingTag) {
                     return redirect()->back()->with('fail', 'Slug đã tồn tại!');
                 }
@@ -107,7 +107,7 @@ class TermKhoaHocController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa tag khóa học: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa tag khóa học: ' . $e->getMessage());
         }
     }
 
@@ -118,6 +118,19 @@ class TermKhoaHocController extends Controller
             $ses = $request->session()->get('tk_user');
 
             if (isset($ses) && $request->session()->get('role')[0] == 'admin') {
+                $isCourseInUse = DB::table('courses')
+                    ->join('invoice_relationships', 'courses.id', '=', 'invoice_relationships.id_course')
+                    ->where('courses.category', '=', $id)->exists();
+                $isQuizInUse = DB::table('quizzes')
+                    ->join('quiz_histories', 'quizzes.id', '=', 'quiz_histories.id_quiz')
+                    ->where('quizzes.category', '=', $id)->exists();
+                if ($isCourseInUse) {
+                    return redirect()->back()->with('fail', 'Tag khóa học này không thể xóa do tồn tại khóa học được đặt mua!');
+                }
+                if ($isQuizInUse) {
+                    return redirect()->back()->with('fail', 'Tag khóa học này không thể xóa do tồn tại bộ đề kiểm tra được thực hiện!');
+                }
+
                 DB::table('courses')->where('category', '=', $id)->delete();
                 DB::table('course_categories')->where('course_categories.id', '=', $id)->delete();
                 return redirect()->back()->with('success', 'Xóa tag khóa học thành công!');
@@ -126,7 +139,7 @@ class TermKhoaHocController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa tag khóa học: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa tag khóa học: ' . $e->getMessage());
         }
     }
 

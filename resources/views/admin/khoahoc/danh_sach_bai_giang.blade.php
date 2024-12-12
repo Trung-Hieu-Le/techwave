@@ -128,7 +128,7 @@
                                 @endif
                                 @if(session()->get('role')[0] == 'admin')
                                 <a class="btn btn-sm btn-white" href="{{route('delete_lesson',['id'=>$item->id])}}"
-                                   onclick="return confirm('Bạn có chắc không?')"> Xóa
+                                    onclick="return confirm('Bạn có chắc muốn xóa bài giảng {{ $item->lesson_title }} không?')"> Xóa
                                 </a>
                                 @endif
                             </td>

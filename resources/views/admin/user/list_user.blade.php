@@ -97,7 +97,7 @@
                                 @endif
                                 @if(session()->get('role')[0] == 'admin')
                                     <a class="btn btn-sm btn-white" href="{{route('delete_user',['id'=>$item->id])}}"
-                                       onclick="return confirm('Bạn có chắc muốn xóa không?\nThông tin user này sẽ không thể khôi phục')">
+                                        onclick="return confirm('Bạn có chắc muốn xóa tài khoản {{ $item->display_name }} không?')">
                                         Xóa
                                     </a>
                                 @endif
