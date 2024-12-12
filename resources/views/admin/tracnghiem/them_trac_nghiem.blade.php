@@ -141,8 +141,7 @@
                                                 class="form-control">
                                             @foreach($users as $user)
                                                 @if(session()->get('tk_user')[0] == $user->username)
-                                                    <option value="{{$user->id}}"
-                                                            >{{$user->display_name}}</option>
+                                                    <option value="{{$user->id}}" selected >{{$user->display_name}}</option>
                                                 @else
                                                     <option value="{{$user->id}}">{{$user->display_name}}</option>
                                                 @endif

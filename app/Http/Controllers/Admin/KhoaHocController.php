@@ -223,6 +223,12 @@ class KhoaHocController extends Controller
             $ses = $request->session()->get('tk_user');
 
             if (isset($ses) && $request->session()->get('role')[0] == 'admin') {
+                $lessonIds = DB::table('lesson_relationships')
+                ->where('id_course', '=', $id)
+                ->pluck('id_lesson');
+                if ($lessonIds->isNotEmpty()) {
+                    DB::table('lessons')->whereIn('id', $lessonIds)->delete();
+                }
                 DB::table('invoice_relationships')->where('id_course', '=', $id)->delete();
                 DB::table('lesson_relationships')->where('id_course', '=', $id)->delete();
                 DB::table('courses')->where('id', '=', $id)->delete();

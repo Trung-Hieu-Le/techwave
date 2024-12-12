@@ -71,7 +71,7 @@
                                                     <i class="tio-briefcase-outlined"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control" name="video_id" id="dia_chi"
+                                            <input type="text" class="form-control" name="video_id" id="video_url"
                                                 placeholder="Nhập URL" aria-label="Enter project url here" value="{{$lesson_detail->video_id}}"
                                                 required>
                                         </div>
@@ -139,7 +139,31 @@
                                     <!-- End Form Group -->
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <!-- Form Group -->
+                                    <div class="form-group">
+                                        <label for="projectNameProjectSettingsLabel" class="input-label">Video Demo<i
+                                                class="tio-help-outlined text-body ml-1" data-toggle="tooltip"
+                                                data-placement="top"
+                                                title=""
+                                                data-original-title="Displayed on public forums, such as Front."></i></label>
 
+                                        <div class="input-group input-group-merge">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="tio-briefcase-outlined"></i>
+                                                </div>
+                                            </div>
+                                            <div class="embed-responsive embed-responsive-16by9" style="display: none;">
+                                                <iframe id="video_preview" class="embed-responsive-item" 
+                                                        src="" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -172,6 +196,75 @@
 
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            const videoUrlInput = document.getElementById('video_url');
+            const iframe = document.getElementById('video_preview');
+            const embedContainer = iframe.parentElement;
+            console.log(videoUrlInput, iframe, embedContainer);
+            
+            const initialUrl = videoUrlInput.value.trim();
+            if (initialUrl) {
+                await handleVideoPreview(initialUrl);
+            }
 
+            videoUrlInput.addEventListener('input', async function () {
+                const urlOrId = this.value.trim();
+                await handleVideoPreview(urlOrId);
+            });
 
+            async function handleVideoPreview(urlOrId) {
+                const videoId = extractVideoId(urlOrId);
+                if (videoId) {
+                    const isValid = await checkVideoExists(videoId);
+                    if (isValid) {
+                        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                        embedContainer.style.display = 'block';
+                    } else {
+                        iframe.src = '';
+                        embedContainer.style.display = 'none';
+                        alert('Video không tồn tại. Vui lòng kiểm tra lại!');
+                    }
+                } else {
+                    iframe.src = '';
+                    embedContainer.style.display = 'none';
+                    alert('Video không tồn tại. Vui lòng kiểm tra lại!');
+                }
+            }
+
+            function extractVideoId(url) {
+                const patterns = [
+                    /youtu\.be\/([A-Za-z0-9_-]+)/,  
+                    /youtube\.com\/v\/([A-Za-z0-9_-]+)/,  
+                    /youtube\.com\/vi\/([A-Za-z0-9_-]+)/,
+                    /youtube\.com\/.*[?&]v=([A-Za-z0-9_-]+)/,
+                    /youtube\.com\/.*[?&]vi=([A-Za-z0-9_-]+)/,
+                    /youtube\.com\/embed\/([A-Za-z0-9_-]+)/,
+                    /youtube\.com\/watch\?v=([A-Za-z0-9_-]+)/
+                ];
+                for (const pattern of patterns) {
+                    const match = url.match(pattern);
+                    if (match) {
+                        return match[1];
+                    }
+                }
+                if (/^[A-Za-z0-9_-]{11}$/.test(url)) {
+                    return url;
+                }
+                return null;
+            }
+
+            async function checkVideoExists(videoId) {
+                try {
+                    const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=AIzaSyCPym2YD3jIf6f9_SFyHyrnoZnheuNx334&part=id`);
+                    const data = await response.json();
+                    return data.items && data.items.length > 0;
+                } catch (error) {
+                    console.error('Error checking video:', error);
+                    return false;
+                }
+            }
+        });
+   
+    </script>
 @endsection

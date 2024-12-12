@@ -121,10 +121,18 @@ class PostController extends Controller
             $ses = $request->session()->get('account_id');
             if (isset($ses)) {
                 $commentId = $request->input('id');
+                $cookieKey = "reported_comment_{$commentId}";
+
+            if ($request->cookie($cookieKey)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Bạn đã báo cáo bình luận này. Vui lòng thử lại sau 24 giờ.'
+                ]);
+            }
                 DB::table('comments')
                     ->where('id', $commentId)
                     ->increment('report_count');
-                return response()->json(['success' => true, 'message' => 'Bình luận đã được báo cáo thành công.']);
+                return response()->json(['success' => true, 'message' => 'Bình luận đã được báo cáo thành công.'])->cookie($cookieKey, true, 1440);;
                 // return response()->json(['message' => 'Bình luận đã được báo cáo.']);
             } else {
                 return response()->json(['success' => false, 'message' => 'Vui lòng đăng nhập để báo cáo bình luận này.']);

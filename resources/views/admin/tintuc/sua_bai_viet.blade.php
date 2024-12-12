@@ -263,7 +263,7 @@
                                             </td>
                                             <td>{{ $reply->content }}</td>
                                             <td>{{ $reply->created_at }}</td>
-                                            <td>{{ $reply->report_count }}/5</td>
+                                            <td>{{ $reply->report_count }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-primary" onclick="toggleCommentVisibility({{ $reply->id }}, {{ $reply->show }})">
                                                     {{ $reply->show ? 'Ẩn' : 'Hiện' }}

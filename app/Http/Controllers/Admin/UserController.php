@@ -127,7 +127,6 @@ class UserController extends Controller
         }
     }
 
-    //TODO: delete mềm
     public function page_edit_user(Request $request)
     {
         try {

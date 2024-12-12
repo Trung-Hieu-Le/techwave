@@ -58,7 +58,7 @@ class GioHangController extends Controller
             }
             return redirect()->back()->with('success', 'Đã thêm vào giỏ hàng!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm vào giỏ hàng: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm vào giỏ hàng: ' . $e->getMessage());
         }
     }
 
@@ -110,7 +110,7 @@ class GioHangController extends Controller
             }
             return redirect()->route('xdsoft.cart')->with('success', 'Đã thêm vào giỏ hàng!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm vào giỏ hàng: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm vào giỏ hàng: ' . $e->getMessage());
         }
     }
 
@@ -152,7 +152,7 @@ class GioHangController extends Controller
                 return response()->json(['message' => 'Không tìm thấy hóa đơn hợp lệ!'], 404);
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Có lỗi xảy ra khi xóa khóa học: '. $e->getMessage()], 404);
+            return response()->json(['message' => 'Có lỗi xảy ra khi xóa khóa học: ' . $e->getMessage()], 404);
         }
     }
 
@@ -180,7 +180,7 @@ class GioHangController extends Controller
             }
             return redirect()->back()->with('success', 'Đã xóa tất cả khóa học khỏi giỏ hàng!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Xóa tất cả khóa học thất bại: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Xóa tất cả khóa học thất bại: ' . $e->getMessage());
         }
     }
 
@@ -220,13 +220,31 @@ class GioHangController extends Controller
             GioHangController::deleteAllCart($request);
             return redirect()->back()->with('success', 'Đặt hàng thành công!');
         } catch (\Exception $e) {
-            return back()->with('fail', 'Đã xảy ra lỗi khi đặt hàng: '. $e->getMessage());
+            return back()->with('fail', 'Đã xảy ra lỗi khi đặt hàng: ' . $e->getMessage());
         }
     }
 
     public function processVNPay(Request $request)
     {
-        // dd($request->request);
+        $invoice = DB::table('invoices')
+            ->where('id_user', session('account_id'))
+            ->where('trang_thai', 'Chưa mua')->orderBy('id', 'desc')->first();
+        if (!$invoice) {
+            return redirect()->route('xdsoft.cart')->with('error', 'Không tìm thấy giỏ hàng hợp lệ!');
+        } else {
+            DB::table('invoices')
+                ->where('id', $invoice->id)
+                ->update([
+                    'ho_ten' => $request->ho_ten,
+                    'email' => $request->email,
+                    'so_dien_thoai' => $request->so_dien_thoai,
+                    'gia_goc' => $request->gia_goc,
+                    'gia_giam' => $request->gia_giam,
+                    'ghi_chu' => $request->ghi_chu,
+                    'updated_at' => date('y-m-d h:i:s')
+                ]);
+        }
+
         $vnp_TmnCode = "1JSVVDV5"; // Mã website tại VNPAY
         $vnp_HashSecret = "7YJN7PE7K8RAG0LHGXIVDQ3YWYDMBAKV"; // Chuỗi bí mật
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
@@ -236,7 +254,7 @@ class GioHangController extends Controller
         $vnp_OrderInfo = "Thanh toán đơn hàng #{$vnp_TxnRef}";
         $vnp_OrderType = "TechWave";
         $vnp_Amount = $request->amount * 100;
-        $vnp_Locale = "VN";
+        $vnp_Locale = "vn";
         $vnp_BankCode = "NCB";
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
 
@@ -315,7 +333,7 @@ class GioHangController extends Controller
                 return redirect()->route('xdsoft.cart')->with('error', 'Thanh toán không thành công!');
             }
         } catch (\Exception $e) {
-            return redirect()->route('xdsoft.cart')->with('error', 'Xảy ra lỗi trong khi thanh toán! Vui lòng thử lại. Chi tiết lỗi: '. $e->getMessage());
+            return redirect()->route('xdsoft.cart')->with('error', 'Xảy ra lỗi trong khi thanh toán! Vui lòng thử lại. Chi tiết lỗi: ' . $e->getMessage());
         }
     }
 }

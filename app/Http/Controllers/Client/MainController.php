@@ -146,7 +146,7 @@ class MainController extends Controller
                 ->get()->toArray();
 
             $cur_category = null;
-
+//TODO: đã có thì ko xóa; hoặc xóa mềm; đẩy kh lên top
             $ds_category = DB::table('post_categories')
                 ->select('post_categories.*')
                 ->join('posts', 'post_categories.id', '=', 'posts.category')

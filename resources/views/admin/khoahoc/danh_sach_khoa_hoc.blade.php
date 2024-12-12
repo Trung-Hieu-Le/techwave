@@ -104,6 +104,7 @@
                                     Sửa
                                 </a>
                                 @endif
+                                {{-- TODO: sửa thông báo các cái xóa --}}
                                 @if(session()->get('role')[0] == 'admin')
                                 <a class="btn btn-sm btn-white" href="{{route('delete_khoa_hoc',['id'=>$item->id])}}"
                                    onclick="return confirm('Bạn có chắc không?')">
