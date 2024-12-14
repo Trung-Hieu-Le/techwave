@@ -241,6 +241,7 @@ class KhoaHocController extends Controller
                 if ($lessonIds->isNotEmpty()) {
                     DB::table('lessons')->whereIn('id', $lessonIds)->delete();
                 }
+                //TODO: xóa comment tương ứng
                 DB::table('invoice_relationships')->where('id_course', '=', $id)->delete();
                 DB::table('lesson_relationships')->where('id_course', '=', $id)->delete();
                 DB::table("favorite_courses")->where('id_course', '=', $id)->delete();

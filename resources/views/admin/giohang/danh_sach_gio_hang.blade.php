@@ -44,7 +44,37 @@
         <!-- Table -->
         <div class="table-responsive datatable-custom">
             <div id="datatable_wrapper" class="dataTables_wrapper no-footer">
-
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="bg-primary p-3 rounded text-center">
+                            <strong class="text-light">Số đơn đặt mua</strong>
+                            <hr>
+                            <h4 class="text-light">{{ $datMua }}</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="bg-success p-3 rounded text-center">
+                            <strong class="text-light">Số đơn đã thanh toán</strong>
+                            <hr>
+                            <h4 class="text-light">{{ $daThanhToan }}</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="bg-danger p-3 rounded text-center">
+                            <strong class="text-light">Tổng số đơn hàng</strong>
+                            <hr>
+                            <h4 class="text-light">{{ $tongDonHang }}</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="bg-warning p-3 rounded text-center">
+                            <strong class="text-dark">Tổng doanh thu</strong>
+                            <hr>
+                            <h4 class="text-dark">{{ number_format($tongDoanhThu, 0, ',', '.') }} VNĐ</h4>
+                        </div>
+                    </div>
+                </div>
+                
                 <table id="datatable"
                        class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table dataTable no-footer"
                         role="grid" aria-describedby="datatable_info">
@@ -95,7 +125,7 @@
                             
 
                             <td>{{$item->ho_ten}}</td>
-                            <td>{{$item->gia_giam}}</td>
+                            <td>{{ number_format($item->gia_giam, 0, ',', '.') }}</td>
                             <td>{{$item->so_dien_thoai}}</td>
                             <td>{{$item->email}}</td>
                             <td>{{$item->ghi_chu}}</td>
@@ -115,7 +145,7 @@
                                 @endif
                                 @if(session()->get('role')[0] == 'admin')
                                 <a class="btn btn-sm btn-white" href="{{route('delete_gio_hang',['id'=>$item->id])}}"
-                                   onclick="return confirm('Bạn có chắc không?')">
+                                   onclick="return confirm('Bạn có chắc muốn xóa giỏ hàng này không?')">
                                     Xóa
                                 </a>
                                 @endif

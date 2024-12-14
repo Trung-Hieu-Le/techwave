@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class GioHangController extends Controller
 {
@@ -29,9 +30,13 @@ class GioHangController extends Controller
                     )
                     ->orderBy('invoices.id', 'desc')
                     ->paginate(15);
+                $datMua = DB::table('invoices')->where('trang_thai', 'Đã đặt mua')->count();
+                $daThanhToan = DB::table('invoices')->where('trang_thai', 'Đã thanh toán')->count();
+                $tongDoanhThu = DB::table('invoices')->where('trang_thai', 'Đã thanh toán')->sum('gia_giam');
+                $tongDonHang = DB::table('invoices')->count();
 
                 Session::put('tasks_url', $request->fullUrl());
-                return view("admin.giohang.danh_sach_gio_hang", compact('ds_invoices'));
+                return view("admin.giohang.danh_sach_gio_hang", compact('ds_invoices', 'datMua', 'daThanhToan', 'tongDoanhThu', 'tongDonHang'));
             } else {
                 $err = 'Vui lòng đăng nhập để thực hiện tác vụ này!';
                 return redirect('/admin/login')->with('err', $err);
@@ -49,7 +54,7 @@ class GioHangController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
             $users = DB::table('users')->select("id", 'display_name')->where('role', 'user')->get()->toArray();
-            $courses = DB::table('courses')->select("id", 'name', 'gia_goc', 'gia_giam')->get()->toArray();
+            $courses = DB::table('courses')->select("id", 'name', 'gia_goc', 'gia_giam')->whereNot('gia_giam', 0)->get()->toArray();
             return view('admin.giohang.them_gio_hang', compact("users", "courses"));
         } catch (\Exception $e) {
             return abort(404);
@@ -88,7 +93,7 @@ class GioHangController extends Controller
 
             return redirect()->route('index_gio_hang')->with('success', 'Thêm giỏ hàng thành công!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm giỏ hàng: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi thêm giỏ hàng: ' . $e->getMessage());
         }
     }
     public function pageEditGioHang(Request $request)
@@ -102,7 +107,7 @@ class GioHangController extends Controller
                 ->where("invoices.id", '=', $request->id)
                 ->first();
             $users = DB::table('users')->select("id", 'display_name')->where('role', 'user')->get()->toArray();
-            $courses = DB::table('courses')->select("id", 'name', 'gia_goc', 'gia_giam')->get()->toArray();
+            $courses = DB::table('courses')->select("id", 'name', 'gia_goc', 'gia_giam')->whereNot('gia_giam', 0)->get()->toArray();
             $course_list = DB::table('invoice_relationships')->where('id_invoice', '=', $request->id)->get()->toArray();
             return view('admin.giohang.sua_gio_hang', compact('cart_detail', 'courses', 'course_list', 'users'));
         } catch (\Exception $e) {
@@ -144,7 +149,7 @@ class GioHangController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa giỏ hàng: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi sửa giỏ hàng: ' . $e->getMessage());
         }
     }
 
@@ -162,7 +167,7 @@ class GioHangController extends Controller
                 return redirect('/admin/login')->with('err', $err);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa giỏ hàng: '. $e->getMessage());
+            return redirect()->back()->with('fail', 'Có lỗi xảy ra khi xóa giỏ hàng: ' . $e->getMessage());
         }
     }
 
@@ -189,9 +194,26 @@ class GioHangController extends Controller
                         ->orWhere('invoices.email', 'like', '%' . $search_text . '%')
                         ->orWhere('invoices.so_dien_thoai', 'like', '%' . $search_text . '%')
                         ->orderBy('invoices.id', 'desc')
-                        ->paginate(15);
+                        ->get();
+
+                    $datMua = $ds_invoices->where('trang_thai', 'Đã đặt mua')->count();
+                    $daThanhToan = $ds_invoices->where('trang_thai', 'Đã thanh toán')->count();
+                    $tongDoanhThu = $ds_invoices->where('trang_thai', 'Đã thanh toán')->sum('gia_giam');
+                    $tongDonHang = $ds_invoices->count();
+                    $currentPage = LengthAwarePaginator::resolveCurrentPage();
+                    $perPage = 15;
+                    $items = $ds_invoices->forPage($currentPage, $perPage);
+                    $ds_invoices = new LengthAwarePaginator(
+                        $items,
+                        $ds_invoices->count(),
+                        $perPage,
+                        $currentPage,
+                        ['path' => LengthAwarePaginator::resolveCurrentPath()]
+                    );
+
+
                     Session::put('tasks_url', $request->fullUrl());
-                    return view("admin.giohang.danh_sach_gio_hang", compact('ds_invoices'));
+                    return view("admin.giohang.danh_sach_gio_hang", compact('ds_invoices', 'datMua', 'daThanhToan', 'tongDoanhThu', 'tongDonHang'));
                 } else {
                     return redirect('/admin/index-gio-hang');
                 }
